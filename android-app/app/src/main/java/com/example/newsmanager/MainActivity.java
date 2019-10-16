@@ -2,7 +2,10 @@ package com.example.newsmanager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Display;
 
 
 import java.util.List;
@@ -20,57 +23,62 @@ import es.upm.hcid.pui.assignment.exceptions.ServerCommunicationError;
 
 public class MainActivity extends AppCompatActivity {
 
+
+    ModelManager mm;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    }
-
-    public static void main(String[] args) throws AuthenticationError, ServerCommunicationError, IOException {
-
-        Properties prop = new Properties();
-        prop.setProperty(ModelManager.ATTR_LOGIN_USER, "XXXX");
-        prop.setProperty(ModelManager.ATTR_LOGIN_PASS, "XXXX");
-        prop.setProperty(ModelManager.ATTR_SERVICE_URL, "https://sanger.dia.fi.upm.es/pui-rest-news/");
-        prop.setProperty(ModelManager.ATTR_REQUIRE_SELF_CERT, "TRUE");
-
-        // Log in
-        ModelManager mm = null;
-        try{
-
-            mm = new ModelManager(prop);
-        }catch (AuthenticationError e) {
-
-            System.exit(-1);
-        }
-
-        // get list of articñes for logged user
-        List<Article> res = mm.getArticles(2,2);
-        for (Article article : res) {
-            System.out.println(article);
-        }
-
-        // create one article and save in server
-		/*
-		Article myArticle = null;
-		myArticle = new Article(mm, "Categoria","Titulo","Resumen articulo mio", "Cuerpo de texto", "Pie del articulo", true, new java.util.Date());
-		myArticle.save();
-		*/
-
-        // save one image to an article (through the article service)
-		/*
-		myArticle.addImage(Utils.encodeImage(Utils.captureScreen()), "escritorio");
-		myArticle.save();
-		*/
-
-        // save one image to an article (through image service)
-        // Utils.captureScreen() doesn't exists in mobile, should use Utils methods from one Bitmap
-		/*
-		Image ii = myArticle.addImage( Utils.captureScreen(), "testing image "+ lIm.size()+1);
-		ii.save();
-		ii.delete();
-		*/
-
+        LongOperation runningTask;
+        runningTask = new LongOperation();
+        runningTask.execute();
 
     }
+
+
+    private final class LongOperation extends AsyncTask<Void, Void, ModelManager> {
+
+        @Override
+        protected ModelManager doInBackground(Void... params) {
+
+
+            Properties prop = new Properties();
+            prop.setProperty(ModelManager.ATTR_LOGIN_USER, "us_3_2");
+            prop.setProperty(ModelManager.ATTR_LOGIN_PASS, "48392");
+            prop.setProperty(ModelManager.ATTR_SERVICE_URL, "https://sanger.dia.fi.upm.es/pui-rest-news/");
+            prop.setProperty(ModelManager.ATTR_REQUIRE_SELF_CERT, "TRUE");
+
+            // Log in
+            ModelManager mm = null;
+            try{
+
+                mm = new ModelManager(prop);
+            }catch (AuthenticationError e) {
+                e.printStackTrace();
+                Log.e("AsyncLogin",e.getLocalizedMessage());
+            }
+
+            // get list of articñes for logged user
+            List<Article> res = null;
+            try {
+                res = mm.getArticles();
+            } catch (ServerCommunicationError serverCommunicationError) {
+                serverCommunicationError.printStackTrace();
+            }
+            for (Article article : res) {
+                System.out.println(article);
+            }
+
+            return  mm;
+        }
+
+        @Override
+        protected void onPostExecute(ModelManager modelManager) {
+            super.onPostExecute(modelManager);
+
+            MainActivity.this.mm=modelManager;
+        }
+    }
+
 }
