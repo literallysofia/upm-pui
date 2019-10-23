@@ -5,56 +5,60 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
+
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText Username;
-    private EditText Password;
+    private TextInputEditText username;
+    private TextInputEditText password;
     private TextView Info;
-    private Button Login;
-    private int counter=5;
-
-
+    private MaterialButton Login;
+    private int counter = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Username = (EditText) findViewById(R.id.editUsername);
-        Password = (EditText) findViewById(R.id.editPassword);
-        Info = (TextView) findViewById(R.id.textInfo);
-        Login = (Button) findViewById(R.id.btnLogin);
+        TextInputLayout usernameField = findViewById(R.id.usernameText);
+        username = new TextInputEditText(usernameField.getContext());
+
+        TextInputLayout passwordField = findViewById(R.id.passwordText);
+        password = new TextInputEditText(passwordField.getContext());
+
+        Info = findViewById(R.id.numTries);
+        Login = findViewById(R.id.loginButton);
 
         Info.setText("Number of attempts left: 5");
 
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                validate(Username.getText().toString(), Password.getText().toString());
+                validate(username.getText().toString(), password.getText().toString());
             }
         });
     }
 
 
-    private void validate( String userName, String userPassword){
+    private void validate(String userName, String userPassword) {
 
-        if(     ((userName.equals("us_3_1")) && (userPassword.equals("48392"))) ||
+        if (((userName.equals("us_3_1")) && (userPassword.equals("48392"))) ||
                 ((userName.equals("us_3_2")) && (userPassword.equals("48392"))) ||
-                ((userName.equals("us_3_3")) && (userPassword.equals("48392"))) ){
+                ((userName.equals("us_3_3")) && (userPassword.equals("48392")))) {
 
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
 
-        }else{
+        } else {
             counter--;
 
             Info.setText("Number of attempts left: " + String.valueOf(counter));
 
-            if(counter == 0){
+            if (counter == 0) {
                 Login.setEnabled(false);
             }
         }

@@ -4,54 +4,93 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
     tools:context=".LoginActivity">
 
-    <EditText
-        android:id="@+id/editUsername"
-        android:layout_width="wrap_content"
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Username"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="80dp"
+        android:contentDescription="@string/title_main_activity"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.237" />
+        app:srcCompat="@drawable/ic_the_guardian" />
 
-    <EditText
-        android:id="@+id/editPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginRight="50dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editUsername"
-        app:layout_constraintVertical_bias="0.075" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo">
 
-    <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Login"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editPassword"
-        app:layout_constraintVertical_bias="0.081" />
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+            android:id="@+id/usernameText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/username_hint"
+            android:textColorHint="@android:color/white"
+            app:boxBackgroundColor="@color/design_default_color_error"
+            app:boxStrokeColor="@color/colorAccent"
+            app:hintTextColor="@color/colorAccent">
 
-    <TextView
-        android:id="@+id/textInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Number of tries:"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLogin"
-        app:layout_constraintVertical_bias="0.04" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark"
+                android:inputType="textVisiblePassword"
+                android:textColor="@android:color/white" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/passwordText"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/password_hint"
+            android:textColorHint="@android:color/white"
+            app:boxBackgroundColor="@color/design_default_color_error"
+            app:boxStrokeColor="@color/colorAccent"
+            app:endIconMode="password_toggle"
+            app:endIconTint="@android:color/white"
+            app:hintTextColor="@color/colorAccent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark"
+                android:inputType="textPassword"
+                android:textColor="@android:color/white" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/loginButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:shadowColor="@android:color/black"
+            android:text="@string/login_button"
+            app:backgroundTint="@color/colorAccent" />
+
+        <TextView
+            android:id="@+id/numTries"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Number of tries:"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
