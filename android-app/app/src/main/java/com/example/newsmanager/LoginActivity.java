@@ -17,6 +17,8 @@ public class LoginActivity extends AppCompatActivity {
     private Button Login;
     private int counter=5;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +28,8 @@ public class LoginActivity extends AppCompatActivity {
         Password = (EditText) findViewById(R.id.editPassword);
         Info = (TextView) findViewById(R.id.textInfo);
         Login = (Button) findViewById(R.id.btnLogin);
+
+        Info.setText("Number of attempts left: 5");
 
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
         }else{
             counter--;
 
-            Info.setText("Number of attempts leff: " + String.valueOf(counter));
+            Info.setText("Number of attempts left: " + String.valueOf(counter));
 
             if(counter == 0){
                 Login.setEnabled(false);
