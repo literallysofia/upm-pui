@@ -17,9 +17,9 @@ of the given article.
 
 Depending the request, the image associated to each article are returned in two different fields:
 
-- image_data and image_media_type when the request is asking for one concrete news
-- thumbnail_data and thumbnail_media_type when the request is asking for a list of news
-- Categories available are: National, Economy, Sports and Technology
+- *image_data* and *image_media_type* when the request is asking for one concrete news
+- *thumbnail_data* and *thumbnail_media_type* when the request is asking for a list of news
+- Categories available are: **National**, **Economy**, **Sports** and **Technology**
 
 **Android application** functionalities are limited to show the list of articles and update the picture of
 a given article. 
