@@ -6,16 +6,15 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
-
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-
 
 import es.upm.hcid.pui.assignment.Article;
 import es.upm.hcid.pui.assignment.ModelManager;
@@ -58,7 +57,9 @@ public class MainActivity extends AppCompatActivity {
         adapter = new NewsAdapter(articles, this, new NewsAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Article item) {
-                Toast.makeText(MainActivity.this, "Item Clicked", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(MainActivity.this, ArticleActivity.class);
+                //intent.putExtra("Article", item);
+                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(MainActivity.this).toBundle());
             }
         });
 
