@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter;
     RecyclerView.LayoutManager layoutManager;
-    List<Article> data = new ArrayList<>();
+    List<Article> articles = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         newsAsyncTask.execute();
 
         // Create adapter passing in the sample user data
-        adapter = new NewsAdapter(data, this);
+        adapter = new NewsAdapter(articles, this);
 
         // Attach the adapter to the recycler view to populate items
         recyclerView.setAdapter(adapter);
@@ -82,12 +82,12 @@ public class MainActivity extends AppCompatActivity {
 
             // get list of articles for logged user
             try {
-                data.clear();
-                data.addAll(mm.getArticles());
+                articles.clear();
+                articles.addAll(mm.getArticles());
             } catch (ServerCommunicationError serverCommunicationError) {
                 serverCommunicationError.printStackTrace();
             }
-            for (Article article : data) {
+            for (Article article : articles) {
                 System.out.println(article);
             }
 
