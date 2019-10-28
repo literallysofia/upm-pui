@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.chip.Chip;
 
 import java.util.List;
@@ -20,10 +21,16 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
 
     private List<Article> articles;
     private Context context;
+    private final OnItemClickListener listener;
 
-    public NewsAdapter(List<Article> data, Context context) {
+    public NewsAdapter(List<Article> data, Context context, OnItemClickListener listener) {
         this.articles = data;
         this.context = context;
+        this.listener = listener;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(Article article);
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
@@ -39,6 +46,15 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
             this.titleText = itemView.findViewById(R.id.card_title);
             this.abstractText = itemView.findViewById(R.id.card_abstract);
             this.categoryChip = itemView.findViewById(R.id.card_category);
+        }
+
+        public void bind(final Article item, final OnItemClickListener listener) {
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onItemClick(item);
+                }
+            });
         }
     }
 
@@ -72,11 +88,12 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
         } catch (ServerCommunicationError serverCommunicationError) {
             serverCommunicationError.printStackTrace();
         }
+
+        holder.bind(currentArticle, listener);
     }
 
     @Override
     public int getItemCount() {
         return articles.size();
     }
-
 }

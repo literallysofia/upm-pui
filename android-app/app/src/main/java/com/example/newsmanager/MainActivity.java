@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 
 import java.util.ArrayList;
@@ -54,7 +55,12 @@ public class MainActivity extends AppCompatActivity {
         newsAsyncTask.execute();
 
         // Create adapter passing in the sample user data
-        adapter = new NewsAdapter(articles, this);
+        adapter = new NewsAdapter(articles, this, new NewsAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Article item) {
+                Toast.makeText(MainActivity.this, "Item Clicked", Toast.LENGTH_LONG).show();
+            }
+        });
 
         // Attach the adapter to the recycler view to populate items
         recyclerView.setAdapter(adapter);
@@ -101,5 +107,4 @@ public class MainActivity extends AppCompatActivity {
             adapter.notifyDataSetChanged();
         }
     }
-
 }
