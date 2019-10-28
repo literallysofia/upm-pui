@@ -11,6 +11,9 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -30,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView.Adapter adapter;
     RecyclerView.LayoutManager layoutManager;
     List<Article> articles = new ArrayList<>();
+    Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +71,25 @@ public class MainActivity extends AppCompatActivity {
 
         // Attach the adapter to the recycler view to populate items
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.main_menu_login:
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private final class NewsAsyncTask extends AsyncTask<Void, Void, ModelManager> {
