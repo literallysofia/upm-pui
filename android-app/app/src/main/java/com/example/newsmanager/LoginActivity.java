@@ -15,8 +15,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private TextInputEditText username;
     private TextInputEditText password;
-    private TextView Info;
-    private MaterialButton Login;
+    private TextView numTries;
+    private MaterialButton loginButton;
     private int counter = 5;
 
     @Override
@@ -30,12 +30,12 @@ public class LoginActivity extends AppCompatActivity {
         TextInputLayout passwordField = findViewById(R.id.passwordText);
         password = new TextInputEditText(passwordField.getContext());
 
-        Info = findViewById(R.id.numTries);
-        Login = findViewById(R.id.loginButton);
+        numTries = findViewById(R.id.numTries);
+        loginButton = findViewById(R.id.loginButton);
 
-        Info.setText("Number of attempts left: 5");
+        numTries.setText("Number of attempts left: 5");
 
-        Login.setOnClickListener(new View.OnClickListener() {
+        loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 validate(username.getText().toString(), password.getText().toString());
@@ -56,10 +56,10 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             counter--;
 
-            Info.setText("Number of attempts left: " + String.valueOf(counter));
+            numTries.setText("Number of attempts left: " + String.valueOf(counter));
 
             if (counter == 0) {
-                Login.setEnabled(false);
+                loginButton.setEnabled(false);
             }
         }
     }
