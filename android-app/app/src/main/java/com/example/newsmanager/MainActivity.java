@@ -11,6 +11,8 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,6 +71,8 @@ public class MainActivity extends AppCompatActivity {
 
     private final class NewsAsyncTask extends AsyncTask<Void, Void, ModelManager> {
 
+        ProgressBar progressBar = findViewById(R.id.progressBar);
+
         @Override
         protected ModelManager doInBackground(Void... params) {
 
@@ -102,8 +106,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
+        protected void onPreExecute() {
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
         protected void onPostExecute(ModelManager modelManager) {
             super.onPostExecute(modelManager);
+            progressBar.setVisibility(View.GONE);
             MainActivity.this.modelManager = modelManager;
             adapter.notifyDataSetChanged();
         }
