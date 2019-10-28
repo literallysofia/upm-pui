@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.chip.Chip;
+
 import java.util.List;
 
 import es.upm.hcid.pui.assignment.Article;
@@ -28,12 +30,14 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
         ImageView thumbnailImage;
         TextView titleText;
         TextView abstractText;
+        Chip categoryChip;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             this.thumbnailImage = itemView.findViewById(R.id.card_thumbnail);
             this.titleText = itemView.findViewById(R.id.card_title);
             this.abstractText = itemView.findViewById(R.id.card_abstract);
+            this.categoryChip = itemView.findViewById(R.id.card_category);
         }
     }
 
@@ -53,11 +57,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
         ImageView imageViewThumbnail = holder.thumbnailImage;
         TextView textViewTitle = holder.titleText;
         TextView textViewAbstract = holder.abstractText;
+        Chip chipCategory = holder.categoryChip;
 
         Article currentArticle = articles.get(position);
 
         textViewTitle.setText(currentArticle.getTitleText());
         textViewAbstract.setText(currentArticle.getAbstractText());
+        chipCategory.setText(currentArticle.getCategory());
 
         //imageViewThumbnail.setImageResource(currentArticle.getImage());
     }

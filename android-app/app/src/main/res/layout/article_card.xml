@@ -68,13 +68,7 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.chip.Chip
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:text="Category"
-                    android:textColor="@color/colorPrimary" />
-
-                <com.google.android.material.chip.Chip
+                    android:id="@+id/card_category"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Category"
