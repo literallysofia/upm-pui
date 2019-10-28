@@ -58,8 +58,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Attach the adapter to the recycler view to populate items
         recyclerView.setAdapter(adapter);
-
-
     }
 
     private final class NewsAsyncTask extends AsyncTask<Void, Void, ModelManager> {
@@ -100,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(ModelManager modelManager) {
             super.onPostExecute(modelManager);
             MainActivity.this.modelManager = modelManager;
-
             adapter.notifyDataSetChanged();
         }
     }

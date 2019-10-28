@@ -8,12 +8,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.android.material.chip.Chip;
 
 import java.util.List;
 
 import es.upm.hcid.pui.assignment.Article;
+import es.upm.hcid.pui.assignment.Utils;
+import es.upm.hcid.pui.assignment.exceptions.ServerCommunicationError;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> {
 
@@ -58,14 +59,19 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
         TextView textViewTitle = holder.titleText;
         TextView textViewAbstract = holder.abstractText;
         Chip chipCategory = holder.categoryChip;
+        String thumbnailString;
 
         Article currentArticle = articles.get(position);
 
         textViewTitle.setText(currentArticle.getTitleText());
         textViewAbstract.setText(currentArticle.getAbstractText());
         chipCategory.setText(currentArticle.getCategory());
-
-        //imageViewThumbnail.setImageResource(currentArticle.getImage());
+        try {
+            thumbnailString = currentArticle.getImage().getImage();
+            imageViewThumbnail.setImageBitmap(Utils.base64StringToImg(thumbnailString));
+        } catch (ServerCommunicationError serverCommunicationError) {
+            serverCommunicationError.printStackTrace();
+        }
     }
 
     @Override

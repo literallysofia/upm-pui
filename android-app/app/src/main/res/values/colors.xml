@@ -7,5 +7,6 @@
     <color name="colorStatusBar">#072036</color>
     <color name="colorBackground">#fafafa</color>
     <color name="colorSubtitle">#616161</color>
+    <color name="colorLightGray">#DCDCDC</color>
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#fff</color>
 </resources>
