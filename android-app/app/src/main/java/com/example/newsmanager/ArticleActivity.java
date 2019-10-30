@@ -211,6 +211,7 @@ public class ArticleActivity extends AppCompatActivity {
                 serverCommunicationError.printStackTrace();
             }
             DataManager.getInstance().updateAdapter(articles);
+            Toast.makeText(getApplicationContext(), "Changes saved!", Toast.LENGTH_SHORT).show();
         }
     }
 }
