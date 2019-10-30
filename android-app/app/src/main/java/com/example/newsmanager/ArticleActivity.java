@@ -12,32 +12,33 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewManager;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.List;
 
 import es.upm.hcid.pui.assignment.Article;
 import es.upm.hcid.pui.assignment.Image;
 import es.upm.hcid.pui.assignment.Utils;
 import es.upm.hcid.pui.assignment.exceptions.ServerCommunicationError;
 
-import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
-
 public class ArticleActivity extends AppCompatActivity {
 
     private int articleId;
-    private Article article;
+    private LinearLayout articleContent;
     private TextView titleText;
+    private ImageView imageView;
+    private ProgressBar progressBar;
 
     private static final int REQUEST_EXTERNAL_STORAGE = 0;
     private static int RESULT_SELECT_IMAGE = 1;
@@ -52,8 +53,12 @@ public class ArticleActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        articleId = getIntent().getIntExtra("ArticleID", 0);
+        this.articleId = getIntent().getIntExtra("ArticleID", 0);
         this.titleText = findViewById(R.id.article_title);
+        this.imageView = findViewById(R.id.article_image);
+
+        this.progressBar = findViewById(R.id.progressBar);
+        this.articleContent = findViewById(R.id.article_content);
 
         // Start the AsyncTask to fetch the data
         DownloadArticleTask downloadArticleTask = new DownloadArticleTask();
@@ -136,8 +141,6 @@ public class ArticleActivity extends AppCompatActivity {
 
     private final class DownloadArticleTask extends AsyncTask<Void, Void, Article> {
 
-        ProgressBar progressBar = findViewById(R.id.progressBar);
-
         @Override
         protected Article doInBackground(Void... params) {
 
@@ -161,35 +164,53 @@ public class ArticleActivity extends AppCompatActivity {
         protected void onPostExecute(Article article) {
             super.onPostExecute(article);
             progressBar.setVisibility(View.GONE);
-            ArticleActivity.this.article = article;
             ArticleActivity.this.titleText.setText(article.getTitleText());
+            try {
+                ArticleActivity.this.imageView.setImageBitmap(Utils.base64StringToImg(article.getImage().getImage()));
+            } catch (ServerCommunicationError serverCommunicationError) {
+                serverCommunicationError.printStackTrace();
+            }
         }
     }
 
-    private final class UploadImageTask extends AsyncTask<Void, Void, Article> {
+    private final class UploadImageTask extends AsyncTask<Void, Void, List<Article>> {
 
         public Bitmap newImage;
+        private Article article = null;
 
         @Override
-        protected Article doInBackground(Void... params) {
+        protected List<Article> doInBackground(Void... params) {
 
-            Article article = null;
+            List<Article> articles = null;
 
             try {
                 article = DataManager.getInstance().getModelManager().getArticle(articleId);
                 Image image = article.addImage(Utils.encodeImage(this.newImage), "thumbnail");
                 image.save();
+                articles = DataManager.getInstance().getModelManager().getArticles();
             } catch (ServerCommunicationError serverCommunicationError) {
                 serverCommunicationError.printStackTrace();
             }
 
-            return article;
+            return articles;
         }
 
         @Override
-        protected void onPostExecute(Article article) {
-            super.onPostExecute(article);
-            ArticleActivity.this.article = article;
+        protected void onPreExecute() {
+            articleContent.setVisibility(View.GONE);
+        }
+
+        @Override
+        protected void onPostExecute(List<Article> articles) {
+            super.onPostExecute(articles);
+            progressBar.setVisibility(View.GONE);
+            articleContent.setVisibility(View.VISIBLE);
+            try {
+                ArticleActivity.this.imageView.setImageBitmap(Utils.base64StringToImg(article.getImage().getImage()));
+            } catch (ServerCommunicationError serverCommunicationError) {
+                serverCommunicationError.printStackTrace();
+            }
+            DataManager.getInstance().updateAdapter(articles);
         }
     }
 }

@@ -16,7 +16,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import es.upm.hcid.pui.assignment.Article;
@@ -25,9 +24,7 @@ import es.upm.hcid.pui.assignment.exceptions.ServerCommunicationError;
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-    private List<Article> articles = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,17 +51,17 @@ public class MainActivity extends AppCompatActivity {
         downloadArticlesTask.execute();
 
         // Create adapter passing in the sample user data
-        adapter = new NewsAdapter(articles, this, new NewsAdapter.OnItemClickListener() {
+        DataManager.getInstance().setAdapter(new NewsAdapter(DataManager.getInstance().getArticles(), this, new NewsAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Article item) {
                 Intent intent = new Intent(MainActivity.this, ArticleActivity.class);
                 intent.putExtra("ArticleID", item.getId());
                 startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(MainActivity.this).toBundle());
             }
-        });
+        }));
 
         // Attach the adapter to the recycler view to populate items
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(DataManager.getInstance().getAdapter());
     }
 
     @Override
@@ -113,10 +110,7 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(List<Article> articles) {
             super.onPostExecute(articles);
             progressBar.setVisibility(View.GONE);
-
-            MainActivity.this.articles.clear();
-            MainActivity.this.articles.addAll(articles);
-            adapter.notifyDataSetChanged();
+            DataManager.getInstance().updateAdapter(articles);
         }
     }
 }
