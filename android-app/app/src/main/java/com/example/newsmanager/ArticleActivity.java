@@ -1,18 +1,23 @@
 package com.example.newsmanager;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,7 +29,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import es.upm.hcid.pui.assignment.Article;
@@ -41,7 +49,10 @@ public class ArticleActivity extends AppCompatActivity {
     private ProgressBar progressBar;
 
     private static final int REQUEST_EXTERNAL_STORAGE = 0;
-    private static int RESULT_SELECT_IMAGE = 1;
+    private static final int REQUEST_CAMERA = 1;
+    private static int RESULT_SELECT_IMAGE = 2;
+
+    private String mCurrentPhotoPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,13 +76,6 @@ public class ArticleActivity extends AppCompatActivity {
         downloadArticleTask.execute();
     }
 
-    private void openGallery() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), RESULT_SELECT_IMAGE);
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -86,15 +90,66 @@ public class ArticleActivity extends AppCompatActivity {
                 finish();
                 return true;
             case R.id.article_menu_edit:
-                if (mayRequestExternalStorage())
-                    openGallery();
+                showDialog();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-    public boolean mayRequestExternalStorage() {
+    private void showDialog() {
+        AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this);
+        pictureDialog.setTitle("Choose an action");
+        String[] pictureDialogItems = {
+                "Select from Gallery",
+                "Open Camera"};
+        pictureDialog.setItems(pictureDialogItems,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                if (mayRequestExternalStorage())
+                                    openGallery();
+                                break;
+                            case 1:
+                                if (mayRequestCamera())
+                                    openCamera();
+                                break;
+                        }
+                    }
+                });
+        pictureDialog.show();
+    }
+
+    private void openGallery() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), RESULT_SELECT_IMAGE);
+    }
+
+    private void openCamera() {
+        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+
+        File photoFile = null;
+        try {
+            photoFile = createImageFile();
+        } catch (IOException ex) {
+            // Error occurred while creating the File
+        }
+
+        if (photoFile != null) {
+            Uri photoURI = FileProvider.getUriForFile(this,
+                    "com.example.newsmanager",
+                    photoFile);
+            cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+            //Start the camera application
+            startActivityForResult(cameraIntent, REQUEST_CAMERA);
+        }
+    }
+
+    private boolean mayRequestExternalStorage() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_EXTERNAL_STORAGE);
@@ -103,6 +158,39 @@ public class ArticleActivity extends AppCompatActivity {
         } else {
             return true;
         }
+    }
+
+    private boolean mayRequestCamera() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA);
+            }
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * Creates the image file in the external directory
+     *
+     * @return
+     * @throws IOException
+     */
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = image.getAbsolutePath();
+        return image;
     }
 
 
@@ -115,6 +203,12 @@ public class ArticleActivity extends AppCompatActivity {
         if (requestCode == REQUEST_EXTERNAL_STORAGE) {
             if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 openGallery();
+            }
+        }
+
+        if (requestCode == REQUEST_CAMERA) {
+            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                openCamera();
             }
         }
     }
@@ -136,6 +230,15 @@ public class ArticleActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+
+        if (requestCode == REQUEST_CAMERA) {
+            BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+            bmOptions.inSampleSize = 4;
+            UploadImageTask uploadImageTask = new UploadImageTask();
+            uploadImageTask.newImage = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+            uploadImageTask.execute();
+            System.out.println("IMAGE SAVED");
         }
     }
 
