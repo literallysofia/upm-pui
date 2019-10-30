@@ -1,9 +1,11 @@
 <resources>
-    <string name="app_name">News Manager</string>
+    <string name="app_name">The Guardian</string>
     <string name="title_login_activity">Login</string>
-    <string name="title_main_activity">The Guardian</string>
+    <string name="title_main_activity">Main Activity</string>
+    <string name="title_article_activity">Article Activity</string>
     <string name="username_hint">Username</string>
     <string name="password_hint">Password</string>
     <string name="login_button">Login</string>
     <string name="skip_button">Continue Without Login</string>
+    <string name="edit_button">Edit</string>
 </resources>
