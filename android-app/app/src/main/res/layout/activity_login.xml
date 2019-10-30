@@ -43,6 +43,7 @@
             app:hintTextColor="@color/colorAccent">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editUser"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimaryDark"
@@ -65,6 +66,7 @@
             app:hintTextColor="@color/colorAccent">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editPass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimaryDark"

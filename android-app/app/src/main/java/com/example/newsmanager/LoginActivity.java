@@ -4,12 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+
+import es.upm.hcid.pui.assignment.exceptions.AuthenticationError;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -28,10 +31,12 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         TextInputLayout usernameField = findViewById(R.id.usernameText);
-        username = new TextInputEditText(usernameField.getContext());
+       // username = new TextInputEditText(usernameField.getContext());
+        username = findViewById(R.id.editUser);
 
         TextInputLayout passwordField = findViewById(R.id.passwordText);
-        password = new TextInputEditText(passwordField.getContext());
+        //password = new TextInputEditText(passwordField.getContext());
+        password = findViewById(R.id.editPass);
 
         numTries = findViewById(R.id.numTries);
         loginButton = findViewById(R.id.loginButton);
@@ -42,6 +47,22 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+               /* try {
+                    dataManager.getModelManager().login(username.getText().toString(), password.getText().toString());
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+
+                } catch (AuthenticationError authenticationError) {
+                    authenticationError.printStackTrace();
+                    Log.e(authenticationError.toString(), "credentials -" + username.getText().toString() + "-" + password.getText().toString());
+                }
+**/
+
+
+
                 validate(username.getText().toString(), password.getText().toString());
             }
         });
