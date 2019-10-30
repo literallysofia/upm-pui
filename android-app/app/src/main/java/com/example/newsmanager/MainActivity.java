@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(Article item) {
                 Intent intent = new Intent(MainActivity.this, ArticleActivity.class);
-                //intent.putExtra("Article", item);
+                intent.putExtra("ArticleID", item.getId());
                 startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(MainActivity.this).toBundle());
             }
         });
