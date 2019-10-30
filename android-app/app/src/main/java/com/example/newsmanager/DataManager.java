@@ -11,7 +11,6 @@ import es.upm.hcid.pui.assignment.exceptions.AuthenticationError;
 public class DataManager {
 
     static private DataManager instance = null;
-
     private ModelManager modelManager;
 
     /**
@@ -31,15 +30,15 @@ public class DataManager {
     private DataManager() {
 
         // Start the AsyncTask to fetch the data
-        NewsAsyncTask newsAsyncTask = new NewsAsyncTask();
-        newsAsyncTask.execute();
+        DownloadModelManagerTask downloadModelManagerTask = new DownloadModelManagerTask();
+        downloadModelManagerTask.execute();
     }
 
     public ModelManager getModelManager() {
         return this.modelManager;
     }
 
-    private final class NewsAsyncTask extends AsyncTask<Void, Void, ModelManager> {
+    private final class DownloadModelManagerTask extends AsyncTask<Void, Void, ModelManager> {
 
         @Override
         protected ModelManager doInBackground(Void... params) {

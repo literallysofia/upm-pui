@@ -24,11 +24,10 @@ import es.upm.hcid.pui.assignment.exceptions.ServerCommunicationError;
 
 public class MainActivity extends AppCompatActivity {
 
-    RecyclerView recyclerView;
-    RecyclerView.Adapter adapter;
-    RecyclerView.LayoutManager layoutManager;
-
-    List<Article> articles = new ArrayList<>();
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
+    private List<Article> articles = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
