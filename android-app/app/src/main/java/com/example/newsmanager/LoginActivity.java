@@ -13,10 +13,13 @@ import com.google.android.material.textfield.TextInputLayout;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private DataManager dataManager;
     private TextInputEditText username;
     private TextInputEditText password;
-    private TextView numTries;
     private MaterialButton loginButton;
+    private MaterialButton continueButton;
+
+    private TextView numTries;
     private int counter = 5;
 
     @Override
@@ -32,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
 
         numTries = findViewById(R.id.numTries);
         loginButton = findViewById(R.id.loginButton);
+        continueButton = findViewById(R.id.continueButton);
 
         numTries.setText("Number of attempts left: 5");
 
@@ -41,6 +45,21 @@ public class LoginActivity extends AppCompatActivity {
                 validate(username.getText().toString(), password.getText().toString());
             }
         });
+
+        continueButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(mainIntent);
+                finish();
+            }
+        });
+
+        createDataManager();
+    }
+
+    private void createDataManager() {
+        dataManager = DataManager.getInstance();
     }
 
 

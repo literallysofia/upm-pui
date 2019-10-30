@@ -10,7 +10,6 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,21 +18,17 @@ import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 import es.upm.hcid.pui.assignment.Article;
-import es.upm.hcid.pui.assignment.ModelManager;
-import es.upm.hcid.pui.assignment.exceptions.AuthenticationError;
 import es.upm.hcid.pui.assignment.exceptions.ServerCommunicationError;
 
 public class MainActivity extends AppCompatActivity {
 
-    ModelManager modelManager;
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter;
     RecyclerView.LayoutManager layoutManager;
+
     List<Article> articles = new ArrayList<>();
-    Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         // Start the AsyncTask to fetch the data
-        NewsAsyncTask newsAsyncTask = new NewsAsyncTask();
-        newsAsyncTask.execute();
+        DownloadArticlesTask downloadArticlesTask = new DownloadArticlesTask();
+        downloadArticlesTask.execute();
 
         // Create adapter passing in the sample user data
         adapter = new NewsAdapter(articles, this, new NewsAdapter.OnItemClickListener() {
@@ -92,40 +87,22 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private final class NewsAsyncTask extends AsyncTask<Void, Void, ModelManager> {
+    private final class DownloadArticlesTask extends AsyncTask<Void, Void, List<Article>> {
 
         ProgressBar progressBar = findViewById(R.id.progressBar);
 
         @Override
-        protected ModelManager doInBackground(Void... params) {
+        protected List<Article> doInBackground(Void... params) {
 
-            Properties prop = new Properties();
-            prop.setProperty(ModelManager.ATTR_LOGIN_USER, "us_3_2");
-            prop.setProperty(ModelManager.ATTR_LOGIN_PASS, "48392");
-            prop.setProperty(ModelManager.ATTR_SERVICE_URL, "https://sanger.dia.fi.upm.es/pui-rest-news/");
-            prop.setProperty(ModelManager.ATTR_REQUIRE_SELF_CERT, "TRUE");
+            List<Article> articles = null;
 
-            // Log in
-            ModelManager mm = null;
             try {
-                mm = new ModelManager(prop);
-            } catch (AuthenticationError e) {
-                e.printStackTrace();
-                Log.e("AsyncLogin", e.getLocalizedMessage());
-            }
-
-            // get list of articles for logged user
-            try {
-                articles.clear();
-                articles.addAll(mm.getArticles());
+                articles = DataManager.getInstance().getModelManager().getArticles();
             } catch (ServerCommunicationError serverCommunicationError) {
                 serverCommunicationError.printStackTrace();
             }
-            for (Article article : articles) {
-                System.out.println(article);
-            }
 
-            return mm;
+            return articles;
         }
 
         @Override
@@ -134,10 +111,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(ModelManager modelManager) {
-            super.onPostExecute(modelManager);
+        protected void onPostExecute(List<Article> articles) {
+            super.onPostExecute(articles);
             progressBar.setVisibility(View.GONE);
-            MainActivity.this.modelManager = modelManager;
+
+            MainActivity.this.articles.clear();
+            MainActivity.this.articles.addAll(articles);
             adapter.notifyDataSetChanged();
         }
     }
