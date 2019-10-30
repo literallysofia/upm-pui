@@ -5,8 +5,8 @@
 
 TODO:
 
-[] Toast login
-[] Toast edit photo
+- [ ] Toast login
+- [ ] Toast edit photo
 
 An article will be composed by
   - **Tittle**
