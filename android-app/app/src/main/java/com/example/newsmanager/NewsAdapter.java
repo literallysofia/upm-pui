@@ -71,17 +71,18 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
 
+        Article currentArticle = articles.get(position);
+
         ImageView imageViewThumbnail = holder.thumbnailImage;
         TextView textViewTitle = holder.titleText;
         TextView textViewAbstract = holder.abstractText;
         Chip chipCategory = holder.categoryChip;
         String thumbnailString;
 
-        Article currentArticle = articles.get(position);
-
         textViewTitle.setText(currentArticle.getTitleText());
         textViewAbstract.setText(currentArticle.getAbstractText());
         chipCategory.setText(currentArticle.getCategory());
+
         try {
             thumbnailString = currentArticle.getImage().getImage();
             imageViewThumbnail.setImageBitmap(Utils.base64StringToImg(thumbnailString));

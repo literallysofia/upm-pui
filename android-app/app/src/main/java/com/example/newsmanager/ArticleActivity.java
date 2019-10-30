@@ -27,6 +27,7 @@ import android.widget.Toast;
 import java.io.IOException;
 
 import es.upm.hcid.pui.assignment.Article;
+import es.upm.hcid.pui.assignment.Image;
 import es.upm.hcid.pui.assignment.Utils;
 import es.upm.hcid.pui.assignment.exceptions.ServerCommunicationError;
 
@@ -176,8 +177,8 @@ public class ArticleActivity extends AppCompatActivity {
 
             try {
                 article = DataManager.getInstance().getModelManager().getArticle(articleId);
-                article.addImage(Utils.encodeImage(newImage), "cenas");
-                article.save();
+                Image image = article.addImage(Utils.encodeImage(this.newImage), "thumbnail");
+                image.save();
             } catch (ServerCommunicationError serverCommunicationError) {
                 serverCommunicationError.printStackTrace();
             }
