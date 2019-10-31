@@ -3,6 +3,7 @@ package com.example.newsmanager;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.security.keystore.StrongBoxUnavailableException;
 import android.util.Log;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -44,6 +45,7 @@ public class DataManager {
         downloadModelManagerTask.execute();
     }
 
+
     public ModelManager getModelManager() {
         return this.modelManager;
     }
@@ -66,13 +68,14 @@ public class DataManager {
         this.adapter.notifyDataSetChanged();
     }
 
+
     private final class DownloadModelManagerTask extends AsyncTask<Void, Void, ModelManager> {
 
         @Override
         protected ModelManager doInBackground(Void... params) {
 
             Properties prop = new Properties();
-            prop.setProperty(ModelManager.ATTR_LOGIN_USER, "us_3_2");
+            prop.setProperty(ModelManager.ATTR_LOGIN_USER, "DEV_TEAM_03");
             prop.setProperty(ModelManager.ATTR_LOGIN_PASS, "48392");
             prop.setProperty(ModelManager.ATTR_SERVICE_URL, "https://sanger.dia.fi.upm.es/pui-rest-news/");
             prop.setProperty(ModelManager.ATTR_REQUIRE_SELF_CERT, "TRUE");

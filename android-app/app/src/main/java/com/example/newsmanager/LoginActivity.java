@@ -3,10 +3,12 @@ package com.example.newsmanager;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -44,26 +46,16 @@ public class LoginActivity extends AppCompatActivity {
 
         numTries.setText("Number of attempts left: 5");
 
+        dataManager = DataManager.getInstance();
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 
-               /* try {
-                    dataManager.getModelManager().login(username.getText().toString(), password.getText().toString());
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
+                LoginManagerTask loginManagerTask = new LoginManagerTask();
+                loginManagerTask.execute(username.getText().toString(), password.getText().toString());
 
-                } catch (AuthenticationError authenticationError) {
-                    authenticationError.printStackTrace();
-                    Log.e(authenticationError.toString(), "credentials -" + username.getText().toString() + "-" + password.getText().toString());
-                }
-**/
-
-
-
-                validate(username.getText().toString(), password.getText().toString());
             }
         });
 
@@ -76,14 +68,52 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        createDataManager();
-    }
-
-    private void createDataManager() {
-        dataManager = DataManager.getInstance();
     }
 
 
+    private final class LoginManagerTask extends AsyncTask<String, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(String... strings) {
+
+            try {
+                dataManager.getModelManager().login(strings[0], strings[1]);
+                return true;
+
+            } catch (AuthenticationError authenticationError) {
+                authenticationError.printStackTrace();
+                Log.e(authenticationError.toString(), "credentials -" + strings[0] + "-" + strings[1]);
+                return false;
+            }
+
+
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+
+            if(result){
+
+                Toast.makeText(getApplicationContext(), "You have successfully logged in", Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+
+            }else {
+
+                counter--;
+                numTries.setText("Number of attempts left: " + String.valueOf(counter));
+
+                if (counter == 0) {
+                    loginButton.setEnabled(false);
+                }
+            }
+
+        }
+    }
+
+    // for testing purposes
     private void validate(String userName, String userPassword) {
 
         if (((userName.equals("us_3_1")) && (userPassword.equals("48392"))) ||
