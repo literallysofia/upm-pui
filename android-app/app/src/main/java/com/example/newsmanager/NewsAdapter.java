@@ -45,7 +45,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
             this.thumbnailImage = itemView.findViewById(R.id.card_thumbnail);
             this.titleText = itemView.findViewById(R.id.card_title);
             this.abstractText = itemView.findViewById(R.id.card_abstract);
-            this.categoryChip = itemView.findViewById(R.id.card_category);
+            this.categoryChip = itemView.findViewById(R.id.article_category );
         }
 
         public void bind(final Article item, final OnItemClickListener listener) {

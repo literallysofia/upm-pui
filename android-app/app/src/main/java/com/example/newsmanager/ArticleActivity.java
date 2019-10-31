@@ -19,6 +19,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -28,6 +29,8 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.chip.Chip;
 
 import java.io.File;
 import java.io.IOException;
@@ -44,8 +47,10 @@ public class ArticleActivity extends AppCompatActivity {
 
     private int articleId;
     private LinearLayout articleContent;
-    private TextView titleText;
     private ImageView imageView;
+    private TextView titleText;
+    private Chip category;
+    private TextView bodyText;
     private ProgressBar progressBar;
 
     private static final int REQUEST_EXTERNAL_STORAGE = 0;
@@ -67,6 +72,8 @@ public class ArticleActivity extends AppCompatActivity {
         this.articleId = getIntent().getIntExtra("ArticleID", 0);
         this.titleText = findViewById(R.id.article_title);
         this.imageView = findViewById(R.id.article_image);
+        this.bodyText = findViewById(R.id.article_body);
+        this.category = findViewById(R.id.article_category);
 
         this.progressBar = findViewById(R.id.progressBar);
         this.articleContent = findViewById(R.id.article_content);
@@ -273,6 +280,11 @@ public class ArticleActivity extends AppCompatActivity {
             } catch (ServerCommunicationError serverCommunicationError) {
                 serverCommunicationError.printStackTrace();
             }
+            ArticleActivity.this.bodyText.setText( Html.fromHtml(article.getBodyText()));
+            ArticleActivity.this.category.setText(article.getCategory());
+            ArticleActivity.this.category.setCheckedIconVisible(true);
+
+
         }
     }
 
