@@ -1,9 +1,6 @@
 package com.example.newsmanager;
 
-import android.app.ActivityOptions;
-import android.content.Intent;
 import android.os.AsyncTask;
-import android.security.keystore.StrongBoxUnavailableException;
 import android.util.Log;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,6 +19,7 @@ public class DataManager {
     private ModelManager modelManager;
     private RecyclerView.Adapter adapter;
     private List<Article> articles;
+    private boolean isLoggedIn = false;
 
     /**
      * Gets singleton instance
@@ -45,7 +43,6 @@ public class DataManager {
         downloadModelManagerTask.execute();
     }
 
-
     public ModelManager getModelManager() {
         return this.modelManager;
     }
@@ -68,6 +65,13 @@ public class DataManager {
         this.adapter.notifyDataSetChanged();
     }
 
+    public boolean isLoggedIn() {
+        return this.isLoggedIn;
+    }
+
+    public void setLoggedIn(boolean b) {
+        this.isLoggedIn = b;
+    }
 
     private final class DownloadModelManagerTask extends AsyncTask<Void, Void, ModelManager> {
 

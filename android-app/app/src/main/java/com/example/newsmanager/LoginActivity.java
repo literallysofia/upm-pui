@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         TextInputLayout usernameField = findViewById(R.id.usernameText);
-       // username = new TextInputEditText(usernameField.getContext());
+        // username = new TextInputEditText(usernameField.getContext());
         username = findViewById(R.id.editUser);
 
         TextInputLayout passwordField = findViewById(R.id.passwordText);
@@ -51,7 +51,6 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
 
                 LoginManagerTask loginManagerTask = new LoginManagerTask();
                 loginManagerTask.execute(username.getText().toString(), password.getText().toString());
@@ -92,15 +91,15 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Boolean result) {
 
-            if(result){
+            if (result) {
 
                 Toast.makeText(getApplicationContext(), "You have successfully logged in", Toast.LENGTH_LONG).show();
-
+                dataManager.setLoggedIn(true);
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
 
-            }else {
+            } else {
 
                 counter--;
                 numTries.setText("Number of attempts left: " + String.valueOf(counter));

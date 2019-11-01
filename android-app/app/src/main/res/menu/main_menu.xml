@@ -6,10 +6,4 @@
         android:icon="@drawable/ic_lock"
         android:title="@string/login_button"
         app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/main_menu_logout"
-        android:icon="@drawable/ic_lock_open"
-        android:title="@string/login_button"
-        android:visible="false"
-        app:showAsAction="ifRoom" />
 </menu>

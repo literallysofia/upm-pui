@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -68,6 +69,14 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
+
+        MenuItem item = menu.findItem(R.id.main_menu_login);
+
+        if (DataManager.getInstance().isLoggedIn()) {
+            item.setIcon(R.drawable.ic_lock_open);
+        } else {
+            item.setIcon(R.drawable.ic_lock);
+        }
         return true;
     }
 
@@ -75,8 +84,15 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.main_menu_login:
-                Intent intent = new Intent(this, LoginActivity.class);
-                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+                if (DataManager.getInstance().isLoggedIn()) {
+                    item.setIcon(R.drawable.ic_lock);
+                    DataManager.getInstance().setLoggedIn(false);
+                    Toast.makeText(getApplicationContext(), "Logged out", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
