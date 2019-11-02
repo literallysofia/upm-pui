@@ -278,7 +278,7 @@ public class ArticleActivity extends AppCompatActivity {
             ArticleActivity.this.titleText.setText(article.getTitleText());
             ArticleActivity.this.bodyText.setText(Html.fromHtml(article.getBodyText()));
             ArticleActivity.this.category.setText(article.getCategory());
-            ArticleActivity.this.category.setCheckedIconVisible(true);
+            ArticleActivity.this.category.setAlpha( 1.0F );
             try {
                 ArticleActivity.this.imageView.setImageBitmap(Utils.base64StringToImg(article.getImage().getImage()));
             } catch (ServerCommunicationError serverCommunicationError) {

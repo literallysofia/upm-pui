@@ -68,6 +68,7 @@
                     android:id="@+id/article_category"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:alpha="0"
                     android:checked="false"
                     android:textColor="@color/colorPrimary"
                     app:checkedIconEnabled="false"
