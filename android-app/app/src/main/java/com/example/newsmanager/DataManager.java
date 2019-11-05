@@ -19,7 +19,7 @@ public class DataManager {
     private ModelManager modelManager;
     private RecyclerView.Adapter adapter;
     private List<Article> articles;
-    private boolean isLoggedIn = false;
+    private String currentUser = null;
 
     /**
      * Gets singleton instance
@@ -66,11 +66,17 @@ public class DataManager {
     }
 
     public boolean isLoggedIn() {
-        return this.isLoggedIn;
+        if (this.currentUser == null)
+            return false;
+        else return true;
     }
 
-    public void setLoggedIn(boolean b) {
-        this.isLoggedIn = b;
+    public String getCurrentUser() {
+        return this.currentUser;
+    }
+
+    public void setCurrentUser(String username) {
+        this.currentUser = username;
     }
 
     private final class DownloadModelManagerTask extends AsyncTask<Void, Void, ModelManager> {

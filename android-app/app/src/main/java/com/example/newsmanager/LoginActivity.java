@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 
 import es.upm.hcid.pui.assignment.exceptions.AuthenticationError;
 
@@ -32,14 +31,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        TextInputLayout usernameField = findViewById(R.id.usernameText);
-        // username = new TextInputEditText(usernameField.getContext());
         username = findViewById(R.id.editUser);
-
-        TextInputLayout passwordField = findViewById(R.id.passwordText);
-        //password = new TextInputEditText(passwordField.getContext());
         password = findViewById(R.id.editPass);
-
         numTries = findViewById(R.id.numTries);
         loginButton = findViewById(R.id.loginButton);
         continueButton = findViewById(R.id.continueButton);
@@ -51,10 +44,8 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 LoginManagerTask loginManagerTask = new LoginManagerTask();
                 loginManagerTask.execute(username.getText().toString(), password.getText().toString());
-
             }
         });
 
@@ -92,17 +83,14 @@ public class LoginActivity extends AppCompatActivity {
         protected void onPostExecute(Boolean result) {
 
             if (result) {
-
-                Toast.makeText(getApplicationContext(), "You have successfully logged in", Toast.LENGTH_LONG).show();
-                dataManager.setLoggedIn(true);
+                Toast.makeText(getApplicationContext(), "You have successfully logged in!", Toast.LENGTH_LONG).show();
+                dataManager.setCurrentUser(LoginActivity.this.username.getText().toString());
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
-
             } else {
-
                 counter--;
-                numTries.setText("Number of attempts left: " + String.valueOf(counter));
+                numTries.setText("Number of attempts left: " + counter);
 
                 if (counter == 0) {
                     loginButton.setEnabled(false);
@@ -125,7 +113,7 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             counter--;
 
-            numTries.setText("Number of attempts left: " + String.valueOf(counter));
+            numTries.setText("Number of attempts left: " + counter);
 
             if (counter == 0) {
                 loginButton.setEnabled(false);
