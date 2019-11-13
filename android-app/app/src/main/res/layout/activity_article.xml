@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ArticleActivity">
+    tools:context=".ArticleActivity"
+    tools:ignore="ContentDescription">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -40,44 +41,58 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-        <LinearLayout
-            android:id="@+id/article_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/article_image"
-                android:layout_width="match_parent"
-                android:layout_height="243dp" />
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toTopOf="@+id/article_content"
+                app:layout_constraintDimensionRatio="H,16:9"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/article_category"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/article_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:checked="false"
-                android:layout_marginLeft="8pt"
-                android:textColor="@color/colorPrimary"
-                app:checkedIconEnabled="false"
-                app:checkedIconVisible="false"
-                app:chipIconEnabled="false"
-                app:chipIconVisible="false" />
-
-            <TextView
-                android:id="@+id/article_title"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:orientation="vertical"
                 android:padding="8pt"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+                app:layout_constraintTop_toBottomOf="@+id/article_image">
 
-            <TextView
-                android:id="@+id/article_body"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:justificationMode="inter_word"
-                android:padding="8pt" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/article_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0"
+                    android:checked="false"
+                    android:textColor="@color/colorPrimary"
+                    app:checkedIconEnabled="false"
+                    app:checkedIconVisible="false"
+                    app:chipIconEnabled="false"
+                    app:chipIconVisible="false" />
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/article_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingTop="4pt"
+                    android:paddingBottom="8pt"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+
+                <TextView
+                    android:id="@+id/article_body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:justificationMode="inter_word" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

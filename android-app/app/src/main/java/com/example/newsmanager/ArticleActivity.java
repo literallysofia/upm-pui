@@ -87,6 +87,10 @@ public class ArticleActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.article_menu, menu);
+
+        if (!DataManager.getInstance().isLoggedIn())
+            menu.getItem(0).setVisible(false);
+
         return true;
     }
 
@@ -232,8 +236,6 @@ public class ArticleActivity extends AppCompatActivity {
                 UploadImageTask uploadImageTask = new UploadImageTask();
                 uploadImageTask.newImage = bitmap;
                 uploadImageTask.execute();
-                System.out.println("IMAGE SAVED");
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -245,7 +247,6 @@ public class ArticleActivity extends AppCompatActivity {
             UploadImageTask uploadImageTask = new UploadImageTask();
             uploadImageTask.newImage = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
             uploadImageTask.execute();
-            System.out.println("IMAGE SAVED");
         }
     }
 
@@ -275,16 +276,14 @@ public class ArticleActivity extends AppCompatActivity {
             super.onPostExecute(article);
             progressBar.setVisibility(View.GONE);
             ArticleActivity.this.titleText.setText(article.getTitleText());
+            ArticleActivity.this.bodyText.setText(Html.fromHtml(article.getBodyText()));
+            ArticleActivity.this.category.setText(article.getCategory());
+            ArticleActivity.this.category.setAlpha( 1.0F );
             try {
                 ArticleActivity.this.imageView.setImageBitmap(Utils.base64StringToImg(article.getImage().getImage()));
             } catch (ServerCommunicationError serverCommunicationError) {
                 serverCommunicationError.printStackTrace();
             }
-            ArticleActivity.this.bodyText.setText( Html.fromHtml(article.getBodyText()));
-            ArticleActivity.this.category.setText(article.getCategory());
-            ArticleActivity.this.category.setCheckedIconVisible(true);
-
-
         }
     }
 
