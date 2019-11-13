@@ -1,11 +1,10 @@
 # upm-pui
 
-## Guidelines
+## Desktop Guidelines
 
+Add **javax.json-1.1.jar** and **javax.json-1.1-javadoc.jar** files at the project build path.
 
-TODO:
-
-- [ ] Toast login
+## Android Guidelines
 
 An article will be composed by
   - **Title**
@@ -28,6 +27,7 @@ Depending the request, the image associated to each article are returned in two 
 
 **Android application** functionalities are limited to show the list of articles and update the picture of
 a given article. 
+
 
 
 Projects for the Programming of User Interfaces (PUI) class of the Master in Human Computer Interaction and Design of EIT Digital Master School at Universidad Politécnica de Madrid (UPM).
