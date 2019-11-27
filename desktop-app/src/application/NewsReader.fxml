@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.NewsReaderController">
    <children>
@@ -48,26 +49,27 @@
             </Button>
          </children>
       </HBox>
-      <HBox prefHeight="100.0" prefWidth="200.0" spacing="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="130.0">
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="130.0">
          <children>
-            <VBox spacing="30.0">
+            <VBox spacing="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <Label text="Headlines">
                      <font>
                         <Font name="Georgia Bold" size="24.0" />
                      </font>
                   </Label>
-                  <ListView fx:id="titlesList" prefHeight="200.0" prefWidth="300.0" />
-                  <MenuButton fx:id="categoryMenu" mnemonicParsing="false" prefHeight="30.0" prefWidth="300.0" text="Category">
+                  <ListView fx:id="headlineList" prefHeight="200.0" prefWidth="350.0" />
+                  <MenuButton fx:id="categoryMenu" mnemonicParsing="false" prefHeight="30.0" prefWidth="350.0" text="Category">
+
                   </MenuButton>
                </children>
             </VBox>
-            <VBox prefHeight="200.0">
+            <VBox prefHeight="200.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
                <children>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                  <AnchorPane prefWidth="200.0">
                      <children>
-                        <ImageView fx:id="articleImg" fitHeight="132.0" fitWidth="197.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                        <VBox prefHeight="200.0" spacing="30.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <ImageView fx:id="articleImage" fitHeight="132.0" fitWidth="197.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <VBox spacing="30.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <Button mnemonicParsing="false" text="Edit">
                                  <padding>
@@ -83,11 +85,11 @@
                         </VBox>
                      </children>
                   </AnchorPane>
-                  <Label fx:id="abstractText" alignment="TOP_LEFT" prefWidth="600.0" text="Abstract">
+                  <Text fx:id="articleAbstract" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="540.0">
                      <VBox.margin>
                         <Insets bottom="30.0" top="30.0" />
                      </VBox.margin>
-                  </Label>
+                  </Text>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
                         <Button alignment="CENTER" mnemonicParsing="false" text="Read More" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -98,12 +100,9 @@
                      </children>
                   </AnchorPane>
                </children>
-               <HBox.margin>
-                  <Insets top="60.0" />
-               </HBox.margin>
             </VBox>
          </children>
-      </HBox>
+      </AnchorPane>
    </children>
    <padding>
       <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />

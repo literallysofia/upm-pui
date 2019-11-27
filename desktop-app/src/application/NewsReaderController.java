@@ -37,6 +37,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -55,21 +56,19 @@ public class NewsReaderController {
 	private NewsReaderModel newsReaderModel = new NewsReaderModel();
 	private User usr;
 
-
 	// TODO add attributes and methods as needed
 
 	@FXML
-	private ListView<String> titlesList;
+	private ListView<String> headlineList;
 
 	@FXML
 	private MenuButton categoryMenu;
 
 	@FXML
-	private ImageView articleImg;
+	private ImageView articleImage;
 
 	@FXML
-	private Label abstractText;
-
+	private Text articleAbstract;
 
 	public NewsReaderController() {
 		// Uncomment next sentence to use data from server instead dummy data
@@ -91,21 +90,19 @@ public class NewsReaderController {
 		
 		ObservableList<Article> articles = newsReaderModel.getArticles();
 		for (int i = 0; i < articles.size(); i++) {
-			this.titlesList.getItems().add(articles.get(i).getTitle());
+			this.headlineList.getItems().add(articles.get(i).getTitle());
 		}
-		
-		this.articleImg.setImage(articles.get(0).getImageData());
-		
-		this.titlesList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {    
+
+		this.headlineList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
-		    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				for(int i = 0; i < articles.size(); i++) {			
-					if(articles.get(i).getTitle() == newValue) {
-						abstractText.setText(articles.get(i).getAbstractText());
-						articleImg.setImage(articles.get(i).getImageData());
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				for (int i = 0; i < articles.size(); i++) {
+					if (articles.get(i).getTitle() == newValue) {
+						articleAbstract.setText(articles.get(i).getAbstractText());
+						articleImage.setImage(articles.get(i).getImageData());
 					}
 				}
-		    }
+			}
 		});
 	}
 
@@ -135,10 +132,10 @@ public class NewsReaderController {
 
 	@FXML
 	void initialize() {
-		assert titlesList != null : "fx:id=\"titlesList\" was not injected: check your FXML file 'NewsReader.fxml'.";
+		assert headlineList != null : "fx:id=\"headlineList\" was not injected: check your FXML file 'NewsReader.fxml'.";
 		assert categoryMenu != null : "fx:id=\"categoryMenu\" was not injected: check your FXML file 'NewsReader.fxml'.";
-		assert articleImg != null : "fx:id=\"articleImg\" was not injected: check your FXML file 'NewsReader.fxml'.";
-		assert abstractText != null : "fx:id=\"abstractText\" was not injected: check your FXML file 'NewsReader.fxml'.";
+		assert articleImage != null : "fx:id=\"articleImage\" was not injected: check your FXML file 'NewsReader.fxml'.";
+		assert articleAbstract != null : "fx:id=\"articleAbstract\" was not injected: check your FXML file 'NewsReader.fxml'.";
 
 	}
 
@@ -146,6 +143,5 @@ public class NewsReaderController {
 	private interface InitUIData<T> {
 		void initUIData(T loader);
 	}
-	
 
 }
