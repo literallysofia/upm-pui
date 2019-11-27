@@ -59,10 +59,6 @@
                   </Label>
                   <ListView fx:id="titlesList" prefHeight="200.0" prefWidth="300.0" />
                   <MenuButton fx:id="categoryMenu" mnemonicParsing="false" prefHeight="30.0" prefWidth="300.0" text="Category">
-                    <items>
-                      <MenuItem mnemonicParsing="false" text="Sport" />
-                      <MenuItem mnemonicParsing="false" text="Action 2" />
-                    </items>
                   </MenuButton>
                </children>
             </VBox>
