@@ -9,6 +9,7 @@ import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
+import application.model.Contact;
 import application.news.Article;
 import application.news.Categories;
 import application.news.User;
@@ -36,6 +37,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -87,7 +89,25 @@ public class NewsReaderController {
 
 	@FXML
 	private Button articleDelete;
-
+	
+//	@FXML 
+//	private MenuItem all;
+//	
+//	@FXML 
+//	private MenuItem economy;
+//	
+//	@FXML 
+//	private MenuItem international;
+//	
+//	@FXML 
+//	private MenuItem national;
+//	
+//	@FXML 
+//	private MenuItem sports;
+//
+//	@FXML 
+//	private MenuItem technology;
+	
 	public NewsReaderController() {
 		newsReaderModel.setDummyData(false);
 	}
@@ -99,6 +119,7 @@ public class NewsReaderController {
 		for (int i = 0; i < categories.size(); i++) {
 			MenuItem menuItem = new MenuItem(categories.get(i).toString());
 			this.categoryMenu.getItems().add(menuItem);
+			menuItem.setId(categories.get(i).toString());
 		}
 
 		ObservableList<Article> articles = newsReaderModel.getArticles();
@@ -132,6 +153,25 @@ public class NewsReaderController {
 			}
 		});
 	}
+	
+//	//Needed for filtered data in headlineList
+//    private FilteredList<String> filteredHeadlines;
+//	
+//	@FXML
+//	void onCategoriesPressed(ActionEvent event) {
+//		ObservableList<MenuItem> categories = this.categoryMenu.getItems();
+//		for (int i = 0; i < categories.size(); i++) {
+//			String menuItem = categories.get(i).toString();
+//			categories.get(i).setOnAction(new EventHandler<ActionEvent>() {
+//				@Override
+//				public void handle(ActionEvent event) {
+//					filteredHeadlines.setPredicate(category -> headline.equals(menuItem));
+//				}
+//			});
+//		}
+//		this.headlineList
+//	}
+
 
 	/**
 	 * @return the usr
