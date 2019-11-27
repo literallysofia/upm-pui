@@ -85,24 +85,20 @@ public class NewsReaderController {
 		for (int i = 0; i < articles.size(); i++) {
 			this.titlesList.getItems().add(articles.get(i).getTitle());
 		}
-
-						
-		this.titlesList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-		    
+		
+		this.articleImg.setImage(articles.get(0).getImageData());
+		
+		this.titlesList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {    
 			@Override
 		    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-		        
-				System.out.println("ListView selection changed from oldValue = " + oldValue + " to newValue = " + newValue);
-		        
-				for(int i = 0; i < articles.size(); i++) {
-					
+				for(int i = 0; i < articles.size(); i++) {			
 					if(articles.get(i).getTitle() == newValue) {
 						abstractText.setText(articles.get(i).getAbstractText());
-					}		
-				}		
-		    }		
+						articleImg.setImage(articles.get(i).getImageData());
+					}
+				}
+		    }
 		});
-		
 	}
 
 	/**
