@@ -58,7 +58,14 @@ public class NewsReaderController {
 	private NewsReaderModel newsReaderModel = new NewsReaderModel();
 	private User usr;
 
-	// TODO add attributes and methods as needed
+	@FXML
+	private Button loginButton;
+
+	@FXML
+	private Button newArticleButton;
+
+	@FXML
+	private Button loadArticleButton;
 
 	@FXML
 	private ListView<String> headlineList;
@@ -71,28 +78,29 @@ public class NewsReaderController {
 
 	@FXML
 	private Text articleAbstract;
-	
+
 	@FXML
 	private Button articleReadMore;
 
-	public NewsReaderController() {
-		// Uncomment next sentence to use data from server instead dummy data
-		newsReaderModel.setDummyData(false);
-		// Get text Label
+	@FXML
+	private Button articleEdit;
 
+	@FXML
+	private Button articleDelete;
+
+	public NewsReaderController() {
+		newsReaderModel.setDummyData(false);
 	}
 
 	private void getData() {
-		
-		// TODO retrieve data and update UI
 		newsReaderModel.retrieveData();
-		
+
 		ObservableList<Categories> categories = newsReaderModel.getCategories();
-		for(int i = 0; i < categories.size(); i++){
+		for (int i = 0; i < categories.size(); i++) {
 			MenuItem menuItem = new MenuItem(categories.get(i).toString());
 			this.categoryMenu.getItems().add(menuItem);
 		}
-		
+
 		ObservableList<Article> articles = newsReaderModel.getArticles();
 		for (int i = 0; i < articles.size(); i++) {
 			this.headlineList.getItems().add(articles.get(i).getTitle());
@@ -107,16 +115,17 @@ public class NewsReaderController {
 						articleImage.setImage(articles.get(i).getImageData());
 						articleReadMore.setDisable(false);
 						articleReadMore.setOnAction(new EventHandler<ActionEvent>() {
-						    @Override public void handle(ActionEvent e) {
-						    	FXMLLoader loader = new FXMLLoader(getClass().getResource(AppScenes.NEWS_DETAILS.getFxmlFile()));
+							@Override
+							public void handle(ActionEvent e) {
 								try {
+									FXMLLoader loader = new FXMLLoader(
+											getClass().getResource(AppScenes.NEWS_DETAILS.getFxmlFile()));
 									loader.load();
+									articleReadMore.getScene().setRoot(loader.getRoot());
 								} catch (IOException e1) {
-									// TODO Auto-generated catch block
 									e1.printStackTrace();
 								}
-						    	articleReadMore.getScene().setRoot(loader.getRoot());
-						    }
+							}
 						});
 					}
 				}
@@ -155,6 +164,20 @@ public class NewsReaderController {
 		assert articleImage != null : "fx:id=\"articleImage\" was not injected: check your FXML file 'NewsReader.fxml'.";
 		assert articleAbstract != null : "fx:id=\"articleAbstract\" was not injected: check your FXML file 'NewsReader.fxml'.";
 		assert articleReadMore != null : "fx:id=\"articleReadMore\" was not injected: check your FXML file 'NewsReader.fxml'.";
+		assert articleEdit != null : "fx:id=\"articleEdit\" was not injected: check your FXML file 'NewsReader.fxml'.";
+		assert articleDelete != null : "fx:id=\"articleDelete\" was not injected: check your FXML file 'NewsReader.fxml'.";
+
+	}
+
+	@FXML
+	void openLogin(ActionEvent event) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(AppScenes.LOGIN.getFxmlFile()));
+			loader.load();
+			loginButton.getScene().setRoot(loader.getRoot());
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 	}
 
 	// Auxiliary methods

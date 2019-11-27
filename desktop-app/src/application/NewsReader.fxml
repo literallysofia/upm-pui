@@ -22,7 +22,7 @@
       </ImageView>
       <HBox alignment="CENTER_LEFT" layoutX="35.0" layoutY="65.0" spacing="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="50.0">
          <children>
-            <Button mnemonicParsing="false" text="Login">
+            <Button fx:id="loginButton" mnemonicParsing="false" onAction="#openLogin" text="Login">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -30,7 +30,7 @@
                   <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
                </padding>
             </Button>
-            <Button mnemonicParsing="false" text="New Article">
+            <Button fx:id="newArticleButton" mnemonicParsing="false" text="New Article">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -38,10 +38,15 @@
                   <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
                </padding>
             </Button>
-            <Button mnemonicParsing="false" text="Load Article">
+            <Button fx:id="loadArticleButton" mnemonicParsing="false" text="Load Article">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
+               <padding>
+                  <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+               </padding>
+            </Button>
+            <Button disable="true" mnemonicParsing="false" text="Logout">
                <padding>
                   <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
                </padding>
@@ -70,12 +75,12 @@
                         <ImageView fx:id="articleImage" fitHeight="132.0" fitWidth="197.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
                         <VBox spacing="30.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <Button mnemonicParsing="false" text="Edit">
+                              <Button fx:id="articleEdit" disable="true" mnemonicParsing="false" text="Edit">
                                  <padding>
                                     <Insets bottom="5.0" left="27.0" right="28.0" top="5.0" />
                                  </padding>
                               </Button>
-                              <Button mnemonicParsing="false" text="Delete">
+                              <Button fx:id="articleDelete" disable="true" mnemonicParsing="false" text="Delete">
                                  <padding>
                                     <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
                                  </padding>
