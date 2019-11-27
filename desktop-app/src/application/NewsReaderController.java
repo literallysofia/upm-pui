@@ -73,6 +73,8 @@ public class NewsReaderController {
 	    
 	    
 	    
+	    
+	    
 	public NewsReaderController() {
 		//Uncomment next sentence to use data from server instead dummy data
 		newsReaderModel.setDummyData(false);
@@ -90,8 +92,26 @@ public class NewsReaderController {
 		for (int i = 0; i < articles.size(); i++) {
 			this.titlesList.getItems().add(articles.get(i).getTitle());
 		}
-		this.currentTitle.setText(articles.get(0).getTitle());
-	
+		this.currentTitle.setText(articles.get(0).getTitle());				
+		
+		this.titlesList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+		    
+			@Override
+		    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+		        
+				System.out.println("ListView selection changed from oldValue = " + oldValue + " to newValue = " + newValue);
+		        
+				for(int i = 0; i < articles.size(); i++) {
+					
+					if(articles.get(i).getTitle() == newValue) {
+						abstractText.setText(articles.get(i).getAbstractText());
+					}		
+				}		
+		    }
+			
+			
+		});
+		
 	}
 
 	/**
@@ -106,6 +126,9 @@ public class NewsReaderController {
 		this.newsReaderModel.setConnectionManager(connection);
 		this.getData();
 	}
+	
+	
+
 	
 	/**
 	 * @param usr the usr to set
@@ -130,4 +153,6 @@ public class NewsReaderController {
 	private interface  InitUIData <T>{
 		void initUIData (T loader);
 	}
+	
+
 }
