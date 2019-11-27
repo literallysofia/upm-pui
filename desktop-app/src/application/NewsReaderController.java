@@ -36,6 +36,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -67,7 +68,7 @@ public class NewsReaderController {
 	private ImageView articleImg;
 
 	@FXML
-	private Label abstractText;
+	private Text abstractText;
 
 
 	public NewsReaderController() {
