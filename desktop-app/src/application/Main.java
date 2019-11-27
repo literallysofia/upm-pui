@@ -49,7 +49,7 @@ public class Main extends Application {
 			Properties prop = buildServerProperties();
 			ConnectionManager connection = new ConnectionManager(prop);
 			//Connecting as public (anonymous) for your group
-			connection.setAnonymousAPIKey(""/*Put your group API Key here*/);
+			connection.setAnonymousAPIKey("DEV_TEAM_48392"/*Put your group API Key here*/);
 		//Login whitout login form:
 			//	connection.login("Reader2", "reader2"); //User: Reader2 and password "reader2" 
 		//    User user = new User ("Reader2", 
@@ -62,7 +62,7 @@ public class Main extends Application {
 		
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.initStyle(StageStyle.UNDECORATED);
+			primaryStage.initStyle(StageStyle.DECORATED);
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch(AuthenticationError e) {
