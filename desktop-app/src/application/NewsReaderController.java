@@ -32,6 +32,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -82,9 +83,16 @@ public class NewsReaderController {
 	}
 
 	private void getData() {
+		
 		// TODO retrieve data and update UI
-		// The method newsReaderModel.retrieveData() can be used to retrieve data
 		newsReaderModel.retrieveData();
+		
+		ObservableList<Categories> categories = newsReaderModel.getCategories();
+		for(int i = 0; i < categories.size(); i++){
+			MenuItem menuItem = new MenuItem(categories.get(i).toString());
+			this.categoryMenu.getItems().add(menuItem);
+		}
+		
 		ObservableList<Article> articles = newsReaderModel.getArticles();
 		for (int i = 0; i < articles.size(); i++) {
 			this.headlineList.getItems().add(articles.get(i).getTitle());
