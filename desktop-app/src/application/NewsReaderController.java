@@ -54,44 +54,36 @@ public class NewsReaderController {
 	private NewsReaderModel newsReaderModel = new NewsReaderModel();
 	private User usr;
 
-	//TODO add attributes and methods as needed
-	
-	 	@FXML
-	    private ListView<String> titlesList;
-	 	
-	 	@FXML 
-	 	private MenuButton categoryMenu;
+	// TODO add attributes and methods as needed
 
-	    @FXML
-	    private Label currentTitle;
-	    
-	    @FXML
-	    private ImageView articleImg;
-	    
-	    @FXML
-	    private Label abstractText;
-	    
-	    
-	    
+	@FXML
+	private ListView<String> titlesList;
+
+	@FXML
+	private MenuButton categoryMenu;
+
+	@FXML
+	private ImageView articleImg;
+
+	@FXML
+	private Label abstractText;
+
 	public NewsReaderController() {
-		//Uncomment next sentence to use data from server instead dummy data
+		// Uncomment next sentence to use data from server instead dummy data
 		newsReaderModel.setDummyData(false);
-		//Get text Label
-		
+		// Get text Label
+
 	}
 
-		
-
 	private void getData() {
-		//TODO retrieve data and update UI
-		//The method newsReaderModel.retrieveData() can be used to retrieve data  
+		// TODO retrieve data and update UI
+		// The method newsReaderModel.retrieveData() can be used to retrieve data
 		newsReaderModel.retrieveData();
 		ObservableList<Article> articles = newsReaderModel.getArticles();
 		for (int i = 0; i < articles.size(); i++) {
 			this.titlesList.getItems().add(articles.get(i).getTitle());
 		}
-		this.currentTitle.setText(articles.get(0).getTitle());
-	
+
 	}
 
 	/**
@@ -101,33 +93,34 @@ public class NewsReaderController {
 		return usr;
 	}
 
-	void setConnectionManager (ConnectionManager connection){
-		this.newsReaderModel.setDummyData(false); //System is connected so dummy data are not needed
+	void setConnectionManager(ConnectionManager connection) {
+		this.newsReaderModel.setDummyData(false); // System is connected so dummy data are not needed
 		this.newsReaderModel.setConnectionManager(connection);
 		this.getData();
 	}
-	
+
 	/**
 	 * @param usr the usr to set
 	 */
 	void setUsr(User usr) {
-		
-		this.usr = usr;
-		//Reload articles
-		this.getData();
-		//TODO Update UI
-	}
-	@FXML
-    void initialize() {
-        assert titlesList != null : "fx:id=\"titlesList\" was not injected: check your FXML file 'NewsReader.fxml'.";
-        assert categoryMenu != null : "fx:id=\"categoryMenu\" was not injected: check your FXML file 'NewsReader.fxml'.";
-        assert currentTitle != null : "fx:id=\"currentTitle\" was not injected: check your FXML file 'NewsReader.fxml'.";
-        assert articleImg != null : "fx:id=\"articleImg\" was not injected: check your FXML file 'NewsReader.fxml'.";
-        assert abstractText != null : "fx:id=\"abstractText\" was not injected: check your FXML file 'NewsReader.fxml'.";
 
-    }
+		this.usr = usr;
+		// Reload articles
+		this.getData();
+		// TODO Update UI
+	}
+
+	@FXML
+	void initialize() {
+		assert titlesList != null : "fx:id=\"titlesList\" was not injected: check your FXML file 'NewsReader.fxml'.";
+		assert categoryMenu != null : "fx:id=\"categoryMenu\" was not injected: check your FXML file 'NewsReader.fxml'.";
+		assert articleImg != null : "fx:id=\"articleImg\" was not injected: check your FXML file 'NewsReader.fxml'.";
+		assert abstractText != null : "fx:id=\"abstractText\" was not injected: check your FXML file 'NewsReader.fxml'.";
+
+	}
+
 	// Auxiliary methods
-	private interface  InitUIData <T>{
-		void initUIData (T loader);
+	private interface InitUIData<T> {
+		void initUIData(T loader);
 	}
 }
