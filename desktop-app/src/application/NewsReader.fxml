@@ -58,7 +58,7 @@
                         <Font name="Georgia Bold" size="24.0" />
                      </font>
                   </Label>
-                  <ListView fx:id="titlesList" prefHeight="200.0" prefWidth="350.0" />
+                  <ListView fx:id="headlineList" prefHeight="200.0" prefWidth="350.0" />
                   <MenuButton fx:id="categoryMenu" mnemonicParsing="false" prefHeight="30.0" prefWidth="350.0" text="Category">
                     <items>
                       <MenuItem mnemonicParsing="false" text="Sport" />
@@ -71,7 +71,7 @@
                <children>
                   <AnchorPane prefWidth="200.0">
                      <children>
-                        <ImageView fx:id="articleImg" fitHeight="132.0" fitWidth="197.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <ImageView fx:id="articleImage" fitHeight="132.0" fitWidth="197.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
                         <VBox spacing="30.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <Button mnemonicParsing="false" text="Edit">
@@ -88,7 +88,7 @@
                         </VBox>
                      </children>
                   </AnchorPane>
-                  <Text fx:id="abstractText" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="540.0">
+                  <Text fx:id="articleAbstract" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="540.0">
                      <VBox.margin>
                         <Insets bottom="30.0" top="30.0" />
                      </VBox.margin>
