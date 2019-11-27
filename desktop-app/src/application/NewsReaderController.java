@@ -103,8 +103,9 @@ public class NewsReaderController {
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				for (int i = 0; i < articles.size(); i++) {
 					if (articles.get(i).getTitle() == newValue) {
-						articleAbstract.setText(articles.get(i).getAbstractText());
-						articleImage.setImage(articles.get(i).getImageData());
+						Article article = articles.get(i);
+						articleAbstract.setText(article.getAbstractText());
+						articleImage.setImage(article.getImageData());
 						articleReadMore.setDisable(false);
 						articleReadMore.setOnAction(new EventHandler<ActionEvent>() {
 						    @Override public void handle(ActionEvent e) {
@@ -115,6 +116,8 @@ public class NewsReaderController {
 									// TODO Auto-generated catch block
 									e1.printStackTrace();
 								}
+								ArticleDetailsController controller = loader.<ArticleDetailsController>getController();
+								controller.setArticle(article);
 						    	articleReadMore.getScene().setRoot(loader.getRoot());
 						    }
 						});
