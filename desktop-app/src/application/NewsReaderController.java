@@ -4,6 +4,7 @@
 package application;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.function.Predicate;
@@ -19,6 +20,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -68,6 +70,9 @@ public class NewsReaderController {
 
 	@FXML
 	private Text articleAbstract;
+	
+	@FXML
+	private Button articleReadMore;
 
 	public NewsReaderController() {
 		// Uncomment next sentence to use data from server instead dummy data
@@ -92,6 +97,19 @@ public class NewsReaderController {
 					if (articles.get(i).getTitle() == newValue) {
 						articleAbstract.setText(articles.get(i).getAbstractText());
 						articleImage.setImage(articles.get(i).getImageData());
+						articleReadMore.setDisable(false);
+						articleReadMore.setOnAction(new EventHandler<ActionEvent>() {
+						    @Override public void handle(ActionEvent e) {
+						    	FXMLLoader loader = new FXMLLoader(getClass().getResource(AppScenes.NEWS_DETAILS.getFxmlFile()));
+								try {
+									loader.load();
+								} catch (IOException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
+						    	articleReadMore.getScene().setRoot(loader.getRoot());
+						    }
+						});
 					}
 				}
 			}
@@ -128,7 +146,7 @@ public class NewsReaderController {
 		assert categoryMenu != null : "fx:id=\"categoryMenu\" was not injected: check your FXML file 'NewsReader.fxml'.";
 		assert articleImage != null : "fx:id=\"articleImage\" was not injected: check your FXML file 'NewsReader.fxml'.";
 		assert articleAbstract != null : "fx:id=\"articleAbstract\" was not injected: check your FXML file 'NewsReader.fxml'.";
-
+		assert articleReadMore != null : "fx:id=\"articleReadMore\" was not injected: check your FXML file 'NewsReader.fxml'.";
 	}
 
 	// Auxiliary methods

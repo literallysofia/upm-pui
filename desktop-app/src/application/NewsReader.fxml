@@ -95,7 +95,7 @@
                   </Text>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <Button alignment="CENTER" mnemonicParsing="false" text="Read More" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Button fx:id="articleReadMore" alignment="CENTER" disable="true" mnemonicParsing="false" text="Read More" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <padding>
                               <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
                            </padding>
