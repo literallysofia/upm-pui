@@ -62,7 +62,11 @@ public class NewsReaderController {
 
 	private NewsReaderModel newsReaderModel = new NewsReaderModel();
 	private User usr;
-
+	
+	private ObservableList<Article> articles;
+	
+	@FXML
+	private Text newsUser;
 	@FXML
 	private Button loginButton;
 	@FXML
@@ -117,7 +121,8 @@ public class NewsReaderController {
 			menuItem.setId(categories.get(i).toString());
 		}
 
-		ObservableList<Article> articles = newsReaderModel.getArticles();
+		//ObservableList<Article> articles = newsReaderModel.getArticles();
+		articles = newsReaderModel.getArticles();
 		for (int i = 0; i < articles.size(); i++) {
 			this.headlineList.getItems().add(articles.get(i).getTitle());
 		}
@@ -130,6 +135,45 @@ public class NewsReaderController {
 						Article article = articles.get(i);
 						articleAbstract.setText(article.getAbstractText());
 						articleImage.setImage(article.getImageData());
+						articleReadMore.setDisable(false);
+						articleReadMore.setOnAction(new EventHandler<ActionEvent>() {
+							@Override
+							public void handle(ActionEvent e) {
+								try {
+									FXMLLoader loader = new FXMLLoader(getClass().getResource(AppScenes.NEWS_DETAILS.getFxmlFile()));
+									loader.load();
+									ArticleDetailsController controller = loader.<ArticleDetailsController>getController();
+									controller.setArticle(article);
+									articleReadMore.getScene().setRoot(loader.getRoot());
+								} catch (IOException e1) {
+									e1.printStackTrace();
+								}	
+						    }
+						});
+					}
+				}
+			}
+		});
+	}
+	
+	private void getDataUser() {
+	
+		this.headlineList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				for (int i = 0; i < articles.size(); i++) {
+					if (articles.get(i).getTitle() == newValue) {
+						Article article = articles.get(i);
+						articleAbstract.setText(article.getAbstractText());
+						articleImage.setImage(article.getImageData());
+						
+						// info helper - delete later
+						newsUser.setText("id-" + article.getIdUser() + " usr-" + usr.getIdUser());
+						
+						if(article.getIdUser() == usr.getIdUser()) {
+							articleDelete.setDisable(false);
+							articleEdit.setDisable(false);
+						}		
 						articleReadMore.setDisable(false);
 						articleReadMore.setOnAction(new EventHandler<ActionEvent>() {
 							@Override
@@ -192,7 +236,8 @@ public class NewsReaderController {
 
 		this.usr = usr;
 		// Reload articles
-		this.getData();
+		
+		this.getDataUser();
 		// TODO Update UI
 	}
 
