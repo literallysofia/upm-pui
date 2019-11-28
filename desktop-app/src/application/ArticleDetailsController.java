@@ -12,6 +12,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 
 /**
  * @author ÁngelLucas
@@ -24,6 +26,16 @@ public class ArticleDetailsController {
 
 	@FXML
 	private Button backButton;
+	@FXML
+	private Text articleTitle;
+	@FXML
+	private Text articleSubtitle;
+	@FXML
+	private Text articleCategory;
+	@FXML
+	private ImageView articleImage;
+	@FXML
+	private Text articleBody;
 
 	/**
 	 * @param usr the usr to set
@@ -42,6 +54,12 @@ public class ArticleDetailsController {
 	void setArticle(Article article) {
 		this.article = article;
 		// TODO complete this method
+		
+		this.articleTitle.setText(article.getTitle());
+		this.articleSubtitle.setText(article.getSubtitle());
+		this.articleCategory.setText(article.getCategory());
+		this.articleImage.setImage(article.getImageData());
+		this.articleBody.setText(article.getBodyText());
 	}
 
 	@FXML

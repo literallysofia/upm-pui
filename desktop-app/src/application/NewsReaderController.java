@@ -61,28 +61,20 @@ public class NewsReaderController {
 
 	@FXML
 	private Button loginButton;
-
 	@FXML
 	private Button newArticleButton;
-
 	@FXML
 	private Button loadArticleButton;
-
 	@FXML
 	private ListView<String> headlineList;
-
 	@FXML
 	private MenuButton categoryMenu;
-
 	@FXML
 	private ImageView articleImage;
-
 	@FXML
 	private Text articleAbstract;
-
 	@FXML
 	private Button articleReadMore;
-
 	@FXML
 	private Button articleEdit;
 
@@ -131,21 +123,23 @@ public class NewsReaderController {
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				for (int i = 0; i < articles.size(); i++) {
 					if (articles.get(i).getTitle() == newValue) {
-						articleAbstract.setText(articles.get(i).getAbstractText());
-						articleImage.setImage(articles.get(i).getImageData());
+						Article article = articles.get(i);
+						articleAbstract.setText(article.getAbstractText());
+						articleImage.setImage(article.getImageData());
 						articleReadMore.setDisable(false);
 						articleReadMore.setOnAction(new EventHandler<ActionEvent>() {
 							@Override
 							public void handle(ActionEvent e) {
 								try {
-									FXMLLoader loader = new FXMLLoader(
-											getClass().getResource(AppScenes.NEWS_DETAILS.getFxmlFile()));
+									FXMLLoader loader = new FXMLLoader(getClass().getResource(AppScenes.NEWS_DETAILS.getFxmlFile()));
 									loader.load();
+									ArticleDetailsController controller = loader.<ArticleDetailsController>getController();
+									controller.setArticle(article);
 									articleReadMore.getScene().setRoot(loader.getRoot());
 								} catch (IOException e1) {
 									e1.printStackTrace();
-								}
-							}
+								}	
+						    }
 						});
 					}
 				}
