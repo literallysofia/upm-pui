@@ -9,7 +9,6 @@ import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
-import application.model.Contact;
 import application.news.Article;
 import application.news.Categories;
 import application.news.User;
@@ -154,23 +153,25 @@ public class NewsReaderController {
 		});
 	}
 	
-//	//Needed for filtered data in headlineList
-//    private FilteredList<String> filteredHeadlines;
-//	
-//	@FXML
-//	void onCategoriesPressed(ActionEvent event) {
-//		ObservableList<MenuItem> categories = this.categoryMenu.getItems();
-//		for (int i = 0; i < categories.size(); i++) {
-//			String menuItem = categories.get(i).toString();
-//			categories.get(i).setOnAction(new EventHandler<ActionEvent>() {
-//				@Override
-//				public void handle(ActionEvent event) {
-//					filteredHeadlines.setPredicate(category -> headline.equals(menuItem));
-//				}
-//			});
+	//Needed for filtered data in headlineList
+    private FilteredList<String> filteredHeadlines;
+	
+	@FXML
+	void onCategoriesPressed(ActionEvent event) {
+		ObservableList<MenuItem> categories = this.categoryMenu.getItems();
+		for (int i = 0; i < categories.size(); i++) {
+			String menuItem = categories.get(i).toString();
+			categories.get(i).setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					filteredHeadlines.setPredicate(category -> category.equals(menuItem));
+				}
+			});
+		}
+//		for (int i = 0; i < this.headlineList.getItems().size(); i++) {
+//			
 //		}
-//		this.headlineList
-//	}
+	}
 
 
 	/**
