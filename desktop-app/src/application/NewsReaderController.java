@@ -7,7 +7,10 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
+import java.util.Properties;
 import java.util.function.Predicate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import application.news.Article;
 import application.news.Categories;
@@ -49,6 +52,7 @@ import javafx.stage.StageStyle;
 import javafx.stage.Window;
 import javafx.stage.FileChooser.ExtensionFilter;
 import serverConection.ConnectionManager;
+import serverConection.exceptions.AuthenticationError;
 
 /**
  * @author ÁngelLucas
@@ -207,11 +211,21 @@ public class NewsReaderController {
 	@FXML
 	void openLogin(ActionEvent event) {
 		try {
+			Properties prop = new Properties();
+			prop.setProperty(ConnectionManager.ATTR_SERVICE_URL, "https://sanger.dia.fi.upm.es/pui-rest-news/");
+			prop.setProperty(ConnectionManager.ATTR_REQUIRE_SELF_CERT, "TRUE");
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(AppScenes.LOGIN.getFxmlFile()));
 			loader.load();
+			LoginController controller = loader.<LoginController>getController();			
+			ConnectionManager connection = new ConnectionManager(prop);
+			connection.setAnonymousAPIKey("DEV_TEAM_48392");
+			controller.setConnectionManager(connection);			
 			loginButton.getScene().setRoot(loader.getRoot());
 		} catch (IOException e1) {
 			e1.printStackTrace();
+		}catch (AuthenticationError e) {
+			Logger.getGlobal().log(Level.SEVERE, "Error in loging process");
+			e.printStackTrace();
 		}
 	}
 
