@@ -15,6 +15,7 @@ import application.utils.JsonArticle;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -52,6 +53,7 @@ public class ArticleEditController {
 	private ArticleEditModel editingArticle;
 	private User usr;
 	private Scene mainScene;
+	private NewsReaderController mainController;
 
 	@FXML
 	private Text pageTitle;
@@ -66,7 +68,7 @@ public class ArticleEditController {
 	private TextField articleSubtitle;
 
 	@FXML
-	private MenuButton articleCategory; // required
+	private Text articleCategory; // required
 
 	@FXML
 	private TextArea articleAbstractText;
@@ -82,51 +84,60 @@ public class ArticleEditController {
 
 	@FXML
 	private Button sendBackButton;
-	
+
 	@FXML
 	private MenuButton categoryMenu;
 
 	void setMainScene(Scene scene) {
 		this.mainScene = scene;
 	}
+	
+	void setMainController(NewsReaderController c) {
+		this.mainController = c;
+	}
 
 	void setCategories(ObservableList<Categories> categories) {
 		for (int i = 0; i < categories.size(); i++) {
 			MenuItem menuItem = new MenuItem(categories.get(i).toString());
-			this.categoryMenu.getItems().add(menuItem);
 			menuItem.setId(categories.get(i).toString());
+			menuItem.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent e) {
+					articleCategory.setText(menuItem.getId());
+				}
+			});
+			this.categoryMenu.getItems().add(menuItem);
 		}
 	}
 
 	@FXML
-	void onImageClicked(MouseEvent event) {
-		if (event.getClickCount() >= 2) {
-			Scene parentScene = ((Node) event.getSource()).getScene();
-			FXMLLoader loader = null;
-			try {
-				loader = new FXMLLoader(getClass().getResource(AppScenes.IMAGE_PICKER.getFxmlFile()));
-				Pane root = loader.load();
-				// Scene scene = new Scene(root, 570, 420);
-				Scene scene = new Scene(root);
-				scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-				Window parentStage = parentScene.getWindow();
-				Stage stage = new Stage();
-				stage.initOwner(parentStage);
-				stage.setScene(scene);
-				stage.initStyle(StageStyle.UNDECORATED);
-				stage.initModality(Modality.WINDOW_MODAL);
-				stage.showAndWait();
-				ImagePickerController controller = loader.<ImagePickerController>getController();
-				Image image = controller.getImage();
-				if (image != null) {
-					editingArticle.setImage(image);
-					// TODO Update image on UI
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+	void onImageClicked(ActionEvent event) {
 
+		Scene parentScene = ((Node) event.getSource()).getScene();
+		FXMLLoader loader = null;
+		try {
+			loader = new FXMLLoader(getClass().getResource(AppScenes.IMAGE_PICKER.getFxmlFile()));
+			Pane root = loader.load();
+			// Scene scene = new Scene(root, 570, 420);
+			Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			Window parentStage = parentScene.getWindow();
+			Stage stage = new Stage();
+			stage.initOwner(parentStage);
+			stage.setScene(scene);
+			stage.initStyle(StageStyle.UNDECORATED);
+			stage.initModality(Modality.WINDOW_MODAL);
+			stage.showAndWait();
+			ImagePickerController controller = loader.<ImagePickerController>getController();
+			Image image = controller.getImage();
+			if (image != null) {
+				editingArticle.setImage(image);
+				articleImage.setImage(image);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+
 	}
 
 	/**
@@ -136,15 +147,40 @@ public class ArticleEditController {
 	 * @return true if the article has been saved
 	 */
 	private boolean send() {
-		String titleText = null; // TODO Get article title
-		Categories category = null; // TODO Get article cateory
+		String titleText = this.articleTitle.getText();
+		Categories category = Categories.valueOf(this.articleCategory.getText().toUpperCase());
 		if (titleText == null || category == null || titleText.equals("") || category == Categories.ALL) {
 			Alert alert = new Alert(AlertType.ERROR, "Imposible send the article!! Title and categoy are mandatory",
 					ButtonType.OK);
 			alert.showAndWait();
 			return false;
 		}
-//TODO prepare and send using connection.saveArticle( ...)
+
+		String abstractText;
+		String bodyText;
+
+		if (this.articleAbstractText.isVisible())
+			abstractText = this.articleAbstractText.getText();
+		else
+			abstractText = this.articleAbstractHTML.getHtmlText();
+
+		if (this.articleBodyText.isVisible())
+			bodyText = this.articleBodyText.getText();
+		else
+			bodyText = this.articleBodyHTML.getHtmlText();
+
+		this.editingArticle.titleProperty().set(titleText);
+		this.editingArticle.subtitleProperty().set(this.articleSubtitle.getText());
+		this.editingArticle.abstractTextProperty().set(abstractText);
+		this.editingArticle.bodyTextProperty().set(bodyText);
+		this.editingArticle.setCategory(category);
+
+		try {
+			this.editingArticle.commit();
+			connection.saveArticle(getArticle());
+		} catch (ServerCommunicationError e) {
+			e.printStackTrace();
+		}
 
 		return true;
 	}
@@ -189,6 +225,7 @@ public class ArticleEditController {
 		this.articleImage.setImage(article.getImageData());
 		this.articleTitle.setText(article.getTitle());
 		this.articleSubtitle.setText(article.getSubtitle());
+		this.articleCategory.setText(article.getCategory());
 		this.articleAbstractText.setText(article.getAbstractText());
 		this.articleBodyText.setText(article.getBodyText());
 		this.articleAbstractHTML.setHtmlText(article.getAbstractText());
@@ -235,8 +272,13 @@ public class ArticleEditController {
 
 	@FXML
 	void sendBackAction(ActionEvent e) {
-		Stage primaryStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-		primaryStage.setScene(mainScene);
+
+		if (this.send()) {
+			Stage primaryStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+			this.mainController.updateScene();
+			primaryStage.setScene(mainScene);
+		}
+
 	}
 
 	@FXML

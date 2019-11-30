@@ -129,6 +129,16 @@ public class NewsReaderController {
 		this.scene = scene;
 	}
 
+	void updateScene() {
+		this.getData();
+
+		articleAbstract.setText("");
+		articleImage.setImage(null);
+		articleDelete.setDisable(true);
+		articleEdit.setDisable(true);
+		articleReadMore.setDisable(true);
+	}
+
 	/**
 	 * @param usr the usr to set
 	 */
@@ -173,7 +183,7 @@ public class NewsReaderController {
 		}
 	}
 
-	void loadArticles() {
+	private void loadArticles() {
 
 		this.headlineList.getItems().clear();
 		this.categoryMenu.getItems().clear();
@@ -210,7 +220,6 @@ public class NewsReaderController {
 							articleEdit.setDisable(false);
 						}
 
-						articleEdit.setDisable(false);
 						articleEdit.setOnAction(new EventHandler<ActionEvent>() {
 							@Override
 							public void handle(ActionEvent e) {
@@ -224,6 +233,7 @@ public class NewsReaderController {
 									controller.setCategories(newsReaderModel.getCategories());
 									controller.setConnectionMannager(newsReaderModel.getConnectionManager());
 									controller.setMainScene(scene);
+									controller.setMainController(NewsReaderController.this);
 									primaryStage.setScene(articleScene);
 								} catch (IOException e1) {
 									e1.printStackTrace();

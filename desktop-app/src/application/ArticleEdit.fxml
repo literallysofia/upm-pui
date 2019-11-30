@@ -51,10 +51,15 @@
                                  </font>
                               </Label>
                               <TextField fx:id="articleSubtitle" />
+                              <Text fx:id="articleCategory" fill="#005689" strokeType="OUTSIDE" strokeWidth="0.0" text="Category">
+                                 <font>
+                                    <Font name="Times New Roman Italic" size="13.0" />
+                                 </font>
+                              </Text>
                               <AnchorPane prefWidth="200.0">
                                  <children>
                                     <MenuButton fx:id="categoryMenu" mnemonicParsing="false" text="Category" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                    <Button mnemonicParsing="false" text="Upload Image" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <Button mnemonicParsing="false" onAction="#onImageClicked" text="Upload Image" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <padding>
                                           <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
                                        </padding>
