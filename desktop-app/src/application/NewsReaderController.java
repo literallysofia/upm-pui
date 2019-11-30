@@ -210,6 +210,27 @@ public class NewsReaderController {
 							articleEdit.setDisable(false);
 						}
 
+						articleEdit.setDisable(false);
+						articleEdit.setOnAction(new EventHandler<ActionEvent>() {
+							@Override
+							public void handle(ActionEvent e) {
+								try {
+									Stage primaryStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+									FXMLLoader loader = new FXMLLoader(
+											getClass().getResource(AppScenes.EDITOR.getFxmlFile()));
+									Scene articleScene = new Scene(loader.load());
+									ArticleEditController controller = loader.<ArticleEditController>getController();
+									controller.setArticle(article);
+									controller.setCategories(newsReaderModel.getCategories());
+									controller.setConnectionMannager(newsReaderModel.getConnectionManager());
+									controller.setMainScene(scene);
+									primaryStage.setScene(articleScene);
+								} catch (IOException e1) {
+									e1.printStackTrace();
+								}
+							}
+						});
+
 						articleReadMore.setDisable(false);
 						articleReadMore.setOnAction(new EventHandler<ActionEvent>() {
 							@Override

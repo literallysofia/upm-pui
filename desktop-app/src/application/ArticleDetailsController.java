@@ -25,9 +25,6 @@ public class ArticleDetailsController {
 	private Scene mainScene;
 
 	@FXML
-	private Button backButton;
-
-	@FXML
 	private Text articleTitle;
 
 	@FXML
