@@ -176,6 +176,7 @@ public class NewsReaderController {
 	void loadArticles() {
 
 		this.headlineList.getItems().clear();
+		this.categoryMenu.getItems().clear();
 
 		if (usr != null) {
 			newsUser.setText("User " + usr.getIdUser());

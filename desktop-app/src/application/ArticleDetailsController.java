@@ -3,14 +3,10 @@
  */
 package application;
 
-import java.io.IOException;
-
 import application.news.Article;
 import application.news.User;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -30,16 +26,21 @@ public class ArticleDetailsController {
 
 	@FXML
 	private Button backButton;
+
 	@FXML
 	private Text articleTitle;
+
 	@FXML
 	private Text articleSubtitle;
+
 	@FXML
 	private Text articleCategory;
+
 	@FXML
 	private ImageView articleImage;
+
 	@FXML
-	private Text articleBody;
+	private Text articleContent;
 
 	/**
 	 * @param usr the usr to set
@@ -57,27 +58,41 @@ public class ArticleDetailsController {
 	 */
 	void setArticle(Article article) {
 		this.article = article;
-
-		this.articleTitle.setText(article.getTitle());
-		this.articleSubtitle.setText(article.getSubtitle());
-		this.articleCategory.setText(article.getCategory());
-		this.articleImage.setImage(article.getImageData());
-		this.articleBody.setText(article.getBodyText());
+		this.setData();
 	}
 
 	void setMainScene(Scene scene) {
 		this.mainScene = scene;
 	}
 
+	private void setData() {
+		this.articleTitle.setText(article.getTitle());
+		this.articleSubtitle.setText(article.getSubtitle());
+		this.articleCategory.setText(article.getCategory());
+		this.articleImage.setImage(article.getImageData());
+		this.articleContent.setText(article.getBodyText());
+	}
+
 	@FXML
 	void initialize() {
-		assert backButton != null : "fx:id=\"backButton\" was not injected: check your FXML file 'ArticleDetails.fxml'.";
-		backButton.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) {
-				Stage primaryStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-				primaryStage.setScene(mainScene);
-			}
-		});
+		assert articleTitle != null : "fx:id=\"articleTitle\" was not injected: check your FXML file 'ArticleDetails.fxml'.";
+		assert articleSubtitle != null : "fx:id=\"articleSubtitle\" was not injected: check your FXML file 'ArticleDetails.fxml'.";
+		assert articleCategory != null : "fx:id=\"articleCategory\" was not injected: check your FXML file 'ArticleDetails.fxml'.";
+		assert articleImage != null : "fx:id=\"articleImage\" was not injected: check your FXML file 'ArticleDetails.fxml'.";
+		assert articleContent != null : "fx:id=\"articleContent\" was not injected: check your FXML file 'ArticleDetails.fxml'.";
+	}
+
+	@FXML
+	void backAction(ActionEvent e) {
+		Stage primaryStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+		primaryStage.setScene(mainScene);
+	}
+
+	@FXML
+	void switchContentAction(ActionEvent e) {
+		if (this.articleContent.getText().equals(this.article.getAbstractText()))
+			this.articleContent.setText(article.getBodyText());
+		else
+			this.articleContent.setText(article.getAbstractText());
 	}
 }

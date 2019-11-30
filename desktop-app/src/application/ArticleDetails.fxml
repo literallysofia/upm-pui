@@ -51,7 +51,7 @@
                               </VBox>
                            </children>
                         </HBox>
-                        <Text fx:id="articleBody" strokeType="OUTSIDE" strokeWidth="0.0" text="Body/Abstract" textAlignment="JUSTIFY" wrappingWidth="880.0">
+                        <Text fx:id="articleContent" strokeType="OUTSIDE" strokeWidth="0.0" text="Body/Abstract" textAlignment="JUSTIFY" wrappingWidth="880.0">
                            <font>
                               <Font name="Times New Roman" size="14.0" />
                            </font>
@@ -67,12 +67,12 @@
       </ScrollPane>
       <AnchorPane prefWidth="940.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
          <children>
-            <Button fx:id="backButton" mnemonicParsing="false" text="Back" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Button mnemonicParsing="false" onAction="#backAction" text="Back" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <padding>
                   <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
                </padding>
             </Button>
-            <Button mnemonicParsing="false" text="Abstract/Body" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Button mnemonicParsing="false" onAction="#switchContentAction" text="Abstract/Body" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <padding>
                   <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
                </padding>
