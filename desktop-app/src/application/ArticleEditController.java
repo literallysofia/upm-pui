@@ -91,7 +91,7 @@ public class ArticleEditController {
 	void setMainScene(Scene scene) {
 		this.mainScene = scene;
 	}
-	
+
 	void setMainController(NewsReaderController c) {
 		this.mainController = c;
 	}
@@ -221,15 +221,17 @@ public class ArticleEditController {
 	 */
 	void setArticle(Article article) {
 		this.editingArticle = (article != null) ? new ArticleEditModel(usr, article) : new ArticleEditModel(usr);
-		this.pageTitle.setText("Edit Article");
-		this.articleImage.setImage(article.getImageData());
-		this.articleTitle.setText(article.getTitle());
-		this.articleSubtitle.setText(article.getSubtitle());
-		this.articleCategory.setText(article.getCategory());
-		this.articleAbstractText.setText(article.getAbstractText());
-		this.articleBodyText.setText(article.getBodyText());
-		this.articleAbstractHTML.setHtmlText(article.getAbstractText());
-		this.articleBodyHTML.setHtmlText(article.getBodyText());
+		if (article != null) {
+			this.pageTitle.setText("Edit Article");
+			this.articleImage.setImage(article.getImageData());
+			this.articleTitle.setText(article.getTitle());
+			this.articleSubtitle.setText(article.getSubtitle());
+			this.articleCategory.setText(article.getCategory());
+			this.articleAbstractText.setText(article.getAbstractText());
+			this.articleBodyText.setText(article.getBodyText());
+			this.articleAbstractHTML.setHtmlText(article.getAbstractText());
+			this.articleBodyHTML.setHtmlText(article.getBodyText());
+		}
 	}
 
 	/**
@@ -272,17 +274,17 @@ public class ArticleEditController {
 
 	@FXML
 	void sendBackAction(ActionEvent e) {
-
 		if (this.send()) {
 			Stage primaryStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
 			this.mainController.updateScene();
 			primaryStage.setScene(mainScene);
 		}
-
+		return;
 	}
 
 	@FXML
 	void saveFileAction(ActionEvent e) {
+		//TODO
 	}
 
 	@FXML
@@ -290,15 +292,19 @@ public class ArticleEditController {
 		if (this.articleAbstractText.isVisible()) {
 			this.articleAbstractHTML.setVisible(true);
 			this.articleAbstractText.setVisible(false);
+			this.saveAbstract(false);
 		} else if (this.articleAbstractHTML.isVisible()) {
 			this.articleAbstractHTML.setVisible(false);
 			this.articleAbstractText.setVisible(true);
+			this.saveAbstract(true);
 		} else if (this.articleBodyText.isVisible()) {
 			this.articleBodyHTML.setVisible(true);
 			this.articleBodyText.setVisible(false);
+			this.saveBody(false);
 		} else {
 			this.articleBodyHTML.setVisible(false);
 			this.articleBodyText.setVisible(true);
+			this.saveBody(true);
 		}
 	}
 
@@ -307,15 +313,33 @@ public class ArticleEditController {
 		if (this.articleAbstractText.isVisible()) {
 			this.articleAbstractText.setVisible(false);
 			this.articleBodyText.setVisible(true);
+			this.saveAbstract(false);
 		} else if (this.articleBodyText.isVisible()) {
 			this.articleAbstractText.setVisible(true);
 			this.articleBodyText.setVisible(false);
+			this.saveBody(false);
 		} else if (this.articleAbstractHTML.isVisible()) {
 			this.articleAbstractHTML.setVisible(false);
 			this.articleBodyHTML.setVisible(true);
+			this.saveAbstract(true);
 		} else {
 			this.articleAbstractHTML.setVisible(true);
 			this.articleBodyHTML.setVisible(false);
+			this.saveBody(true);
 		}
+	}
+
+	private void saveAbstract(boolean isHTML) {
+		if (isHTML)
+			this.articleAbstractText.setText(this.articleAbstractHTML.getHtmlText());
+		else
+			this.articleAbstractHTML.setHtmlText(this.articleAbstractText.getText());
+	}
+	
+	private void saveBody(boolean isHTML) {
+		if (isHTML)
+			this.articleBodyText.setText(this.articleBodyHTML.getHtmlText());
+		else
+			this.articleBodyHTML.setHtmlText(this.articleBodyText.getText());
 	}
 }

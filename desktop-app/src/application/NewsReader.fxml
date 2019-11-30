@@ -35,7 +35,7 @@
                   <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
                </padding>
             </Button>
-            <Button fx:id="newArticleButton" mnemonicParsing="false" text="New Article">
+            <Button fx:id="newArticleButton" mnemonicParsing="false" onAction="#createArticleAction" text="New Article">
                <HBox.margin>
                   <Insets />
                </HBox.margin>

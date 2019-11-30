@@ -277,6 +277,27 @@ public class NewsReaderController {
 		assert articleDelete != null : "fx:id=\"articleDelete\" was not injected: check your FXML file 'NewsReader.fxml'.";
 		assert loginButton != null : "fx:id=\"loginButton\" was not injected: check your FXML file 'NewsReader.fxml'.";
 		assert logoutButton != null : "fx:id=\"logoutButton\" was not injected: check your FXML file 'NewsReader.fxml'.";
+		assert newArticleButton != null : "fx:id=\"newArticleButton\" was not injected: check your FXML file 'NewsReader.fxml'.";
+		assert loadArticleButton != null : "fx:id=\"loadArticleButton\" was not injected: check your FXML file 'NewsReader.fxml'.";
+		// might delete last two
+	}
+
+	@FXML
+	void createArticleAction(ActionEvent e) {
+		try {
+			Stage primaryStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(AppScenes.EDITOR.getFxmlFile()));
+			Scene articleScene = new Scene(loader.load());
+			ArticleEditController controller = loader.<ArticleEditController>getController();
+			controller.setArticle(null);
+			controller.setCategories(newsReaderModel.getCategories());
+			controller.setConnectionMannager(newsReaderModel.getConnectionManager());
+			controller.setMainScene(scene);
+			controller.setMainController(NewsReaderController.this);
+			primaryStage.setScene(articleScene);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 	}
 
 	// Auxiliary methods

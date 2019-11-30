@@ -51,7 +51,7 @@
                                  </font>
                               </Label>
                               <TextField fx:id="articleSubtitle" />
-                              <Text fx:id="articleCategory" fill="#005689" strokeType="OUTSIDE" strokeWidth="0.0" text="Category">
+                              <Text fx:id="articleCategory" fill="#005689" strokeType="OUTSIDE" strokeWidth="0.0" text="All">
                                  <font>
                                     <Font name="Times New Roman Italic" size="13.0" />
                                  </font>
