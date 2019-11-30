@@ -65,6 +65,7 @@ public class Main extends Application {
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.initStyle(StageStyle.DECORATED);
 			primaryStage.setScene(scene);
+			controller.setScene(scene);
 			primaryStage.show();
 		} catch (AuthenticationError e) {
 			Logger.getGlobal().log(Level.SEVERE, "Error in loging process");

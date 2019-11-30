@@ -11,18 +11,22 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 /**
  * @author ÁngelLucas
  *
  */
 public class ArticleDetailsController {
-	// TODO add attributes and methods as needed
+
 	private User usr;
 	private Article article;
+	private Scene mainScene;
 
 	@FXML
 	private Button backButton;
@@ -53,13 +57,16 @@ public class ArticleDetailsController {
 	 */
 	void setArticle(Article article) {
 		this.article = article;
-		// TODO complete this method
-		
+
 		this.articleTitle.setText(article.getTitle());
 		this.articleSubtitle.setText(article.getSubtitle());
 		this.articleCategory.setText(article.getCategory());
 		this.articleImage.setImage(article.getImageData());
 		this.articleBody.setText(article.getBodyText());
+	}
+
+	void setMainScene(Scene scene) {
+		this.mainScene = scene;
 	}
 
 	@FXML
@@ -68,7 +75,8 @@ public class ArticleDetailsController {
 		backButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				// TODO go back to the other scene
+				Stage primaryStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+				primaryStage.setScene(mainScene);
 			}
 		});
 	}
