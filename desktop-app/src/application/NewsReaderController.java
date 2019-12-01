@@ -54,6 +54,7 @@ import javafx.stage.Window;
 import javafx.stage.FileChooser.ExtensionFilter;
 import serverConection.ConnectionManager;
 import serverConection.exceptions.AuthenticationError;
+import serverConection.exceptions.ServerCommunicationError;
 
 /**
  * @author ÁngelLucas
@@ -130,13 +131,8 @@ public class NewsReaderController {
 	}
 
 	void updateScene() {
+		this.clearScene();
 		this.getData();
-
-		articleAbstract.setText("");
-		articleImage.setImage(null);
-		articleDelete.setDisable(true);
-		articleEdit.setDisable(true);
-		articleReadMore.setDisable(true);
 	}
 
 	/**
@@ -144,7 +140,7 @@ public class NewsReaderController {
 	 */
 	void setUsr(User usr) {
 		this.usr = usr;
-		this.getData();
+		this.updateScene();
 	}
 
 	// Needed for filtered data in headlineList
@@ -185,12 +181,14 @@ public class NewsReaderController {
 
 	private void loadArticles() {
 
-		this.clearScene();
-
 		if (usr != null) {
 			newsUser.setText("User " + usr.getIdUser());
 			logoutButton.setDisable(false);
 			loginButton.setDisable(true);
+		} else {
+			newsUser.setText("");
+			logoutButton.setDisable(true);
+			loginButton.setDisable(false);
 		}
 
 		ObservableList<Categories> categories = newsReaderModel.getCategories();
@@ -238,6 +236,18 @@ public class NewsReaderController {
 									primaryStage.setScene(articleScene);
 								} catch (IOException e1) {
 									e1.printStackTrace();
+								}
+							}
+						});
+
+						articleDelete.setOnAction(new EventHandler<ActionEvent>() {
+							@Override
+							public void handle(ActionEvent e) {
+								try {
+									newsReaderModel.getConnectionManager().deleteArticle(article.getIdArticle());
+									updateScene();
+								} catch (ServerCommunicationError e2) {
+									e2.printStackTrace();
 								}
 							}
 						});
