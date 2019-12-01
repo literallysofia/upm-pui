@@ -62,7 +62,6 @@ public class Main extends Application {
 			// end code for main window reader
 
 			Scene scene = new Scene(root, 1000, 700);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.initStyle(StageStyle.DECORATED);
 			primaryStage.setScene(scene);
 			controller.setScene(scene);
