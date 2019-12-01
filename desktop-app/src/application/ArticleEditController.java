@@ -96,10 +96,10 @@ public class ArticleEditController {
 		this.mainController = c;
 	}
 
-	void setCategories(ObservableList<Categories> categories) {
-		for (int i = 0; i < categories.size(); i++) {
-			MenuItem menuItem = new MenuItem(categories.get(i).toString());
-			menuItem.setId(categories.get(i).toString());
+	void setCategories() {
+		for (Categories category : Categories.values()) {
+			MenuItem menuItem = new MenuItem(category.toString());
+			menuItem.setId(category.toString());
 			menuItem.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent e) {
@@ -232,6 +232,7 @@ public class ArticleEditController {
 			this.articleAbstractHTML.setHtmlText(article.getAbstractText());
 			this.articleBodyHTML.setHtmlText(article.getBodyText());
 		}
+		this.setCategories();
 	}
 
 	/**
@@ -268,6 +269,7 @@ public class ArticleEditController {
 
 	@FXML
 	void backAction(ActionEvent e) {
+		this.editingArticle.discardChanges();
 		Stage primaryStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
 		primaryStage.setScene(mainScene);
 	}
@@ -284,7 +286,7 @@ public class ArticleEditController {
 
 	@FXML
 	void saveFileAction(ActionEvent e) {
-		//TODO
+		// TODO
 	}
 
 	@FXML
@@ -335,7 +337,7 @@ public class ArticleEditController {
 		else
 			this.articleAbstractHTML.setHtmlText(this.articleAbstractText.getText());
 	}
-	
+
 	private void saveBody(boolean isHTML) {
 		if (isHTML)
 			this.articleBodyText.setText(this.articleBodyHTML.getHtmlText());

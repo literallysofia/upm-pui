@@ -185,8 +185,7 @@ public class NewsReaderController {
 
 	private void loadArticles() {
 
-		this.headlineList.getItems().clear();
-		this.categoryMenu.getItems().clear();
+		this.clearScene();
 
 		if (usr != null) {
 			newsUser.setText("User " + usr.getIdUser());
@@ -218,6 +217,9 @@ public class NewsReaderController {
 						if (usr != null && article.getIdUser() == usr.getIdUser()) {
 							articleDelete.setDisable(false);
 							articleEdit.setDisable(false);
+						} else {
+							articleDelete.setDisable(true);
+							articleEdit.setDisable(true);
 						}
 
 						articleEdit.setOnAction(new EventHandler<ActionEvent>() {
@@ -230,7 +232,6 @@ public class NewsReaderController {
 									Scene articleScene = new Scene(loader.load());
 									ArticleEditController controller = loader.<ArticleEditController>getController();
 									controller.setArticle(article);
-									controller.setCategories(newsReaderModel.getCategories());
 									controller.setConnectionMannager(newsReaderModel.getConnectionManager());
 									controller.setMainScene(scene);
 									controller.setMainController(NewsReaderController.this);
@@ -266,6 +267,16 @@ public class NewsReaderController {
 		});
 	}
 
+	private void clearScene() {
+		this.headlineList.getItems().clear();
+		this.categoryMenu.getItems().clear();
+		this.articleAbstract.setText("");
+		this.articleImage.setImage(null);
+		this.articleDelete.setDisable(true);
+		this.articleEdit.setDisable(true);
+		this.articleReadMore.setDisable(true);
+	}
+
 	@FXML
 	void initialize() {
 		assert headlineList != null : "fx:id=\"headlineList\" was not injected: check your FXML file 'NewsReader.fxml'.";
@@ -290,10 +301,14 @@ public class NewsReaderController {
 			Scene articleScene = new Scene(loader.load());
 			ArticleEditController controller = loader.<ArticleEditController>getController();
 			controller.setArticle(null);
-			controller.setCategories(newsReaderModel.getCategories());
-			controller.setConnectionMannager(newsReaderModel.getConnectionManager());
 			controller.setMainScene(scene);
 			controller.setMainController(NewsReaderController.this);
+
+			if (this.usr != null) {
+				controller.setUsr(this.usr);
+				controller.setConnectionMannager(newsReaderModel.getConnectionManager());
+			}
+
 			primaryStage.setScene(articleScene);
 		} catch (IOException e1) {
 			e1.printStackTrace();
