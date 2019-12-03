@@ -243,7 +243,7 @@ public class ArticleEditController {
 		this.editingArticle.commit();
 		// Removes special characters not allowed for filenames
 		String name = this.getArticle().getTitle().replaceAll("\\||/|\\\\|:|\\?", "");
-		String fileName = "saveNews//" + name + ".news";
+		String fileName = "saveNews//" + name + ".json";
 		JsonObject data = JsonArticle.articleToJson(this.getArticle());
 		try (FileWriter file = new FileWriter(fileName)) {
 			file.write(data.toString());
@@ -287,6 +287,8 @@ public class ArticleEditController {
 	@FXML
 	void saveFileAction(ActionEvent e) {
 		// TODO
+		write();
+		System.out.print("saving..");
 	}
 
 	@FXML
