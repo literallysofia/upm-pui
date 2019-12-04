@@ -203,7 +203,6 @@ public class ArticleEditController {
 	void setUsr(User usr) {
 		this.usr = usr;
 		// TODO Update UI and controls
-
 	}
 
 	Article getArticle() {
@@ -286,9 +285,9 @@ public class ArticleEditController {
 
 	@FXML
 	void saveFileAction(ActionEvent e) {
-		// TODO
+		System.out.print("saving...");
 		write();
-		System.out.print("saving..");
+		System.out.print("article draft saved!");
 	}
 
 	@FXML
