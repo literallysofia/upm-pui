@@ -20,6 +20,7 @@ import application.utils.exceptions.ErrorMalFormedArticle;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
@@ -32,6 +33,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -85,9 +87,9 @@ public class NewsReaderController {
 
 	@FXML
 	private ListView<String> headlineList;
-
+	
 	@FXML
-	private MenuButton categoryMenu;
+	private ComboBox<Categories> categoryFilter;
 
 	@FXML
 	private ImageView articleImage;
@@ -103,7 +105,9 @@ public class NewsReaderController {
 
 	@FXML
 	private Button articleDelete;
-
+	
+	private FilteredList<Article> filteredArticles;
+	
 	public NewsReaderController() {
 		newsReaderModel.setDummyData(false);
 	}
@@ -143,26 +147,6 @@ public class NewsReaderController {
 		this.updateScene();
 	}
 
-	// Needed for filtered data in headlineList
-	private FilteredList<String> filteredHeadlines;
-
-	@FXML
-	void onCategoriesPressed(ActionEvent event) {
-		ObservableList<MenuItem> categories = this.categoryMenu.getItems();
-		for (int i = 0; i < categories.size(); i++) {
-			String menuItem = categories.get(i).toString();
-			categories.get(i).setOnAction(new EventHandler<ActionEvent>() {
-				@Override
-				public void handle(ActionEvent event) {
-					filteredHeadlines.setPredicate(category -> category.equals(menuItem));
-				}
-			});
-		}
-//		for (int i = 0; i < this.headlineList.getItems().size(); i++) {
-//			
-//		}
-	}
-
 	@FXML
 	void openLogin(ActionEvent e) {
 		try {
@@ -192,17 +176,21 @@ public class NewsReaderController {
 		}
 
 		ObservableList<Categories> categories = newsReaderModel.getCategories();
-		for (int i = 0; i < categories.size(); i++) {
-			MenuItem menuItem = new MenuItem(categories.get(i).toString());
-			this.categoryMenu.getItems().add(menuItem);
-			menuItem.setId(categories.get(i).toString());
-		}
+		this.categoryFilter.setItems(categories);
+		
+//		for (int i = 0; i < categories.size(); i++) {
+//			MenuItem menuItem = new MenuItem(categories.get(i).toString());
+//			this.categoryMenu.getItems().add(menuItem);
+//			menuItem.setId(categories.get(i).toString());
+//		}
 
 		articles = newsReaderModel.getArticles();
+		ObservableList<String> headlines = FXCollections.observableArrayList();
 		for (int i = 0; i < articles.size(); i++) {
-			this.headlineList.getItems().add(articles.get(i).getTitle());
+			headlines.add(articles.get(i).getTitle());
 		}
-
+		this.headlineList.setItems(headlines);
+		
 		this.headlineList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -276,10 +264,30 @@ public class NewsReaderController {
 			}
 		});
 	}
+	
+	@FXML
+	void updateCategory(ActionEvent event) {
+		ObservableList<String> filteredHeadlines = FXCollections.observableArrayList();;
+		filteredArticles = new FilteredList<>(articles, article -> true);
+		Object currentCategory = categoryFilter.getSelectionModel().selectedItemProperty().getValue();
+		String strCategory = currentCategory.toString();
+		
+		if (strCategory.equals("All")) {
+			for (int i = 0; i < articles.size(); i++) {
+				filteredHeadlines.add(articles.get(i).getTitle());
+			}
+		} else {
+			filteredArticles.setPredicate(article -> article.getCategory().toString().equals(strCategory));
+			for (int i = 0; i < filteredArticles.size(); i++) {
+				filteredHeadlines.add(filteredArticles.get(i).getTitle());
+			}
+		}
+		this.headlineList.setItems(filteredHeadlines);
+	}
 
 	private void clearScene() {
 		this.headlineList.getItems().clear();
-		this.categoryMenu.getItems().clear();
+		this.categoryFilter.getItems().clear();
 		this.articleAbstract.setText("");
 		this.articleImage.setImage(null);
 		this.articleDelete.setDisable(true);
@@ -290,7 +298,7 @@ public class NewsReaderController {
 	@FXML
 	void initialize() {
 		assert headlineList != null : "fx:id=\"headlineList\" was not injected: check your FXML file 'NewsReader.fxml'.";
-		assert categoryMenu != null : "fx:id=\"categoryMenu\" was not injected: check your FXML file 'NewsReader.fxml'.";
+		assert categoryFilter != null : "fx:id=\"categoryMenu\" was not injected: check your FXML file 'NewsReader.fxml'.";
 		assert articleImage != null : "fx:id=\"articleImage\" was not injected: check your FXML file 'NewsReader.fxml'.";
 		assert articleAbstract != null : "fx:id=\"articleAbstract\" was not injected: check your FXML file 'NewsReader.fxml'.";
 		assert articleReadMore != null : "fx:id=\"articleReadMore\" was not injected: check your FXML file 'NewsReader.fxml'.";
