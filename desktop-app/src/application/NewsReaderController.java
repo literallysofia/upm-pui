@@ -339,8 +339,8 @@ public class NewsReaderController {
     			FXMLLoader loader = new FXMLLoader(getClass().getResource(AppScenes.EDITOR.getFxmlFile()));
     			Scene articleScene = new Scene(loader.load());
     			ArticleEditController controller = loader.<ArticleEditController>getController();
-    			//Article article = 
     			controller.setArticle(article);
+    			controller.setConnectionMannager(newsReaderModel.getConnectionManager());
     			controller.setMainScene(scene);
     			controller.setMainController(NewsReaderController.this);
     			

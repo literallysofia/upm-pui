@@ -271,6 +271,8 @@ public class ArticleEditController {
 			try (FileWriter file = new FileWriter(fileName)) {
 				file.write(data.toString());
 				file.flush();
+				Alert alert = new Alert(AlertType.INFORMATION, "Your article is saved.");
+				alert.show();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
