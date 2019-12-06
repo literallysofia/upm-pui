@@ -12,6 +12,8 @@ import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.json.JsonObject;
+
 import application.news.Article;
 import application.news.Categories;
 import application.news.User;
@@ -318,13 +320,48 @@ public class NewsReaderController {
 	}
 	
 	@FXML
-	void loadArticleAction(ActionEvent e) {
-//		try {
-//			
-//		} catch (IOException e1) {
-//			
-//		}
+	void loadArticleAction(ActionEvent e) throws ErrorMalFormedArticle {
+		try {
+			Stage primaryStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+			
+
+			FileChooser fileChooser = new FileChooser();
+			fileChooser.setTitle("Choose Article");
+		    fileChooser.setInitialDirectory(new File("saveNews//"));
+		    fileChooser.getExtensionFilters().addAll(
+	                new FileChooser.ExtensionFilter("NEWS", "*.news")
+	            );
+			File articleFile = fileChooser.showOpenDialog(primaryStage);
+            if (articleFile != null) {
+            	JsonObject articleJson = (JsonObject) JsonArticle.readFile(articleFile.toString());
+    			Article article = JsonArticle.jsonToArticle(articleJson);
+
+    			FXMLLoader loader = new FXMLLoader(getClass().getResource(AppScenes.EDITOR.getFxmlFile()));
+    			Scene articleScene = new Scene(loader.load());
+    			ArticleEditController controller = loader.<ArticleEditController>getController();
+    			//Article article = 
+    			controller.setArticle(article);
+    			controller.setMainScene(scene);
+    			controller.setMainController(NewsReaderController.this);
+    			
+    			primaryStage.setScene(articleScene);
+            }
+            
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 	}
+	
+//	   private void openFile(File file) {
+//	        try {
+//	            desktop.open(file);
+//	        } catch (IOException ex) {
+//	            Logger.getLogger(
+//	                FileChooserSample.class.getName()).log(
+//	                    Level.SEVERE, null, ex
+//	                );
+//	        }
+//	    }
 
 	// Auxiliary methods
 	private interface InitUIData<T> {
