@@ -316,6 +316,15 @@ public class NewsReaderController {
 			e1.printStackTrace();
 		}
 	}
+	
+	@FXML
+	void loadArticleAction(ActionEvent e) {
+//		try {
+//			
+//		} catch (IOException e1) {
+//			
+//		}
+	}
 
 	// Auxiliary methods
 	private interface InitUIData<T> {

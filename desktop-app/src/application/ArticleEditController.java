@@ -239,16 +239,44 @@ public class ArticleEditController {
 	 */
 	private void write() {
 		// TODO Consolidate all changes
-		this.editingArticle.commit();
-		// Removes special characters not allowed for filenames
-		String name = this.getArticle().getTitle().replaceAll("\\||/|\\\\|:|\\?", "");
-		String fileName = "saveNews//" + name + ".json";
-		JsonObject data = JsonArticle.articleToJson(this.getArticle());
-		try (FileWriter file = new FileWriter(fileName)) {
-			file.write(data.toString());
-			file.flush();
-		} catch (IOException e) {
-			e.printStackTrace();
+		
+		String titleText = this.articleTitle.getText();
+		Categories category = Categories.valueOf(this.articleCategory.getText().toUpperCase());
+		
+		String abstractText;
+		String bodyText;
+		
+		if (this.articleAbstractText.isVisible())
+			abstractText = this.articleAbstractText.getText();
+		else
+			abstractText = this.articleAbstractHTML.getHtmlText();
+
+		if (this.articleBodyText.isVisible())
+			bodyText = this.articleBodyText.getText();
+		else
+			bodyText = this.articleBodyHTML.getHtmlText();
+
+		this.editingArticle.titleProperty().set(titleText);
+		this.editingArticle.subtitleProperty().set(this.articleSubtitle.getText());
+		this.editingArticle.abstractTextProperty().set(abstractText);
+		this.editingArticle.bodyTextProperty().set(bodyText);
+		this.editingArticle.setCategory(category);
+		
+		if (titleText != null && !titleText.equals("") && category != null && !category.name().equals("ALL")) {
+			this.editingArticle.commit();
+			// Removes special characters not allowed for filenames
+			String name = this.getArticle().getTitle().replaceAll("\\||/|\\\\|:|\\?", "");
+			String fileName = "saveNews//" + name + ".json";
+			JsonObject data = JsonArticle.articleToJson(this.getArticle());
+			try (FileWriter file = new FileWriter(fileName)) {
+				file.write(data.toString());
+				file.flush();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			Alert alert = new Alert(AlertType.INFORMATION, "You need to enter a title AND a category to save the article as a file.");
+			alert.showAndWait();
 		}
 	}
 
