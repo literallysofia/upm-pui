@@ -1,0 +1,14 @@
+<div class="card-columns">
+    <div class="card" ng-repeat="article in articles">
+        <img src="data:image/png;base64,{{article.thumbnail_image}}" class="card-img-top" alt="{{article.title}}">
+        <div class="card-body">
+            <h5 class="card-title">{{article.title}}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{article.subtitle}}</h6>
+            <p class="card-text">{{article.abstract}}</p>
+            <span class="badge badge-pill badge-primary">{{article.category}}</span>
+        </div>
+        <div class="card-footer">
+            <small class="text-muted">Posted on {{article.update_date}}</small>
+        </div>
+    </div>
+</div>

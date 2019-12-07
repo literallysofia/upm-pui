@@ -1,0 +1,68 @@
+/*
+* GLOBAL STYLES
+*/
+
+html,
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100% !important;
+    font-family: 'Open Sans', sans-serif !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Merriweather', serif !important;
+}
+
+.navbar {
+    padding: 1em 5em;
+    background-color: #113F67 !important;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.navbar:active {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.navbar .navbar-brand {
+    font-weight: 900;
+    text-transform: uppercase;
+    color: white;
+    font-family: 'Merriweather', serif;
+}
+
+.navbar .nav-item {
+    padding-left: 1em;
+}
+
+.navbar .nav-item a {
+    transition: all 0.2s ease-in;
+}
+
+main {
+    padding-top: 6em;
+}
+
+footer {
+    text-align: center;
+    font-size: 0.9em;
+    padding: 3em 0 0.4em 0;
+    color: #113F67;
+}
+
+/*
+* ARTICLE
+*/
+
+.card .card-title {
+    font-weight: 700;
+}
+
+.card .card-subtitle {
+    font-weight: 400;
+}
+
+.card .badge {
+    background-color: #87C0CD;
+    padding: 0.5em 1em;
+}
