@@ -54,9 +54,15 @@ footer {
 * ARTICLE
 */
 
-.card .card-title {
+.card a .card-title {
     font-weight: 700;
+    color: black;
 }
+
+.card a {
+    text-decoration: none !important;
+}
+
 
 .card .card-subtitle {
     font-weight: 400;
