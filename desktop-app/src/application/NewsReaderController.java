@@ -120,10 +120,10 @@ public class NewsReaderController {
 	private void loadArticles() {
 
 		if (usr != null) {
-			newsUser.setText("User " + usr.getIdUser());
+			//newsUser.setText("User " + usr.getIdUser());
 			loginButton.setDisable(true);
 		} else {
-			newsUser.setText("");
+			///newsUser.setText("");
 			loginButton.setDisable(false);
 		}
 
