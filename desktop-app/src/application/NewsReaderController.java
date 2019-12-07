@@ -121,11 +121,9 @@ public class NewsReaderController {
 
 		if (usr != null) {
 			newsUser.setText("User " + usr.getIdUser());
-			logoutButton.setDisable(false);
 			loginButton.setDisable(true);
 		} else {
 			newsUser.setText("");
-			logoutButton.setDisable(true);
 			loginButton.setDisable(false);
 		}
 
@@ -253,6 +251,11 @@ public class NewsReaderController {
 			}
 		}
 		this.headlineList.setItems(filteredHeadlines);
+	}
+	
+	@FXML
+	void exitApp(ActionEvent e) {
+		System.exit(0);
 	}
 
 	@FXML

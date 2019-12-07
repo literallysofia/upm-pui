@@ -62,7 +62,7 @@
                   <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
                </padding>
             </Button>
-            <Button fx:id="logoutButton" disable="true" mnemonicParsing="false" prefWidth="90.0" text="Logout">
+            <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#exitApp" prefWidth="90.0" text="Exit">
                <padding>
                   <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
                </padding>

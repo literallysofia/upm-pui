@@ -66,7 +66,12 @@ public class ArticleDetailsController {
 		this.articleSubtitle.setText(article.getSubtitle());
 		this.articleCategory.setText(article.getCategory());
 		this.articleImage.setImage(article.getImageData());
-		this.articleContent.setText(article.getBodyText());
+				
+		String textBody = article.getBodyText();
+		String noHTMLString = textBody.replaceAll("\\<.*?\\>", "");
+		textBody = noHTMLString.replaceAll("\\n", "");	
+		this.articleContent.setText(textBody);
+
 	}
 
 	@FXML
