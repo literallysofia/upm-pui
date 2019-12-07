@@ -12,8 +12,6 @@ import application.news.Article;
 import application.news.Categories;
 import application.news.User;
 import application.utils.JsonArticle;
-import javafx.beans.property.StringProperty;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -24,16 +22,13 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.web.HTMLEditor;
 import javafx.stage.Modality;
@@ -202,7 +197,6 @@ public class ArticleEditController {
 	 */
 	void setUsr(User usr) {
 		this.usr = usr;
-		// TODO Update UI and controls
 	}
 
 	Article getArticle() {
@@ -238,32 +232,36 @@ public class ArticleEditController {
 	 * Save an article to a file in a json format Article must have a title
 	 */
 	private void write() {
-		// TODO Consolidate all changes
-		
+
 		String titleText = this.articleTitle.getText();
-		Categories category = Categories.valueOf(this.articleCategory.getText().toUpperCase());
-		
-		String abstractText;
-		String bodyText;
-		
-		if (this.articleAbstractText.isVisible())
-			abstractText = this.articleAbstractText.getText();
-		else
-			abstractText = this.articleAbstractHTML.getHtmlText();
 
-		if (this.articleBodyText.isVisible())
-			bodyText = this.articleBodyText.getText();
-		else
-			bodyText = this.articleBodyHTML.getHtmlText();
+		if (titleText == null || titleText.equals("")) {
+			Alert alert = new Alert(AlertType.INFORMATION,
+					"You need to enter a title to save the article as a file.");
+			alert.showAndWait();
+		} else {
+			Categories category = Categories.valueOf(this.articleCategory.getText().toUpperCase());
+			String abstractText;
+			String bodyText;
 
-		this.editingArticle.titleProperty().set(titleText);
-		this.editingArticle.subtitleProperty().set(this.articleSubtitle.getText());
-		this.editingArticle.abstractTextProperty().set(abstractText);
-		this.editingArticle.bodyTextProperty().set(bodyText);
-		this.editingArticle.setCategory(category);
-		
-		if (titleText != null && !titleText.equals("") && category != null && !category.name().equals("ALL")) {
+			if (this.articleAbstractText.isVisible())
+				abstractText = this.articleAbstractText.getText();
+			else
+				abstractText = this.articleAbstractHTML.getHtmlText();
+
+			if (this.articleBodyText.isVisible())
+				bodyText = this.articleBodyText.getText();
+			else
+				bodyText = this.articleBodyHTML.getHtmlText();
+
+			this.editingArticle.titleProperty().set(titleText);
+			this.editingArticle.subtitleProperty().set(this.articleSubtitle.getText());
+			this.editingArticle.abstractTextProperty().set(abstractText);
+			this.editingArticle.bodyTextProperty().set(bodyText);
+			this.editingArticle.setCategory(category);
+
 			this.editingArticle.commit();
+
 			// Removes special characters not allowed for filenames
 			String name = this.getArticle().getTitle().replaceAll("\\||/|\\\\|:|\\?", "");
 			String fileName = "saveNews//" + name + ".news";
@@ -276,9 +274,6 @@ public class ArticleEditController {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		} else {
-			Alert alert = new Alert(AlertType.INFORMATION, "You need to enter a title AND a category to save the article as a file.");
-			alert.showAndWait();
 		}
 	}
 
@@ -315,9 +310,9 @@ public class ArticleEditController {
 
 	@FXML
 	void saveFileAction(ActionEvent e) {
-		System.out.print("saving...");
+		System.out.println("saving...");
 		write();
-		System.out.print("article draft saved!");
+		System.out.println("article draft saved!");
 	}
 
 	@FXML

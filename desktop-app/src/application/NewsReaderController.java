@@ -5,12 +5,6 @@ package application;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
-import java.util.Properties;
-import java.util.function.Predicate;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.json.JsonObject;
 
@@ -19,7 +13,6 @@ import application.news.Categories;
 import application.news.User;
 import application.utils.JsonArticle;
 import application.utils.exceptions.ErrorMalFormedArticle;
-import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -30,34 +23,15 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.stage.Window;
-import javafx.stage.FileChooser.ExtensionFilter;
 import serverConection.ConnectionManager;
-import serverConection.exceptions.AuthenticationError;
 import serverConection.exceptions.ServerCommunicationError;
 
 /**
@@ -260,7 +234,7 @@ public class NewsReaderController {
 		assert loginButton != null : "fx:id=\"loginButton\" was not injected: check your FXML file 'NewsReader.fxml'.";
 		assert logoutButton != null : "fx:id=\"logoutButton\" was not injected: check your FXML file 'NewsReader.fxml'.";
 	}
-	
+
 	@FXML
 	void updateCategory(ActionEvent event) {
 		ObservableList<String> filteredHeadlines = FXCollections.observableArrayList();
@@ -280,7 +254,7 @@ public class NewsReaderController {
 		}
 		this.headlineList.setItems(filteredHeadlines);
 	}
-	
+
 	@FXML
 	void openLogin(ActionEvent e) {
 		try {
@@ -318,50 +292,41 @@ public class NewsReaderController {
 			e1.printStackTrace();
 		}
 	}
-	
+
 	@FXML
 	void loadArticleAction(ActionEvent e) throws ErrorMalFormedArticle {
 		try {
 			Stage primaryStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-			
 
 			FileChooser fileChooser = new FileChooser();
 			fileChooser.setTitle("Choose Article");
-		    fileChooser.setInitialDirectory(new File("saveNews//"));
-		    fileChooser.getExtensionFilters().addAll(
-	                new FileChooser.ExtensionFilter("NEWS", "*.news")
-	            );
+			fileChooser.setInitialDirectory(new File("saveNews//"));
+			fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("NEWS", "*.news"));
 			File articleFile = fileChooser.showOpenDialog(primaryStage);
-            if (articleFile != null) {
-            	JsonObject articleJson = (JsonObject) JsonArticle.readFile(articleFile.toString());
-    			Article article = JsonArticle.jsonToArticle(articleJson);
+			if (articleFile != null) {
+				JsonObject articleJson = (JsonObject) JsonArticle.readFile(articleFile.toString());
+				Article article = JsonArticle.jsonToArticle(articleJson);
 
-    			FXMLLoader loader = new FXMLLoader(getClass().getResource(AppScenes.EDITOR.getFxmlFile()));
-    			Scene articleScene = new Scene(loader.load());
-    			ArticleEditController controller = loader.<ArticleEditController>getController();
-    			controller.setArticle(article);
-    			controller.setConnectionMannager(newsReaderModel.getConnectionManager());
-    			controller.setMainScene(scene);
-    			controller.setMainController(NewsReaderController.this);
-    			
-    			primaryStage.setScene(articleScene);
-            }
-            
+				FXMLLoader loader = new FXMLLoader(getClass().getResource(AppScenes.EDITOR.getFxmlFile()));
+				Scene articleScene = new Scene(loader.load());
+				ArticleEditController controller = loader.<ArticleEditController>getController();
+				controller.setArticle(article);
+
+				if (this.usr != null) {
+					controller.setUsr(this.usr);
+					controller.setConnectionMannager(newsReaderModel.getConnectionManager());
+				}
+
+				controller.setMainScene(scene);
+				controller.setMainController(NewsReaderController.this);
+
+				primaryStage.setScene(articleScene);
+			}
+
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
 	}
-	
-//	   private void openFile(File file) {
-//	        try {
-//	            desktop.open(file);
-//	        } catch (IOException ex) {
-//	            Logger.getLogger(
-//	                FileChooserSample.class.getName()).log(
-//	                    Level.SEVERE, null, ex
-//	                );
-//	        }
-//	    }
 
 	// Auxiliary methods
 	private interface InitUIData<T> {
