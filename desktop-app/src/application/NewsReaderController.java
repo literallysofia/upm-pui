@@ -120,10 +120,10 @@ public class NewsReaderController {
 	private void loadArticles() {
 
 		if (usr != null) {
-			//newsUser.setText("User " + usr.getIdUser());
+			newsUser.setText("User " + usr.getIdUser());
 			loginButton.setDisable(true);
 		} else {
-			///newsUser.setText("");
+			newsUser.setText("");
 			loginButton.setDisable(false);
 		}
 
@@ -164,6 +164,7 @@ public class NewsReaderController {
 									ArticleEditController controller = loader.<ArticleEditController>getController();
 									controller.setArticle(article);
 									controller.setConnectionMannager(newsReaderModel.getConnectionManager());
+									controller.setUsr(usr);
 									controller.setMainScene(scene);
 									controller.setMainController(NewsReaderController.this);
 									primaryStage.setScene(articleScene);
@@ -252,7 +253,7 @@ public class NewsReaderController {
 		}
 		this.headlineList.setItems(filteredHeadlines);
 	}
-	
+
 	@FXML
 	void exitApp(ActionEvent e) {
 		System.exit(0);
