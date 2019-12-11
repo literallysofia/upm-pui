@@ -21,6 +21,10 @@ app.config(function ($routeProvider) {
 			templateUrl: 'news/news-creation.html', 
 			controller: 'newsCreationCtrl'
 		})
+		.otherwise({
+			templateUrl : 'news/news-list.html', 
+			controller : 'newsController'
+		});
 });
 
 /**************************************************************************/

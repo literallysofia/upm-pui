@@ -1,7 +1,7 @@
 <div class="card-columns">
-    <div class="card" ng-repeat="article in articles | filter : text">
-        <a href="#!/{{article.id}}">
-            <img src="data:image/png;base64,{{article.thumbnail_image}}" class="card-img-top" alt="{{article.title}}">
+    <div class="card" ng-repeat="article in articles | filter : search | filter: { category : category }">
+        <a ng-show="article.thumbnail_image != null" href="#!/{{article.id}}">
+            <img ng-src="data:image/png;base64,{{article.thumbnail_image}}" class="card-img-top" alt="{{article.title}}">
         </a>
         <div class="card-body">
             <a href="#!/{{article.id}}">
