@@ -17,7 +17,6 @@ app.controller("newsController", function ($scope, NewsListService) {
             })
     };
 
-<<<<<<< HEAD
     $scope.getArticles();
 });
 
@@ -25,6 +24,7 @@ app.controller("newsController", function ($scope, NewsListService) {
 app.controller("newsCreationCtrl", function ($scope, NewsDetailsService) {
 
     $scope.addNews = function(article){
+        article.img
         NewsDetailsService.save(article, 
         function(data){
             console.log(data);
@@ -39,7 +39,3 @@ app.controller("newsCreationCtrl", function ($scope, NewsDetailsService) {
     };
 
 });
-=======
-    $scope.getArticles();  
-});
->>>>>>> 1141075a9febaf55fbc9301babb797cf1a1db7ae
