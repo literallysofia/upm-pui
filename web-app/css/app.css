@@ -33,10 +33,15 @@ h1, h2, h3, h4, h5, h6 {
 
 .navbar .nav-item {
     padding-left: 1em;
+    cursor: pointer;
 }
 
 .navbar .nav-item a {
     transition: all 0.2s ease-in;
+}
+
+.navbar .nav-item.active a {
+    color: white !important;
 }
 
 main {

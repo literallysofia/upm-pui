@@ -17,5 +17,5 @@ app.controller("newsController", function ($scope, NewsListService) {
             })
     };
 
-    $scope.getArticles();
+    $scope.getArticles();  
 });
