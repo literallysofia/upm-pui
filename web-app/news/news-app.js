@@ -21,9 +21,13 @@ app.config(function ($routeProvider) {
 			templateUrl: "news/login.html",
 			controller: "loginController"
 		})
+		.when('/create-news', {
+			templateUrl: 'news/news-creation.html',
+			controller: 'newsCreationCtrl'
+		})
 		.otherwise({
-			templateUrl : 'news/news-list.html', 
-			controller : 'newsController'
+			templateUrl: 'news/news-list.html',
+			controller: 'newsController'
 		});
 });
 
@@ -49,7 +53,7 @@ app.directive("ngFileSelect", function (fileReader, $timeout) {
 						$timeout(function () {
 							$scope.ngModel.image_media_type = result.substring(5, result.indexOf(";base64"));
 							$scope.ngModel.image_data = result.substring(result.indexOf(";base64,") + 8, result.length);
-							
+
 							//$scope.ngModel. = result;
 						});
 					});
