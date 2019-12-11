@@ -2,7 +2,7 @@
 /////////////////////////////////////// NEWS CONTROLLERS /////////////////////////////////////////
 *************************************************************************************************/
 
-app.controller("newsListController", function ($scope, NewsListService, fileReader) {
+app.controller("newsController", function ($scope, NewsListService) {
 
     $scope.getArticles = function () {
         NewsListService.query({}, function (data) {

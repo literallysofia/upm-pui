@@ -2,9 +2,9 @@ var app = angular.module("newssapp", ["ngRoute", "ngResource", "ngSanitize"]);
 
 // TODO: Code of the routeProvider
 
-// TODO: Replace XXXXXXXX with the APIKEY your group anonymous apikey
+// TODO: Replace XXXXXXXXAPIKEY with the anonymous APIKEY of your group 
 // When the user is logged in, the apikey sent to the server must be updated to the
-// apikey received from the server and it must be done in a controller
+// apikey received from the server. This update must be done in the corresponding controller
 // $http.defaults.headers.common['Authorization'] = loginres.Authorization + ' apikey=' + loginres.apikey;
 
 app.run(['$http', function ($http) {
@@ -15,7 +15,7 @@ app.config(function ($routeProvider) {
 	$routeProvider
 		.when("/", {
 			templateUrl: "news/news-list.html",
-			controller: "newsListController"
+			controller: "newsController"
 		})
 });
 
@@ -41,7 +41,7 @@ app.directive("ngFileSelect", function (fileReader, $timeout) {
 						$timeout(function () {
 							$scope.ngModel.image_media_type = result.substring(5, result.indexOf(";base64"));
 							$scope.ngModel.image_data = result.substring(result.indexOf(";base64,") + 8, result.length);
-
+							
 							//$scope.ngModel. = result;
 						});
 					});
