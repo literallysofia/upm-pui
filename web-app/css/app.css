@@ -10,7 +10,12 @@ body {
     font-family: 'Open Sans', sans-serif !important;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: 'Merriweather', serif !important;
 }
 
@@ -46,6 +51,11 @@ h1, h2, h3, h4, h5, h6 {
 
 main {
     padding-top: 6em;
+    height: 100%;
+}
+
+.container {
+    height: 100%;
 }
 
 footer {

@@ -17,6 +17,10 @@ app.config(function ($routeProvider) {
 			templateUrl: "news/news-list.html",
 			controller: "newsController"
 		})
+		.when("/login", {
+			templateUrl: "news/login.html",
+			controller: "loginController"
+		})
 		.otherwise({
 			templateUrl : 'news/news-list.html', 
 			controller : 'newsController'

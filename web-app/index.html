@@ -61,6 +61,17 @@
 				<div class="d-flex align-items-center">
 					<input type="text" ng-model="search" class="form-control" placeholder="Search" />
 				</div>
+				<ul class="navbar-nav ml-auto">
+					<li ng-hide="loggedUser" class="nav-item">
+						<a class="nav-link" href="#!login">Login</a>
+					</li>
+					<li ng-show="loggedUser" class="nav-item">
+						<a class="nav-link" href="#!">Create Article</a>
+					</li>
+					<li ng-show="loggedUser" class="nav-item">
+						<a class="nav-link" href="#!">Logout</a>
+					</li>
+				</ul>
 			</div>
 		</nav>
 	</header>
