@@ -66,6 +66,17 @@ main {
     border-color: rgb(118, 167, 179) !important;
 }
 
+.btn.btn-secondary {
+    background-color: #226597 !important;
+    border-color: #226597 !important;
+    transition: all 0.2s ease-in;
+}
+
+.btn.btn-secondary:hover {
+    background-color: #1a4f77 !important;
+    border-color: #1a4f77 !important;
+}
+
 .help-block {
     color: #dc3545;
     font-size: 0.8em;
@@ -126,7 +137,6 @@ footer {
     text-decoration: none !important;
 }
 
-
 .card .card-subtitle {
     font-weight: 400;
 }
@@ -134,4 +144,10 @@ footer {
 .card .badge {
     background-color: #87C0CD;
     padding: 0.5em 1em;
+    margin: 0 0 1.5em 0 !important;
+}
+
+.article-form img {
+    padding: 0 1em;
+    width: 100%;
 }

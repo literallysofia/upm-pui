@@ -1,63 +1,59 @@
-
 <!-- Code to browse the image file and binds the image to the scope variables "news.image_media_type" and "news.image_data" -->
- 
+
 <!-- <img style="width:300px; height:300px;" ng-src="{{ 'data:' + news.image_media_type + ';base64,' + news.image_data }}" />
 <input type="file" ng-file-select="onFileSelect($files);" ng-model="news"></input> -->
 
-<h1>Create News</h1>
+<h1 class="h2">Create New Article</h1>
 
+<form class="article-form mt-5">
 
-<form>
-    <div class="form-row py-5">
-        <div class="col-md-4">
-            <!-- <img src="https://atasouthport.com/wp-content/uploads/2017/04/default-image.jpg" class="img-fluid rounded" alt=""> -->
-            <img style="width:300px; height:300px;" ng-src="{{ 'data:' + news.image_media_type + ';base64,' + news.image_data }}" />
-<input type="file" ng-file-select="onFileSelect($files);" ng-model="news"></input>
+  <div class="form-row">
+
+    <div class="col-md-7">
+      <div class="form-group">
+        <label for="inputTitle">Title</label>
+        <input type="text" class="form-control" id="inputTitle" ng-model="article.title">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="inputSubtitle">Subtitle</label>
+          <input type="text" class="form-control" id="inputSubtitle" ng-model="article.subtitle">
         </div>
-      <div class="col-md-8">
-
-        <div class="form-group col-md-12">
-            <label for="inputEmail4">Title</label>
-            <input type="text" class="form-control" ng-model="news.title">
+        <div class="form-group col-md-6">
+          <label for="inputCategory">Category</label>
+          <select id="inputCategory" class="form-control" ng-model="article.category">
+            <option selected>National</option>
+            <option>Economy</option>
+            <option>Sports</option>
+            <option>Technology</option>
+          </select>
         </div>
+      </div>
 
-        <div class="form-group row col-md-12">
-            <div class="form-group col-md-6">
-                <label for="inputPassword4">Subtitle</label>
-                <input type="text" class="form-control" ng-model="news.subtitle">
-            </div>
-            <div class="form-group col-md-6">
-                <label for="inputState">Category</label>
-                <select id="inputState" class="form-control" ng-model="news.category">
-                    <option>Sports</option>
-                    <option>Technology</option>
-                    <option>National</option>
-                    <option>Economy</option>
-                </select>
-            </div>
-        </div>
-        <div class="input-group col-md-12 mt-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
-                </div>
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                  <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                </div>
-            </div>
-        
+      <div class="form-group">
+        <label for="inputThumbnail">Thumbnail</label>
+        <input type="file" class="form-control-file" id="inputThumbnail" ng-file-select="onFileSelect($files);"
+          ng-model="article">
       </div>
 
     </div>
-    <div class="form-group">
-      <label for="inputAddress">Abstract</label>
-      <textarea type="text" class="form-control" rows="2" ng-model="news.abstract"></textarea>
+    <div class="col-md-5">
+      <img src="../img/default.jpg" class="img-fluid" alt="Thumbnail Example" ng-hide="article.image_data" />
+      <img ng-src="{{ 'data:' + article.image_media_type + ';base64,' + article.image_data }}"
+        ng-show="article.image_data" />
     </div>
-    <div class="form-group">
-        <label for="inputAddress">Description</label>
-        <!--<textarea type="text" class="form-control" rows="4" ng-model="news.body"></textarea>-->
-        <textarea id="froala-editor" ng-model="news.body"></textarea>
-      </div>
+  </div>
 
-    <button type="submit" class="btn btn-primary" ng-click="addNews(news)">Create</button>
-  </form>
+  <div class="form-group">
+    <label for="inputAbstract">Abstract</label>
+    <textarea class="form-control" id="inputAbstract" rows="2" ng-model="article.abstract"></textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="inputDescription">Description</label>
+    <textarea id="froala-editor" class="form-control" id="inputDescription" ng-model="article.body"></textarea>
+  </div>
+
+  <button type="submit" class="btn btn-primary" ng-click="createArticle()">Submit</button>
+</form>

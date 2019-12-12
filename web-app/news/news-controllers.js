@@ -3,7 +3,7 @@
 *************************************************************************************************/
 
 app.controller("NewsController", function ($scope, $rootScope, $window, $location, NewsListService, NewsDetailsService) {
-    
+
     $rootScope.currentPath = $location.path();
 
     $scope.getArticles = function () {
@@ -27,6 +27,7 @@ app.controller("NewsController", function ($scope, $rootScope, $window, $locatio
             NewsDetailsService.delete(article,
                 function (data) {
                     console.log(data);
+                    console.log("ja deu!");
                 },
                 function (error) {
                     console.log("There was an error deleting.");
@@ -34,7 +35,7 @@ app.controller("NewsController", function ($scope, $rootScope, $window, $locatio
                     $window.alert("There was an error deleting the news: " + error.statusText);
                 })
         }
-        $location.path("/");
+        //$location.path("/");
     };
 
     $scope.getArticles();
@@ -97,10 +98,11 @@ app.controller("newsDetailCtrl", function ($scope, $routeParams, NewsDetailsServ
 app.controller("newsCreationCtrl", function ($scope, $rootScope, $window, $location, NewsDetailsService) {
 
     $rootScope.currentPath = $location.path();
+    $scope.article = {};
     new FroalaEditor('textarea#froala-editor')
 
-    $scope.addNews = function (article) {
-        NewsDetailsService.save(article,
+    $scope.createArticle = function () {
+        NewsDetailsService.save($scope.article,
             function (data) {
                 console.log(data);
             },
