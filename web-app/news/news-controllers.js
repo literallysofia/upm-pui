@@ -74,6 +74,7 @@ app.controller("newsDetailCtrl", function ($scope, $routeParams, NewsDetailsServ
         NewsDetailsService.get($routeParams.id,
             function(data){
                 console.log(data);
+                //$scope.article = data;
             },
             function (error) {
                 console.log("There was an error loading the news.");
@@ -85,6 +86,8 @@ app.controller("newsDetailCtrl", function ($scope, $routeParams, NewsDetailsServ
 });
 
 app.controller("newsCreationCtrl", function ($scope, $window, $location, NewsDetailsService) {
+
+    new FroalaEditor('textarea#froala-editor')
 
     $scope.addNews = function (article) {
         NewsDetailsService.save(article, 
