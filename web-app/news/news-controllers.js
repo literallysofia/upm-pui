@@ -67,19 +67,35 @@ app.controller("loginController", function ($scope, $http, $location, LoginServi
 
 });
 
+
+app.controller("newsDetailCtrl", function ($scope, $routeParams, NewsDetailsService) {
+
+    $scope.getArticle = function () {
+        NewsDetailsService.get($routeParams.id,
+            function(data){
+                console.log(data);
+            },
+            function (error) {
+                console.log("There was an error loading the news.");
+                console.log(error);
+            });
+    }
+
+    $scope.article = $scope.getArticle();
+});
+
 app.controller("newsCreationCtrl", function ($scope, $window, $location, NewsDetailsService) {
 
     $scope.addNews = function (article) {
-        article.img
         NewsDetailsService.save(article, 
-        function(data){
-            console.log(data);
-        },
-        function (error) {
-            console.log("There was an error loading the news.");
-            console.log(error);
-            $window.alert("There was an error loading the news: " + error.statusText);
-        });
+            function(data){
+                console.log(data);
+            },
+            function (error) {
+                console.log("There was an error loading the news.");
+                console.log(error);
+                $window.alert("There was an error loading the news: " + error.statusText);
+            });
 
         $location.path("/");
         
