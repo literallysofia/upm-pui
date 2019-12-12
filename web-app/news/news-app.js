@@ -19,7 +19,7 @@ app.config(function ($routeProvider) {
 		})
 		.when("/login", {
 			templateUrl: "news/news-login.html",
-			controller: "loginController"
+			controller: "LoginController"
 		})
 		.when('/create-news', {
 			templateUrl: 'news/news-creation.html',

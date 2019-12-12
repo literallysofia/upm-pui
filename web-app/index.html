@@ -30,10 +30,12 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular-resource.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular-sanitize.js"></script>
 
-	<link href='https://cdn.jsdelivr.net/npm/froala-editor@3.0.6/css/froala_editor.pkgd.min.css' rel='stylesheet' type='text/css' />
+	<link href='https://cdn.jsdelivr.net/npm/froala-editor@3.0.6/css/froala_editor.pkgd.min.css' rel='stylesheet'
+		type='text/css' />
 
 	<!-- Include JS file. -->
-	<script type='text/javascript' src='https://cdn.jsdelivr.net/npm/froala-editor@3.0.6/js/froala_editor.pkgd.min.js'></script>
+	<script type='text/javascript' src='https://cdn.jsdelivr.net/npm/froala-editor@3.0.6/js/froala_editor.pkgd.min.js'>
+	</script>
 
 	<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
@@ -45,7 +47,8 @@
 		<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
 			<a class="navbar-brand" href="#!">The Guardian</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-				aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" ng-hide="currentPath === '/login'">
+				aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+				ng-hide="currentPath === '/login'">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 
@@ -75,8 +78,8 @@
 						<a class="nav-link" href="#!login">Login</a>
 					</li>
 					<li class="nav-item dropdown" ng-show="loggedUser">
-						<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
-							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false">
 							{{loggedUser}}
 						</a>
 						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -90,12 +93,13 @@
 	</header>
 
 	<main>
-		
-				<a class="twitter-timeline" data-width="400" data-height="400" data-theme="light" href="https://twitter.com/EIT_Digital?ref_src=twsrc%5Etfw">Tweets by EIT_Digital</a>
-	
+
+		<a class="twitter-timeline" data-width="400" data-height="400" data-theme="light"
+			href="https://twitter.com/EIT_Digital?ref_src=twsrc%5Etfw">Tweets by EIT_Digital</a>
+
 		<div ng-view class="container">
 		</div>
-		
+
 	</main>
 
 	<!-- AngularJS App Code ==================================================== -->
