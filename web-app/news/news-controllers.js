@@ -19,3 +19,23 @@ app.controller("newsController", function ($scope, NewsListService) {
 
     $scope.getArticles();
 });
+
+
+app.controller("newsCreationCtrl", function ($scope, NewsDetailsService) {
+
+    $scope.addNews = function(article){
+        article.img
+        NewsDetailsService.save(article, 
+        function(data){
+            console.log(data);
+        },
+        function (error) {
+            console.log("There was an error loading the news.");
+            console.log(error);
+            $window.alert("There was an error loading the news: " + error.statusText);
+        });
+
+        
+    };
+
+});

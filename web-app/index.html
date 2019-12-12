@@ -34,7 +34,7 @@
 
 	<header>
 		<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-			<a class="navbar-brand" href="#/!">The Guardian</a>
+			<a class="navbar-brand" href="#!">The Guardian</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
@@ -42,31 +42,42 @@
 
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto">
-					<li class="nav-item">
-						<a class="nav-link" href="#!page1">All News</a>
+					<li class="nav-item" ng-class="{ 'active' : category == null || category == '' }">
+						<a class="nav-link" ng-click="category = ''">All News</a>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">National</a>
+					<li class="nav-item" ng-class="{ 'active' : category == 'National' }">
+						<a class="nav-link" ng-click="category = 'National'">National</a>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Economy</a>
+					<li class="nav-item" ng-class="{ 'active' : category == 'Economy' }">
+						<a class="nav-link" ng-click="category = 'Economy'">Economy</a>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Sports</a>
+					<li class="nav-item" ng-class="{ 'active' : category == 'Sports' }">
+						<a class="nav-link" ng-click="category = 'Sports'">Sports</a>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Technology</a>
+					<li class="nav-item" ng-class="{ 'active' : category == 'Technology' }">
+						<a class="nav-link" ng-click="category = 'Technology'">Technology</a>
 					</li>
 				</ul>
 				<div class="d-flex align-items-center">
-					<input type="text" ng-model="text" class="form-control" placeholder="Search" />
+					<input type="text" ng-model="search" class="form-control" placeholder="Search" />
 				</div>
+				<ul class="navbar-nav ml-auto">
+					<li ng-hide="loggedUser" class="nav-item">
+						<a class="nav-link" href="#!login">Login</a>
+					</li>
+					<li ng-show="loggedUser" class="nav-item">
+						<a class="nav-link" href="#!">Create Article</a>
+					</li>
+					<li ng-show="loggedUser" class="nav-item">
+						<a class="nav-link" href="#!">Logout</a>
+					</li>
+				</ul>
 			</div>
 		</nav>
 	</header>
 
 	<main>
-		<div ng-view class="container-fluid">
+		<div ng-view class="container">
 
 		</div>
 	</main>
