@@ -1,4 +1,4 @@
-var app = angular.module("newssapp", ["ngRoute", "ngResource", "ngSanitize"]);
+var app = angular.module("newssapp", ["ngRoute", "ngResource", "ngSanitize", "ngtweet"]);
 
 // TODO: Code of the routeProvider
 
