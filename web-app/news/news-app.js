@@ -15,10 +15,10 @@ app.config(function ($routeProvider) {
 	$routeProvider
 		.when("/", {
 			templateUrl: "news/news-list.html",
-			controller: "newsController"
+			controller: "NewsController"
 		})
 		.when("/login", {
-			templateUrl: "news/login.html",
+			templateUrl: "news/news-login.html",
 			controller: "loginController"
 		})
 		.when('/create-news', {

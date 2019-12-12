@@ -2,7 +2,8 @@
 /////////////////////////////////////// NEWS CONTROLLERS /////////////////////////////////////////
 *************************************************************************************************/
 
-app.controller("newsController", function ($scope, NewsListService) {
+app.controller("NewsController", function ($scope, $rootScope, $window, $location, NewsListService) {
+    $rootScope.currentPath = $location.path();
 
     $scope.getArticles = function () {
         NewsListService.query({}, function (data) {
@@ -20,7 +21,10 @@ app.controller("newsController", function ($scope, NewsListService) {
     $scope.getArticles();
 });
 
-app.controller("loginController", function ($scope, $http, $location, LoginService) {
+app.controller("loginController", function ($scope, $rootScope, $http, $location, LoginService) {
+
+    $rootScope.currentPath = $location.path();
+    console.log($rootScope.currentPath);
 
     $scope.login = function () {
         LoginService.login({
@@ -30,6 +34,7 @@ app.controller("loginController", function ($scope, $http, $location, LoginServi
                 $http.defaults.headers.common['Authorization'] = loginres.Authorization + ' apikey=' + loginres.apikey;
                 $scope.login = {};
                 $scope.loginForm.$setPristine();
+                $rootScope.loggedUser = loginres.username;
                 console.log("Successful login!");
                 console.log(loginres);
                 $location.path('/');
@@ -39,6 +44,16 @@ app.controller("loginController", function ($scope, $http, $location, LoginServi
                 console.log(error);
                 $scope.login.error = true;
             })
+    };
+
+});
+
+app.controller("LogoutController", function ($scope, $rootScope, $http) {
+
+    $scope.logout = function () {
+        $http.defaults.headers.common['Authorization'] = 'PUIRESTAUTH apikey=DEV_TEAM_48392';
+        $rootScope.loggedUser = null;
+        console.log("Successful logout!");
     };
 
 });

@@ -1,0 +1,38 @@
+<div class="login-container row">
+    <div class="col-sm-12 col-md-6">
+        <div class="d-flex justify-content-center align-items-center h-100">
+            <form class="needs-validation" name="loginForm" novalidate>
+                <h1 class="h3">See what’s happening in the world right now.</h1>
+                <h2 class="mb-5">Login to The Guardian</h2>
+                <div class="form-group"
+                    ng-class="{ 'has-error' : loginForm.username.$invalid && loginForm.username.$dirty }">
+                    <label for="inputUsername">Username</label>
+                    <input type="text" name="username" class="form-control" id="inputUsername" ng-model="login.username"
+                        required>
+                    <span ng-show="loginForm.username.$invalid && loginForm.username.$dirty" class="help-block">Warning:
+                        <span ng-show="loginForm.username.$error.required"> Username is required.</span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword">Password</label>
+                    <input type="password" name="password" class="form-control" id="inputPassword"
+                        ng-model="login.password" required>
+                    <span ng-show="loginForm.password.$invalid && loginForm.password.$dirty" class="help-block">Warning:
+                        <span ng-show="loginForm.password.$error.required"> Password is required.</span>
+                    </span>
+                </div>
+                <div class="alert alert-danger" ng-show="login.error" role="alert">
+                    <i class="fas fa-exclamation-circle"></i>
+                    Login failed! Try again.
+                </div>
+                <button type="submit" class="btn btn-primary btn-block" ng-click="login()"
+                    ng-disabled="loginForm.$invalid">Login</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-6">
+        <div class="d-flex justify-content-end align-items-center h-100">
+            <img src="../img/Search_SVG.svg" class="img-fluid" alt="Responsive image">
+        </div>
+    </div>
+</div>
