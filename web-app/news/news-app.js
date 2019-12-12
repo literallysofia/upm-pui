@@ -17,6 +17,10 @@ app.config(function ($routeProvider) {
 			templateUrl: "news/news-list.html",
 			controller: "newsController"
 		})
+		// .when("/", {
+		// 	templateUrl: "news/news-show.html",
+		// 	controller: "newsController"
+		// })
 });
 
 /**************************************************************************/
