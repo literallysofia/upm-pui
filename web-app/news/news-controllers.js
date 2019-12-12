@@ -44,10 +44,32 @@ app.controller("newsController", function ($scope, $location, $window, NewsListS
     $scope.getArticles();
 });
 
+app.controller("loginController", function ($scope, $http, $location, LoginService) {
+
+    $scope.login = function () {
+        LoginService.login({
+                passwd: $scope.login.password,
+                username: $scope.login.username
+            }, function (loginres) {
+                $http.defaults.headers.common['Authorization'] = loginres.Authorization + ' apikey=' + loginres.apikey;
+                $scope.login = {};
+                $scope.loginForm.$setPristine();
+                console.log("Successful login!");
+                console.log(loginres);
+                $location.path('/');
+            },
+            function (error) {
+                console.log("There was an error with the login.");
+                console.log(error);
+                $scope.login.error = true;
+            })
+    };
+
+});
 
 app.controller("newsCreationCtrl", function ($scope, $window, $location, NewsDetailsService) {
 
-    $scope.addNews = function(article){
+    $scope.addNews = function (article) {
         article.img
         NewsDetailsService.save(article, 
         function(data){
