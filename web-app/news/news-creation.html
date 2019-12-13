@@ -5,29 +5,38 @@
 
 <h1 class="h2">Create New Article</h1>
 
-<form class="article-form mt-5">
+<form class="article-form mt-5" class="needs-validation" name="articleForm" novalidate>
 
   <div class="form-row">
 
     <div class="col-md-7">
-      <div class="form-group">
+      <div class="form-group" ng-class="{ 'has-error' : articleForm.title.$invalid && loginForm.title.$dirty }">
         <label for="inputTitle">Title</label>
-        <input type="text" class="form-control" id="inputTitle" ng-model="article.title">
+        <input type="text" name="title" class="form-control" id="inputTitle" ng-model="article.title" required>      
+        <span ng-show="articleForm.title.$invalid && articleForm.title.$dirty" class="help-block">Warning:
+          <span ng-show="articleForm.title.$error.required"> Title is required.</span>
+        </span>
       </div>
 
       <div class="form-row">
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-6"  ng-class="{ 'has-error' : articleForm.subtitle.$invalid && articleForm.subtitle.$dirty }">
           <label for="inputSubtitle">Subtitle</label>
-          <input type="text" class="form-control" id="inputSubtitle" ng-model="article.subtitle">
+          <input type="text" name="subtitle" class="form-control" id="inputSubtitle" ng-model="article.subtitle" required>
+          <span ng-show="articleForm.subtitle.$invalid && articleForm.subtitle.$dirty" class="help-block">Warning:
+            <span ng-show="articleForm.subtitle.$error.required"> Title is required.</span>
+          </span>
         </div>
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-6" ng-class="{ 'has-error' : articleForm.category.$invalid && articleForm.category.$dirty }">
           <label for="inputCategory">Category</label>
-          <select id="inputCategory" class="form-control" ng-model="article.category">
+          <select id="inputCategory" class="form-control" name="category" ng-model="article.category" required>
             <option selected>National</option>
             <option>Economy</option>
             <option>Sports</option>
             <option>Technology</option>
           </select>
+          <span ng-show="articleForm.category.$invalid && articleForm.category.$dirty" class="help-block">Warning:
+            <span ng-show="articleForm.category.$error.required"> Title is required.</span>
+          </span>
         </div>
       </div>
 
@@ -45,15 +54,22 @@
     </div>
   </div>
 
-  <div class="form-group">
+  <div class="form-group"  ng-class="{ 'has-error' : articleForm.abstract.$invalid && articleForm.abstract.$dirty }">
     <label for="inputAbstract">Abstract</label>
-    <textarea class="form-control" id="inputAbstract" rows="2" ng-model="article.abstract"></textarea>
+    <textarea class="form-control" name="abstract" id="inputAbstract" rows="2" ng-model="article.abstract" required></textarea>
+    <span ng-show="articleForm.abstract.$invalid && articleForm.abstract.$dirty" class="help-block">Warning:
+      <span ng-show="articleForm.abstract.$error.required"> Title is required.</span>
+    </span>
   </div>
 
-  <div class="form-group">
+  <div class="form-group"  ng-class="{ 'has-error' : articleForm.body.$invalid && articleForm.body.$dirty }">
     <label for="inputDescription">Description</label>
-    <textarea id="froala-editor" class="form-control" id="inputDescription" ng-model="article.body"></textarea>
+    <textarea id="froala-editor" name="body" class="form-control" id="inputDescription" ng-model="article.body" required></textarea>
+    <span ng-show="articleForm.body.$invalid && articleForm.body.$dirty" class="help-block">Warning:
+      <span ng-show="articleForm.body.$error.required"> Title is required.</span>
+    </span>
   </div>
+
 
   <button type="submit" class="btn btn-primary" ng-click="createArticle()">Submit</button>
 </form>
