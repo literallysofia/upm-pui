@@ -78,21 +78,21 @@ app.controller("LogoutController", function ($scope, $rootScope, $http) {
 
 });
 
-app.controller("newsDetailCtrl", function ($scope, $routeParams, NewsDetailsService) {
+app.controller("ShowArticleController", function ($scope, $routeParams, NewsDetailsService) {
 
     $scope.getArticle = function () {
-        NewsDetailsService.get($routeParams.id,
+        NewsDetailsService.get({id: parseInt($routeParams.id)},
             function (data) {
                 console.log(data);
-                //$scope.article = data;
+                $scope.article = data;
             },
             function (error) {
-                console.log("There was an error loading the news.");
+                console.log("There was an error loading the article.");
                 console.log(error);
             });
     }
 
-    $scope.article = $scope.getArticle();
+    $scope.getArticle();
 });
 
 app.controller("newsCreationCtrl", function ($scope, $rootScope, $window, $location, NewsDetailsService) {

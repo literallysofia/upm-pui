@@ -2,13 +2,13 @@
     <div class="col-md-8 col-sm-12">
         <div class="card-columns">
             <div class="card" ng-repeat="article in articles | filter : search | filter: { category : category }">
-                <a ng-show="article.thumbnail_image != null" href="#!/{{article.id}}">
+                <a ng-show="article.thumbnail_image != null" href="#!/article/{{article.id}}">
                     <img ng-src="{{ 'data:' + article.thumbnail_media_type + ';base64,' + article.thumbnail_image }}" class="card-img-top"
                         alt="{{article.title}}">
                 </a>
                 <div class="card-body">
                     <span class="badge badge-pill badge-primary">{{article.category}}</span>
-                    <a href="#!/news-detail/{{article.id}}">
+                    <a href="#!/article/{{article.id}}">
                         <h5 class="card-title">{{article.title}}</h5>
                     </a>
                     <h6 class="card-subtitle mb-2 text-muted">{{article.subtitle}}</h6>
