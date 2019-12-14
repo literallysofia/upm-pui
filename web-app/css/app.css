@@ -20,7 +20,7 @@ h6 {
 }
 
 .navbar {
-    padding: 1em 5em;
+    padding: 1em 5em !important;
     background-color: #113F67 !important;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
@@ -122,6 +122,10 @@ footer {
     font-size: 0.9em;
     padding: 3em 0 0.4em 0;
     color: #113F67;
+}
+
+.dropdown-menu{
+    margin-top: 1.2em !important;
 }
 
 /*

@@ -29,6 +29,10 @@ app.config(function ($routeProvider) {
 			templateUrl: 'news/news-show.html', 
 			controller: 'ShowArticleController'
 		})
+		.when('/editArticle/:id', {
+			templateUrl: 'news/news-edition.html', 
+			controller: 'EditArticleController'
+		})
 		.otherwise({
 			templateUrl: 'news/news-list.html',
 			controller: 'newsController'

@@ -73,10 +73,13 @@
 					<li class="nav-item" ng-class="{ 'active' : category == 'Technology' }">
 						<a class="nav-link" ng-click="category = 'Technology'">Technology</a>
 					</li>
+					<li class="nav-item">
+						<input type="text" ng-model="search" class="form-control" placeholder="Search" />
+					</li>
 				</ul>
-				<div class="d-flex align-items-center" ng-show="currentPath === '/'">
+				<!-- <div class="d-flex align-items-center" ng-show="currentPath === '/'">
 					<input type="text" ng-model="search" class="form-control" placeholder="Search" />
-				</div>
+				</div> -->
 				<ul class="navbar-nav ml-auto" ng-controller="LogoutController" ng-hide="currentPath === '/login'">
 					<li ng-hide="loggedUser" class="nav-item">
 						<a class="nav-link" href="#!login">Login</a>

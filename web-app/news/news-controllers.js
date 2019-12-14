@@ -95,6 +95,37 @@ app.controller("ShowArticleController", function ($scope, $routeParams, NewsDeta
     $scope.getArticle();
 });
 
+app.controller("EditArticleController", function ($scope, $routeParams, NewsDetailsService) {
+
+    $scope.getArticle = function () {
+        NewsDetailsService.get({id: parseInt($routeParams.id)},
+            function (data) {
+                console.log(data);
+                $scope.article = data;
+            },
+            function (error) {
+                console.log("There was an error loading the article.");
+                console.log(error);
+            });
+    }
+
+    $scope.getArticle();
+
+    $scope.createArticle = function () {
+        NewsDetailsService.save($scope.article,
+            function (data) {
+                console.log(data);
+            },
+            function (error) {
+                console.log("There was an error loading the news.");
+                console.log(error);
+                $window.alert("There was an error loading the news: " + error.statusText);
+            });
+
+        $location.path("/");
+    };
+});
+
 app.controller("newsCreationCtrl", function ($scope, $rootScope, $window, $location, NewsDetailsService) {
 
     $rootScope.currentPath = $location.path();
