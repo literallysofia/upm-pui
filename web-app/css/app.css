@@ -155,3 +155,62 @@ footer {
     padding: 0 1em;
     width: 100%;
 }
+
+#col-number{
+    column-count: 4;
+}
+
+.card .text-medium{
+    font-size: medium;
+}
+
+.card .text-small{
+    font-size: small;
+}
+
+
+@media (max-width: 1400px){
+    
+    #col-number{
+        column-count: 3;
+    }
+} 
+
+@media (max-width: 1200px){
+    
+    #col-number{
+        column-count: 3;
+    }
+
+    .navbar{
+        padding: 1em 1em !important;
+    }
+} 
+
+@media (max-width: 960px){
+    
+    #col-number{
+        column-count: 2;
+    }
+} 
+
+@media (max-width: 720px){
+    
+    #col-number{
+        column-count: 2;
+    }
+} 
+
+@media (max-width: 576px){
+    
+    #col-number{
+        column-count: 2;
+    }
+} 
+
+@media (max-width: 420px){
+    
+    #col-number{
+        column-count: 1;
+    }
+} 
