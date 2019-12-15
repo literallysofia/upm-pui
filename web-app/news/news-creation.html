@@ -12,21 +12,24 @@
     <div class="col-md-7">
       <div class="form-group" ng-class="{ 'has-error' : articleForm.title.$invalid && loginForm.title.$dirty }">
         <label for="inputTitle">Title</label>
-        <input type="text" name="title" class="form-control" id="inputTitle" ng-model="article.title" required>      
+        <input type="text" name="title" class="form-control" id="inputTitle" ng-model="article.title" required>
         <span ng-show="articleForm.title.$invalid && articleForm.title.$dirty" class="help-block">Warning:
           <span ng-show="articleForm.title.$error.required"> Title is required.</span>
         </span>
       </div>
 
       <div class="form-row">
-        <div class="form-group col-md-6"  ng-class="{ 'has-error' : articleForm.subtitle.$invalid && articleForm.subtitle.$dirty }">
+        <div class="form-group col-md-6"
+          ng-class="{ 'has-error' : articleForm.subtitle.$invalid && articleForm.subtitle.$dirty }">
           <label for="inputSubtitle">Subtitle</label>
-          <input type="text" name="subtitle" class="form-control" id="inputSubtitle" ng-model="article.subtitle" required>
+          <input type="text" name="subtitle" class="form-control" id="inputSubtitle" ng-model="article.subtitle"
+            required>
           <span ng-show="articleForm.subtitle.$invalid && articleForm.subtitle.$dirty" class="help-block">Warning:
             <span ng-show="articleForm.subtitle.$error.required"> Subtitle is required.</span>
           </span>
         </div>
-        <div class="form-group col-md-6" ng-class="{ 'has-error' : articleForm.category.$invalid && articleForm.category.$dirty }">
+        <div class="form-group col-md-6"
+          ng-class="{ 'has-error' : articleForm.category.$invalid && articleForm.category.$dirty }">
           <label for="inputCategory">Category</label>
           <select id="inputCategory" class="form-control" name="category" ng-model="article.category" required>
             <option selected>National</option>
@@ -47,36 +50,38 @@
             <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
           </div>
           <div class="custom-file">
-            <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"  ng-file-select="onFileSelect($files);"
-            ng-model="article">
+            <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"
+              ng-file-select="onFileSelect($files);" ng-model="article">
             <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
           </div>
         </div>
-        <!-- <input type="file" class="form-control-file" id="inputThumbnail" ng-file-select="onFileSelect($files);"
-          ng-model="article"> -->
       </div>
 
     </div>
     <div class="col-md-5">
-      <img src="https://sindilojas-sp.org.br/wp-content/themes/sindilojas/assets/images/default.jpg" class="img-fluid rounded" alt="Thumbnail Example" ng-hide="article.image_data" />
+      <img src="https://sindilojas-sp.org.br/wp-content/themes/sindilojas/assets/images/default.jpg" class="img-fluid"
+        alt="Thumbnail Example" ng-hide="article.image_data" />
       <img ng-src="{{ 'data:' + article.image_media_type + ';base64,' + article.image_data }}"
-        ng-show="article.image_data" />
+        ng-if="article.image_data" class="img-fluid" />
     </div>
   </div>
 
-  <div class="form-group"  ng-class="{ 'has-error' : articleForm.abstract.$invalid && articleForm.abstract.$dirty }">
+  <div class="form-group" ng-class="{ 'has-error' : articleForm.abstract.$invalid && articleForm.abstract.$dirty }">
     <label for="inputAbstract">Abstract</label>
-    <textarea class="form-control" name="abstract" id="inputAbstract" rows="2" ng-model="article.abstract" required></textarea>
+    <textarea class="form-control" name="abstract" id="inputAbstract" rows="2" ng-model="article.abstract"
+      required></textarea>
     <span ng-show="articleForm.abstract.$invalid && articleForm.abstract.$dirty" class="help-block">Warning:
       <span ng-show="articleForm.abstract.$error.required"> Abstract is required.</span>
     </span>
   </div>
 
-  <div class="form-group"  ng-class="{ 'has-error' : articleForm.body.$invalid && articleForm.body.$dirty }">
+  <div class="form-group" ng-class="{ 'has-error' : articleForm.body.$invalid && articleForm.body.$dirty }">
     <label for="inputDescription">Description</label>
-    <textarea id="froala-editor" name="body" class="form-control" id="inputDescription" ng-model="article.body"></textarea>
+    <textarea id="froala-editor" name="body" class="form-control" id="inputDescription"
+      ng-model="article.body"></textarea>
   </div>
 
 
-  <button type="submit" ng-disabled="articleForm.$invalid" class="btn btn-primary" ng-click="createArticle()">Submit</button>
+  <button type="submit" ng-disabled="articleForm.$invalid" class="btn btn-primary"
+    ng-click="createArticle()">Submit</button>
 </form>

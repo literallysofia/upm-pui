@@ -23,7 +23,7 @@ app.config(function ($routeProvider) {
 		})
 		.when('/create-article', {
 			templateUrl: 'news/news-creation.html',
-			controller: 'newsCreationCtrl'
+			controller: 'CreateArticleController'
 		})
 		.when('/article/:id', {
 			templateUrl: 'news/news-show.html', 
@@ -35,7 +35,7 @@ app.config(function ($routeProvider) {
 		})
 		.otherwise({
 			templateUrl: 'news/news-list.html',
-			controller: 'newsController'
+			controller: 'NewsController'
 		});
 });
 

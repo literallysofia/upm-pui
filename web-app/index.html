@@ -6,6 +6,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>The Guardian</title>
 
+	<link rel="shortcut icon" type="image/png"
+		href="https://assets.guim.co.uk/images/favicons/46bd2faa1ab438684a6d4528a655a8bd/32x32.ico">
 	<link rel="stylesheet" type="text/css" href="css/app.css">
 	<link href="https://fonts.googleapis.com/css?family=Merriweather:400,700,900|Open+Sans:300,400,700&display=swap"
 		rel="stylesheet">
@@ -52,7 +54,7 @@
 			</button>
 
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav mr-auto" ng-show="currentPath === '/create-article'">
+				<ul class="navbar-nav mr-auto" ng-hide="currentPath === '/'">
 					<li class="nav-item">
 						<a class="nav-link" href="#!">Home</a>
 					</li>
@@ -74,12 +76,9 @@
 						<a class="nav-link" ng-click="category = 'Technology'">Technology</a>
 					</li>
 					<li class="nav-item">
-						<input type="text" ng-model="search" class="form-control" placeholder="Search" />
+						<input type="text" ng-model="search" class="form-control ml-5" placeholder="Search" />
 					</li>
 				</ul>
-				<!-- <div class="d-flex align-items-center" ng-show="currentPath === '/'">
-					<input type="text" ng-model="search" class="form-control" placeholder="Search" />
-				</div> -->
 				<ul class="navbar-nav ml-auto" ng-controller="LogoutController" ng-hide="currentPath === '/login'">
 					<li ng-hide="loggedUser" class="nav-item">
 						<a class="nav-link" href="#!login">Login</a>

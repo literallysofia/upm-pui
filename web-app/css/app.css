@@ -50,7 +50,7 @@ h6 {
 }
 
 main {
-    padding-top: 6em;
+    padding-top: 7em;
 }
 
 .btn.btn-primary {
@@ -100,14 +100,7 @@ main {
 }
 
 .login-container img {
-    height: 25em;
-}
-
-@media (max-width: 767.98px) {
-    .login-container img {
-        width: 100%;
-        align-self: center;
-    }
+    max-height: 25em;
 }
 
 .login-container h2 {
@@ -117,6 +110,22 @@ main {
     font-size: 1.5em;
 }
 
+@media (max-width: 767.98px) {
+    .login-container img {
+        align-self: center !important;
+        max-height: auto;
+    }
+
+    .navbar .nav-item input[type="text"] {
+        margin-left: 0 !important;
+    }
+
+    form img.img-fluid {
+        padding: 0;
+        margin-bottom: 1em;
+    }
+}
+
 footer {
     text-align: center;
     font-size: 0.9em;
@@ -124,7 +133,7 @@ footer {
     color: #113F67;
 }
 
-.dropdown-menu{
+.dropdown-menu {
     margin-top: 1.2em !important;
 }
 
@@ -156,61 +165,55 @@ footer {
     width: 100%;
 }
 
-#col-number{
+#col-number {
     column-count: 4;
 }
 
-.card .text-medium{
+.card .text-medium {
     font-size: medium;
 }
 
-.card .text-small{
+.card .text-small {
     font-size: small;
 }
 
 
-@media (max-width: 1400px){
-    
-    #col-number{
+@media (max-width: 1400px) {
+    #col-number {
         column-count: 3;
     }
-} 
+}
 
-@media (max-width: 1200px){
-    
-    #col-number{
+@media (max-width: 1200px) {
+    #col-number {
         column-count: 3;
     }
 
-    .navbar{
+    .navbar {
         padding: 1em 1em !important;
     }
-} 
+}
 
-@media (max-width: 960px){
-    
-    #col-number{
+@media (max-width: 960px) {
+    #col-number {
         column-count: 2;
     }
-} 
+}
 
-@media (max-width: 720px){
-    
-    #col-number{
+@media (max-width: 720px) {
+    #col-number {
         column-count: 2;
     }
-} 
+}
 
-@media (max-width: 576px){
-    
-    #col-number{
+@media (max-width: 576px) {
+    #col-number {
         column-count: 2;
     }
-} 
+}
 
-@media (max-width: 420px){
-    
-    #col-number{
+@media (max-width: 420px) {
+    #col-number {
         column-count: 1;
     }
-} 
+}

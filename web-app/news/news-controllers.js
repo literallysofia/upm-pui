@@ -44,7 +44,6 @@ app.controller("NewsController", function ($scope, $rootScope, $window, $locatio
 app.controller("LoginController", function ($scope, $rootScope, $http, $location, LoginService) {
 
     $rootScope.currentPath = $location.path();
-    console.log($rootScope.currentPath);
 
     $scope.login = function () {
         LoginService.login({
@@ -80,8 +79,12 @@ app.controller("LogoutController", function ($scope, $rootScope, $http) {
 
 app.controller("ShowArticleController", function ($scope, $routeParams, NewsDetailsService) {
 
+    $rootScope.currentPath = $location.path();
+
     $scope.getArticle = function () {
-        NewsDetailsService.get({id: parseInt($routeParams.id)},
+        NewsDetailsService.get({
+                id: parseInt($routeParams.id)
+            },
             function (data) {
                 console.log(data);
                 $scope.article = data;
@@ -95,10 +98,15 @@ app.controller("ShowArticleController", function ($scope, $routeParams, NewsDeta
     $scope.getArticle();
 });
 
-app.controller("EditArticleController", function ($scope, $routeParams, NewsDetailsService) {
+app.controller("EditArticleController", function ($scope, $rootScope, $routeParams, $location, NewsDetailsService) {
+
+    $rootScope.currentPath = $location.path();
+    console.log($rootScope.currentPath);
 
     $scope.getArticle = function () {
-        NewsDetailsService.get({id: parseInt($routeParams.id)},
+        NewsDetailsService.get({
+                id: parseInt($routeParams.id)
+            },
             function (data) {
                 console.log(data);
                 $scope.article = data;
@@ -126,7 +134,7 @@ app.controller("EditArticleController", function ($scope, $routeParams, NewsDeta
     };
 });
 
-app.controller("newsCreationCtrl", function ($scope, $rootScope, $window, $location, NewsDetailsService) {
+app.controller("CreateArticleController", function ($scope, $rootScope, $window, $location, NewsDetailsService) {
 
     $rootScope.currentPath = $location.path();
     $scope.article = {};
