@@ -177,7 +177,6 @@ footer {
     font-size: small;
 }
 
-
 @media (max-width: 1400px) {
     #col-number {
         column-count: 3;

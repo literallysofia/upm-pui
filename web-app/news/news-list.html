@@ -1,5 +1,8 @@
 <div class="row">
     <div class="col-md-9 col-sm-12">
+        <div class="alert alert-success" role="alert" ng-if="showAlert">
+            Article deleted with success!
+        </div>
         <div class="card-columns" id="col-number">
             <div class="card" ng-repeat="article in articles | filter : search | filter: { category : category }">
                 <a ng-show="article.thumbnail_image != null" href="#!/article/{{article.id}}">
@@ -15,7 +18,7 @@
                     <p class="card-text ">{{article.abstract}}</p>
                     <div ng-show="loggedUser">
                         <a class="btn btn-secondary btn-sm" href="#!/editArticle/{{article.id}}">Edit</a>
-                        <button class="btn btn-secondary btn-sm" ng-click="deleteArticle(article)">Delete</button>
+                        <button class="btn btn-secondary btn-sm" ng-click="toggleModal(article)">Delete</button>
                     </div>
                 </div>
                 <div class="card-footer">
@@ -32,3 +35,6 @@
         </twitter-timeline>
     </div>
 </div>
+
+<modal visible="showModal">
+</modal>
