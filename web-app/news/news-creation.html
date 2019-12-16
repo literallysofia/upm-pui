@@ -79,7 +79,10 @@
     <label for="inputDescription">Description</label>
     <!-- <textarea name="body" class="form-control" id="inputDescription"
       ng-model="article.body"></textarea> -->
-    <div text-angular="text-angular" id="htmlcontent" name="htmlcontent" ng-model="article.body" ta-disabled='disabled'></div>
+    <div text-angular="text-angular" id="htmlcontent" name="body" ng-model="article.body" ta-disabled='disabled' required></div>
+    <span ng-show="articleForm.body.$invalid && articleForm.body.$dirty" class="help-block">Warning:
+      <span ng-show="articleForm.body.$error.required"> Description is required.</span>
+    </span>
   </div>
 
 
