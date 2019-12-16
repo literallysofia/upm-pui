@@ -77,8 +77,9 @@
 
   <div class="form-group" ng-class="{ 'has-error' : articleForm.body.$invalid && articleForm.body.$dirty }">
     <label for="inputDescription">Description</label>
-    <textarea id="froala-editor" name="body" class="form-control" id="inputDescription"
-      ng-model="article.body"></textarea>
+    <!-- <textarea name="body" class="form-control" id="inputDescription"
+      ng-model="article.body"></textarea> -->
+    <div text-angular="text-angular" id="htmlcontent" name="htmlcontent" ng-model="article.body" ta-disabled='disabled'></div>
   </div>
 
 

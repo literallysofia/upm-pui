@@ -137,6 +137,11 @@ footer {
     margin-top: 1.2em !important;
 }
 
+#htmlcontent div.ta-editor{
+    height: fit-content;
+    min-height: 10em;
+}
+
 /*
 * ARTICLE
 */
