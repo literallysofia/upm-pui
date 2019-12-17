@@ -137,7 +137,7 @@ footer {
     margin-top: 1.2em !important;
 }
 
-#htmlcontent div.ta-editor{
+#htmlcontent div.ta-editor {
     height: fit-content;
     min-height: 10em;
 }
@@ -159,7 +159,8 @@ footer {
     font-weight: 400;
 }
 
-.badge {
+.card .badge,
+.article .badge {
     background-color: #87C0CD;
     padding: 0.5em 1em;
     margin: 0 0 1.5em 0 !important;

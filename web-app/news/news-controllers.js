@@ -85,9 +85,9 @@ app.controller("LogoutController", function ($scope, $rootScope, $http) {
 
 });
 
-app.controller("ShowArticleController", function ($scope, $routeParams, NewsDetailsService) {
+app.controller("ShowArticleController", function ($scope, $rootScope, $routeParams, $location, NewsDetailsService) {
 
-    //$rootScope.currentPath = $location.path();
+    $rootScope.currentPath = $location.path();
 
     $scope.getArticle = function () {
         NewsDetailsService.get({
