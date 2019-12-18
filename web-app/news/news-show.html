@@ -13,15 +13,13 @@
 -->
 
 <div class="article">
-    <div class="flex-column align-items-start">
+    <div class="flex-column d-flex align-items-start">
         <h2>{{article.title}}</h2>
         <h5>{{article.subtitle}}</h5>
         <span class="badge badge-pill badge-primary">{{article.category}}</span>
     </div>
-    <div class="flex-column align-items-start">
-        <a ng-show="article.image_data != null" href="#!/article/{{article.id}}"></a>
-            <img src="data:image/png;base64,{{article.image_data}}"class="rounded mx-auto my-3 d-block img-fluid" alt="{{article.title}}" >
-        </a>
+    <div class="flex-column d-flex align-items-start">
+        <img ng-if="article.image_data != null" src="data:image/png;base64,{{article.image_data}}"class="rounded mx-auto my-3 d-block img-fluid" alt="{{article.title}}" >
         <h6 ng-bind-html="article.abstract"></h6>
         <div class="py-4" ng-bind-html="article.body"></div>
         <small class="align-self-end">Updated on {{article.update_date}} by user {{article.id_user}} </small>
