@@ -15,7 +15,7 @@
                         <h5 class="card-title">{{article.title}}</h5>
                     </a>
                     <h6 class="card-subtitle mb-2 text-muted">{{article.subtitle}}</h6>
-                    <p class="card-text ">{{article.abstract}}</p>
+                    <p class="card-text " ng-bind-html="article.abstract"></p>
                     <div ng-show="loggedUser">
                         <a class="btn btn-secondary btn-sm" href="#!/editArticle/{{article.id}}">Edit</a>
                         <button class="btn btn-secondary btn-sm" ng-click="toggleModal(article)">Delete</button>

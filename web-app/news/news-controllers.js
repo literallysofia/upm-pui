@@ -104,6 +104,8 @@ app.controller("ShowArticleController", function ($scope, $rootScope, $routePara
     }
 
     $scope.getArticle();
+
+    $scope.articleBody = $scope.articleBody;
 });
 
 app.controller("EditArticleController", function ($scope, $rootScope, $routeParams, $location, NewsDetailsService) {
