@@ -38,18 +38,20 @@
         </div>
       </div>
 
-      <div class="form-group">
+      <div class="form-group mb-3">
         <label for="inputThumbnail">Thumbnail</label>
-        <div class="input-group mb-3">
+        <div class="input-group">
           <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
           </div>
           <div class="custom-file">
             <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"
-              ng-file-select="onFileSelect($files);" ng-model="article">
+              ng-file-select="onFileSelect($files);" ng-model="article" required>
             <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
           </div>
         </div>
+        <span ng-if="!article.image_data" class="help-block">Warning: Thumbnail is required.
+        </span>
       </div>
 
     </div>
@@ -57,7 +59,7 @@
       <img src="https://sindilojas-sp.org.br/wp-content/themes/sindilojas/assets/images/default.jpg" class="img-fluid"
         alt="Thumbnail Example" ng-if="!article.image_data" />
       <img ng-src="{{ 'data:' + article.image_media_type + ';base64,' + article.image_data }}"
-        ng-if="article.image_data" class="img-fluid" />
+        ng-if="article.image_data" class="img-fluid" alt="Thumbnail" />
     </div>
   </div>
 
@@ -71,7 +73,7 @@
   </div>
 
   <div class="form-group" ng-class="{ 'has-error' : articleForm.body.$invalid && articleForm.body.$dirty }">
-    <label for="inputDescription">Description</label>
+    <label for="htmlcontent">Description</label>
     <div text-angular="text-angular" id="htmlcontent" name="body" ng-model="article.body" ta-disabled='disabled'
       required></div>
     <span ng-show="articleForm.body.$invalid && articleForm.body.$dirty" class="help-block">Warning:
@@ -79,7 +81,6 @@
     </span>
   </div>
 
-
-  <button type="submit" ng-disabled="articleForm.$invalid" class="btn btn-primary"
+  <button type="submit" ng-disabled="articleForm.$invalid || !article.image_data" class="btn btn-primary"
     ng-click="createArticle()">Submit</button>
 </form>

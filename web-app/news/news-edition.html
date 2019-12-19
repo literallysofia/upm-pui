@@ -54,10 +54,9 @@
 
     </div>
     <div class="col-md-5">
-      <img src="https://sindilojas-sp.org.br/wp-content/themes/sindilojas/assets/images/default.jpg" class="img-fluid"
-        alt="Thumbnail Example" ng-if="!article.image_data" />
-      <img ng-src="{{ 'data:' + article.image_media_type + ';base64,' + article.image_data }}"
-        ng-if="article.image_data" class="img-fluid" />
+      <img ng-if="article.image_data"
+        ng-src="{{ 'data:' + article.image_media_type + ';base64,' + article.image_data }}" class="img-fluid"
+        alt="Thumbnail" />
     </div>
   </div>
 
@@ -71,7 +70,7 @@
   </div>
 
   <div class="form-group" ng-class="{ 'has-error' : articleForm.body.$invalid && articleForm.body.$dirty }">
-    <label for="inputDescription">Description</label>
+    <label for="htmlcontent">Description</label>
     <div text-angular="text-angular" id="htmlcontent" name="body" ng-model="article.body" ta-disabled='disabled'
       required></div>
     <span ng-show="articleForm.body.$invalid && articleForm.body.$dirty" class="help-block">Warning:
@@ -79,6 +78,6 @@
     </span>
   </div>
 
-  <button type="submit" ng-disabled="articleForm.$invalid" class="btn btn-primary"
-    ng-click="saveArticle()">Save</button>
+  <button type="submit" ng-disabled="articleForm.$invalid" class="btn btn-primary" ng-click="saveArticle()">Save
+    Changes</button>
 </form>

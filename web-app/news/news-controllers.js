@@ -96,8 +96,6 @@ app.controller("ShowArticleController", function ($scope, $rootScope, $routePara
             function (data) {
                 console.log(data);
                 $scope.article = data;
-                if (data.image_data === 'null')
-                    $scope.article.image_data = null;
             },
             function (error) {
                 console.log("There was an error loading the article.");
@@ -121,8 +119,6 @@ app.controller("EditArticleController", function ($scope, $rootScope, $routePara
             function (data) {
                 console.log(data);
                 $scope.article = data;
-                if (data.image_data === 'null')
-                    $scope.article.image_data = null;
             },
             function (error) {
                 console.log("There was an error loading the article.");

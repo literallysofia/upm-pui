@@ -1,11 +1,11 @@
 <div class="row">
-    <div class="col-md-9 col-sm-12">
+    <div class="col-lg-9 col-md-8 col-sm-12">
         <div class="alert alert-success" role="alert" ng-if="showAlert">
             Article deleted with success!
         </div>
         <div class="card-columns" id="col-number">
             <div class="card" ng-repeat="article in articles | filter : search | filter: { category : category }">
-                <a ng-if="article.thumbnail_image" href="#!/article/{{article.id}}">
+                <a href="#!/article/{{article.id}}">
                     <img ng-src="{{ 'data:' + article.thumbnail_media_type + ';base64,' + article.thumbnail_image }}"
                         class="card-img-top" alt="{{article.title}}">
                 </a>
@@ -27,7 +27,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-3 d-sm-none d-md-block">
+    <div class="col-lg-3 col-md-4 d-none d-md-block">
         <twitter-timeline class="h-100">
             <a class="twitter-timeline" data-height="100%" href="https://twitter.com/guardian?ref_src=twsrc%5Etfw">
                 Tweets by guardian
