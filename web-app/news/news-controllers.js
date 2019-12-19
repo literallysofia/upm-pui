@@ -96,6 +96,8 @@ app.controller("ShowArticleController", function ($scope, $rootScope, $routePara
             function (data) {
                 console.log(data);
                 $scope.article = data;
+                if (data.image_data === 'null')
+                    $scope.article.image_data = null;
             },
             function (error) {
                 console.log("There was an error loading the article.");
@@ -111,7 +113,6 @@ app.controller("ShowArticleController", function ($scope, $rootScope, $routePara
 app.controller("EditArticleController", function ($scope, $rootScope, $routeParams, $location, NewsDetailsService) {
 
     $rootScope.currentPath = $location.path();
-    console.log($rootScope.currentPath);
 
     $scope.getArticle = function () {
         NewsDetailsService.get({
@@ -120,48 +121,54 @@ app.controller("EditArticleController", function ($scope, $rootScope, $routePara
             function (data) {
                 console.log(data);
                 $scope.article = data;
+                if (data.image_data === 'null')
+                    $scope.article.image_data = null;
             },
             function (error) {
                 console.log("There was an error loading the article.");
                 console.log(error);
+                $window.alert("There was an error loading the article: " + error.statusText);
             });
     }
 
     $scope.getArticle();
 
-    $scope.createArticle = function () {
+    $scope.saveArticle = function () {
         NewsDetailsService.save($scope.article,
             function (data) {
                 console.log(data);
+                console.log("Article saved!");
+                /* TODO: show feedback */
             },
             function (error) {
-                console.log("There was an error loading the news.");
+                console.log("There was an error when saving the article.");
                 console.log(error);
-                $window.alert("There was an error loading the news: " + error.statusText);
+                $window.alert("There was an error when saving the article: " + error.statusText);
             });
-
-        $location.path("/");
     };
 });
 
 app.controller("CreateArticleController", function ($scope, $rootScope, $window, $location, NewsDetailsService) {
 
     $rootScope.currentPath = $location.path();
-    $scope.article = {};
+    $scope.article = {
+        category: "National"
+    };
+
     new FroalaEditor('textarea#froala-editor')
 
     $scope.createArticle = function () {
         NewsDetailsService.save($scope.article,
             function (data) {
                 console.log(data);
+                console.log("Article created!");
+                /* TODO: show feedback */
             },
             function (error) {
-                console.log("There was an error loading the news.");
+                console.log("There was an error when creating the article.");
                 console.log(error);
-                $window.alert("There was an error loading the news: " + error.statusText);
+                $window.alert("There was an error when creating the article: " + error.statusText);
             });
-
-        $location.path("/");
     };
 
 });

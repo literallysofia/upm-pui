@@ -1,8 +1,3 @@
-<!-- Code to browse the image file and binds the image to the scope variables "news.image_media_type" and "news.image_data" -->
-
-<!-- <img style="width:300px; height:300px;" ng-src="{{ 'data:' + news.image_media_type + ';base64,' + news.image_data }}" />
-<input type="file" ng-file-select="onFileSelect($files);" ng-model="news"></input> -->
-
 <h1 class="h2">Create New Article</h1>
 
 <form class="article-form mt-5" class="needs-validation" name="articleForm" novalidate>
@@ -32,7 +27,7 @@
           ng-class="{ 'has-error' : articleForm.category.$invalid && articleForm.category.$dirty }">
           <label for="inputCategory">Category</label>
           <select id="inputCategory" class="form-control" name="category" ng-model="article.category" required>
-            <option selected>National</option>
+            <option>National</option>
             <option>Economy</option>
             <option>Sports</option>
             <option>Technology</option>
@@ -60,7 +55,7 @@
     </div>
     <div class="col-md-5">
       <img src="https://sindilojas-sp.org.br/wp-content/themes/sindilojas/assets/images/default.jpg" class="img-fluid"
-        alt="Thumbnail Example" ng-hide="article.image_data" />
+        alt="Thumbnail Example" ng-if="!article.image_data" />
       <img ng-src="{{ 'data:' + article.image_media_type + ';base64,' + article.image_data }}"
         ng-if="article.image_data" class="img-fluid" />
     </div>
@@ -77,9 +72,8 @@
 
   <div class="form-group" ng-class="{ 'has-error' : articleForm.body.$invalid && articleForm.body.$dirty }">
     <label for="inputDescription">Description</label>
-    <!-- <textarea name="body" class="form-control" id="inputDescription"
-      ng-model="article.body"></textarea> -->
-    <div text-angular="text-angular" id="htmlcontent" name="body" ng-model="article.body" ta-disabled='disabled' required></div>
+    <div text-angular="text-angular" id="htmlcontent" name="body" ng-model="article.body" ta-disabled='disabled'
+      required></div>
     <span ng-show="articleForm.body.$invalid && articleForm.body.$dirty" class="help-block">Warning:
       <span ng-show="articleForm.body.$error.required"> Description is required.</span>
     </span>

@@ -1,14 +1,11 @@
-
-<div class="article">
-    <div class="flex-column d-flex align-items-start">
-        <h2>{{article.title}}</h2>
-        <h5>{{article.subtitle}}</h5>
-        <span class="badge badge-pill badge-primary">{{article.category}}</span>
-    </div>
-    <div class="flex-column d-flex align-items-start">
-        <img ng-if="article.image_data != null" src="data:image/png;base64,{{article.image_data}}"class="rounded mx-auto my-3 d-block img-fluid" alt="{{article.title}}" >
-        <h6 ng-bind-html="article.abstract"></h6>
-        <div class="py-4" ng-bind-html="article.body"></div>
-        <small class="align-self-end">Updated on {{article.update_date}} by user {{article.id_user}} </small>
-    </div>
+<div class="article d-flex flex-column align-items-start">
+    <h2>{{article.title}}</h2>
+    <h5>{{article.subtitle}}</h5>
+    <span class="badge badge-pill badge-primary">{{article.category}}</span>
+    <img ng-if="article.image_data"
+        ng-src="{{ 'data:' + article.image_media_type + ';base64,' + article.image_data }}" class="rounded img-fluid"
+        alt="{{article.title}}">
+    <h6 ng-bind-html="article.abstract"></h6>
+    <div class="text-justify py-4" ng-bind-html="article.body"></div>
+    <small class="align-self-end">Updated on {{article.update_date}} by user {{article.id_user}} </small>
 </div>

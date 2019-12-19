@@ -116,13 +116,15 @@ main {
         max-height: auto;
     }
 
-    .navbar .nav-item input[type="text"] {
-        margin-left: 0 !important;
-    }
-
     form img.img-fluid {
         padding: 0;
         margin-bottom: 1em;
+    }
+}
+
+@media (max-width: 1199.98px) {
+    .navbar .nav-item input[type="text"] {
+        margin: 0.5em 0 0.5em 0 !important;
     }
 }
 
@@ -131,10 +133,6 @@ footer {
     font-size: 0.9em;
     padding: 3em 0 0.4em 0;
     color: #113F67;
-}
-
-.dropdown-menu {
-    margin-top: 1.2em !important;
 }
 
 #htmlcontent div.ta-editor {
@@ -164,6 +162,17 @@ footer {
     background-color: #87C0CD;
     padding: 0.5em 1em;
     margin: 0 0 1.5em 0 !important;
+}
+
+.article .img-fluid {
+    min-width: 50%;
+    margin: 0.5em 0 1.5em 0;
+}
+
+@media (max-width: 575.98px) {
+    .article .img-fluid {
+        min-width: 100%;
+    }
 }
 
 .article-form img {
