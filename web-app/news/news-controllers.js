@@ -37,13 +37,13 @@ app.controller("NewsController", function ($scope, $rootScope, $window, $locatio
             function (data) {
                 console.log(data);
                 console.log("Article deleted!");
-                $scope.showAlert = true;
+                $scope.articleToDelete.success = true;
                 $scope.getArticles();
             },
             function (error) {
                 console.log("There was an error when trying to delete the article.");
                 console.log(error);
-                $window.alert("There was an error when trying to delete the article: " + error.statusText);
+                $scope.articleToDelete.error = true;
             })
     };
 
@@ -134,14 +134,12 @@ app.controller("EditArticleController", function ($scope, $rootScope, $routePara
             function (data) {
                 console.log(data);
                 console.log("Article saved!");
-                /* TODO: show feedback */
                 $scope.article.success = true;
             },
             function (error) {
                 console.log("There was an error when saving the article.");
                 console.log(error);
                 $scope.article.error = true;
-                //$window.alert("There was an error when saving the article: " + error.statusText);
             });
     };
 });
@@ -165,7 +163,6 @@ app.controller("CreateArticleController", function ($scope, $rootScope, $window,
             function (error) {
                 console.log("There was an error when creating the article.");
                 console.log(error);
-                //$window.alert("There was an error when creating the article: " + error.statusText);
                 $scope.article.error = true;
             });
     };

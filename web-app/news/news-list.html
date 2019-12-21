@@ -1,13 +1,15 @@
 <div class="row">
     <div class="col-lg-9 col-md-8 col-sm-12">
-        <!-- <div class="alert alert-success" role="alert" ng-if="showAlert">
-            Article deleted with success!
-        </div> -->
-
-        <div class="alert alert-success alert-dismissible fade show" role="alert" ng-if="showAlert">
+        <div class="alert alert-success alert-dismissible fade show" role="alert" ng-show="articleToDelete.success">
             Article deleted with success!
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" ng-show="articleToDelete.error">
+            There was an error deleting this article.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
             </button>
         </div>
         <div class="card-columns" id="col-number">

@@ -1,37 +1,18 @@
 # upm-pui
 
-## Desktop Guidelines
-
-Add **javax.json-1.1.jar** and **javax.json-1.1-javadoc.jar** files at the project build path.
-
-## Android Guidelines
-
-An article will be composed by
-  - **Title**
-  - Image
-  - **Category** 
-  - **Abstract** 
-  - Body
-
-**Mandatory** fields must be validated by the different forms when the user is filling the form to
-add/modify the article
-
-Additionally, the server returns a field update_date with the timestamp of the last modification
-of the given article.
-
-Depending the request, the image associated to each article are returned in two different fields:
-
-- *image_data* and *image_media_type* when the request is asking for one concrete news
-- *thumbnail_data* and *thumbnail_media_type* when the request is asking for a list of news
-- Categories available are: **National**, **Economy**, **Sports** and **Technology**
-
-**Android application** functionalities are limited to show the list of articles and update the picture of
-a given article. 
-
-
+- [News Manager](#news-manager)
 
 Projects for the Programming of User Interfaces (PUI) class of the Master in Human Computer Interaction and Design of EIT Digital Master School at Universidad Politécnica de Madrid (UPM).
 
-Made in colaboration with [Daniel Machado]() and [Pepi Nedkova]().
+Made in collaboration with [Daniel Machado](https://github.com/dolfander) and [Pepi Nedkova](https://github.com/pepinedkova).
 
-**Completed in XX/01/2020.**
+**Completed in 21/12/2019.**
+
+## News Manager
+
+The goal of this project is to develop a **newspaper application** with the typical functionalities needed to publish/manage a newspaper web page: show the articles in its main page, show the details of a given article, filtered them according to their category, show the newspaper Twitter timeline, create and update the articles contents, remove them, etc.
+
+This application integrates the three different interfaces studied throughout the course:
+* Android application: Android Studio
+* Desktop application: JavaFX and Eclipse
+* Web application: AngularJS, HTML/CSS, Javascript and Bootstrap
