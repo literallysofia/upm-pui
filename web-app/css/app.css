@@ -86,12 +86,12 @@ main {
     border-color: #dc3545 !important;
 }
 
-.alert {
+.alert-login {
     font-size: 0.8em;
     padding: 0.8em !important;
 }
 
-.alert i {
+.alert-login i {
     margin-right: 0.5em;
 }
 

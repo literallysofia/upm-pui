@@ -135,11 +135,13 @@ app.controller("EditArticleController", function ($scope, $rootScope, $routePara
                 console.log(data);
                 console.log("Article saved!");
                 /* TODO: show feedback */
+                $scope.article.success = true;
             },
             function (error) {
                 console.log("There was an error when saving the article.");
                 console.log(error);
-                $window.alert("There was an error when saving the article: " + error.statusText);
+                $scope.article.error = true;
+                //$window.alert("There was an error when saving the article: " + error.statusText);
             });
     };
 });
@@ -158,12 +160,13 @@ app.controller("CreateArticleController", function ($scope, $rootScope, $window,
             function (data) {
                 console.log(data);
                 console.log("Article created!");
-                /* TODO: show feedback */
+                $scope.article.success = true;
             },
             function (error) {
                 console.log("There was an error when creating the article.");
                 console.log(error);
-                $window.alert("There was an error when creating the article: " + error.statusText);
+                //$window.alert("There was an error when creating the article: " + error.statusText);
+                $scope.article.error = true;
             });
     };
 
